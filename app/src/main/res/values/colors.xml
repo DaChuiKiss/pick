@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorNavigationBar">#2A282B</color>
+    <color name="colorTheme">#222335</color>
+
+    <color name="colorBlue">#038ce3</color>
+    <color name="colorGreen">#5FC5E2</color>
+
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite10">#10ffffff</color>
+
+
+    <color name="colorLine_s">#e5e5e5</color>//颜色浅一点
+    <color name="colorLine">#cccccc</color>//颜色深一点
+    <color name="colorLine_transaction">#858ac1</color>
+    <color name="colorLine_transaction_s">#111580</color>
+    <color name="colorLine_E6E6E6">#E6E6E6</color>
+    <color name="colorLine_30C7CE">#30C7CE</color>
+    <color name="colorLine_ffffffff">#ffffffff</color>
+    <color name="colorLine_eeeeee">#EEEEEE</color>
+
+
+    <color name="colorText_000000">#000000</color>
+    <color name="colorText_ss">#989aac</color>
+    <color name="colorText">#232323</color>
+    <color name="colorText_sign">#c0bfc7</color>
+    <color name="colorText_s">#adaebe</color>
+    <color name="colorText_s_s">#b5b5b5</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorE32528">#E32528</color>
+    <color name="color32CD32">#32CD32</color>
+    <color name="colorTextMain">#0453d1</color>
+    <color name="colorTextOrange">#f4a91c</color>
+    <color name="colorTextOrange_s">#fd7d01</color>
+    <color name="colorTextOrangeFFA07A">#FFA07A</color>
+    <color name="colorTextRed">#f0615a</color>
+    <color name="colorTextGreen">#02cf8e</color>
+    <color name="colorTextViolet">#d4acf3</color>
+    <color name="colorTextBuyR">#c3dce0</color>
+    <color name="colorTextBuyL">#127982</color>
+    <color name="colorTextSellR">#fbbebd</color>
+
+
+
+    <color name="colorTextMain_s">#3e4148</color>
+    <color name="colorText_DC143C">#DC143C</color>
+    <color name="colorText_F55858">#F55858</color>
+    <color name="colorText_008000">#008000</color>
+    <color name="colorText_159626">#159626</color>
+    <color name="colorText_4F7F48">#4F7F48</color>
+    <color name="colorText_004FE0">#004FE0</color>
+    <color name="colorText_ff004FE0">#ff004FE0</color>
+    <color name="colorText_2651F5">#2651F5</color>
+    <color name="colorText_1E90FF">#1E90FF</color>
+    <color name="colorText_4284FE">#4284FE</color>
+    <color name="colorText_055DFF">#055DFF</color>
+    <color name="colorText_347BFE">#347BFE</color>
+    <color name="colorText_528BF7">#528BF7</color>
+    <color name="colorText_0062FF">#0062FF</color>
+    <color name="colorText_368FF4">#368FF4</color>
+    <color name="colorText_0024FF">#0024FF</color>
+    <color name="colorText_DAA520">#DAA520</color>
+    <color name="colorText_999999">#999999</color>
+    <color name="colorText_666666">#666666</color>
+    <color name="colorText_1A1A1A">#1A1A1A</color>
+    <color name="colorText_333333">#333333</color>
+    <color name="colorText_B7B7B7">#B7B7B7</color>
+    <color name="colorText_D7D7D7">#D7D7D7</color>
+    <color name="colorBlue_s">#006eff</color>
+
+    <color name="colorBackground">#f5f5f9</color>
+    <color name="colorBackground_editText">#f7f7f7</color>
+    <color name="colorBackground_s_s">#fafafa</color>
+    <color name="colorBackground_EE613A">#EE613A</color>
+    <color name="colorBackground_05B87C">#05B87C</color>
+    <color name="colorBackground_9E83F1">#9E83F1</color>
+    <color name="colorBackground_D386F4">#D386F4</color>
+    <color name="colorBackground_s">#50000000</color>
+    <color name="colorBackground_button">#050570</color>
+    <color name="colorBackground_F55858">#F55858</color>
+    <color name="colorBackground_03C087">#03C087</color>
+    <color name="colorBackground_f0f0f0">#f0f0f0</color>
+    <color name="colorBackground_f5f5f9">#f5f5f9</color>
+
+
+
+    <color name="colorTextHint">#cccdd8</color>
+    <color name="colorTextHint_s_s">#c2c0c0</color>
+    <color name="colorTextHint_s">#605d78</color>
+
+
+    <color name="list_item_focus">#0a000000</color>
+    <color name="white_alpha_percent_45">#73ffffff</color>
+</resources>
