@@ -1,23 +1,51 @@
 package com.ergou.hailiao.mvp.ui.activity;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
-
 
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.app.AppManager;
 import com.ergou.hailiao.base.BaseActivity;
+import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.mvp.ui.fragment.DialogueFragment;
+import com.ergou.hailiao.mvp.ui.fragment.GameFragment;
+import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
+import com.ergou.hailiao.mvp.ui.fragment.MyFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class MainActivity extends BaseActivity {
+    @BindView(R.id.dialogue_img)
+    ImageView dialogueImg;
+    @BindView(R.id.mail_list_img)
+    ImageView mailListImg;
+    @BindView(R.id.game_img)
+    ImageView gameImg;
+    @BindView(R.id.my_img)
+    ImageView myImg;
+
+
+    private FragmentTransaction transaction;
+    private FragmentManager manager;
+
+    private DialogueFragment dialogueFragment;//对话
+    private MailListFragment mailListFragment;//通讯录
+    private GameFragment gameFragment;//游戏
+    private MyFragment myFragment;//我的
 
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
     @Override
     public void showError(String msg) {
-
+        ApiInterface.disPro(MainActivity.this);
     }
 
     @Override
@@ -42,6 +70,53 @@ public class MainActivity extends BaseActivity {
     protected void initEventAndData() {
 
     }
+
+    public void dialogueImg() {//对话
+        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
+        mailListImg.setImageResource(R.drawable.ic_launcher_background);
+        gameImg.setImageResource(R.drawable.ic_launcher_background);
+        myImg.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    public void mailListImg() {//通讯录
+        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
+        mailListImg.setImageResource(R.drawable.ic_launcher_background);
+        gameImg.setImageResource(R.drawable.ic_launcher_background);
+        myImg.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    public void gameImg() {//游戏
+        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
+        mailListImg.setImageResource(R.drawable.ic_launcher_background);
+        gameImg.setImageResource(R.drawable.ic_launcher_background);
+        myImg.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    public void myImg() {//我的
+        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
+        mailListImg.setImageResource(R.drawable.ic_launcher_background);
+        gameImg.setImageResource(R.drawable.ic_launcher_background);
+        myImg.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    @OnClick({R.id.dialogue_ll, R.id.mail_list_ll, R.id.game_ll, R.id.my_ll})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.dialogue_ll://对话
+                dialogueImg();
+                break;
+            case R.id.mail_list_ll://通讯录
+                mailListImg();
+                break;
+            case R.id.game_ll://游戏
+                gameImg();
+                break;
+            case R.id.my_ll://我的
+                myImg();
+                break;
+        }
+    }
+
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {

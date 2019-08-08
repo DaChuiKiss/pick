@@ -91,7 +91,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
     public void timeShowError(String time) {
         LogUtils.e("获取服务器时间=====获取服务器时间失败");
 //        if (networkType.equals("1")) {
-            getSignIn();
+        getSignIn();
 //        } else if (networkType.equals("2")) {
 //            getCheckChangeDevice();
 //        } else {
@@ -332,9 +332,15 @@ public class SignInActivity extends BaseActivity<SignInPerson>
 ////                }
 //                else {
 //                    networkType = "1";
-                    ApiInterface.showPro(mContext);
+//                    ApiInterface.showPro(mContext);
+//
+//                    getTimeStamp();
 
-                    getTimeStamp();
+                Intent intent = new Intent();
+                intent.setClass(mContext, MainActivity.class);
+                startActivity(intent);
+
+
 //                    getSignIn();
 //                }
                 break;
@@ -379,7 +385,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
         timeStamp = timeStampBean.getServer_time();
         LogUtils.e("获取服务器时间=====" + timeStamp);
 //        if (networkType.equals("1")) {
-            getSignIn();
+        getSignIn();
 //        } else if (networkType.equals("2")) {
 //            getCheckChangeDevice();
 //        } else {
@@ -394,7 +400,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
     @Override
     public void getSignInTos(List<LoginBean> loginBean) {//登录
         ApiInterface.disPro(mContext);
-        ToastUtils.showLongToast(mContext,"获取成功");
+        ToastUtils.showLongToast(mContext, "获取成功");
 //        ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt17));
 //        loginBeanw = mPresenter.getHelper().getLoginBean();
 //        LogUtils.e("=======" + loginBeanw.getMobile() + "=====" + loginBeanw.getPwd());
