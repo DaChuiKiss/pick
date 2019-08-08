@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -58,6 +60,8 @@ public class SignInActivity extends BaseActivity<SignInPerson>
     EditText password;//密码
     @BindView(R.id.password_img_s)
     ImageView passwordImgS;//是否显示密码
+    @BindView(R.id.iv_login_bg)
+    View iv_login_bg;//
 
     private Intent intent;
     private Boolean showPassword = true;
@@ -129,6 +133,15 @@ public class SignInActivity extends BaseActivity<SignInPerson>
             window.setStatusBarColor(Color.TRANSPARENT);
         }
         init();
+        startBgAnimation();
+    }
+
+    /**
+     * 背景微动画
+     */
+    private void startBgAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(SignInActivity.this, R.anim.seal_login_bg_translate_anim);
+        iv_login_bg.startAnimation(animation);
     }
 
     public void init() {
@@ -179,8 +192,8 @@ public class SignInActivity extends BaseActivity<SignInPerson>
         map.put("device_token", device_token);//
         map.put("timestamp", timestamp);
 //        map.put("token", token);//
-//        map.put("mobile", mobile);//手机/邮箱
-//        map.put("pwd", EncryptUtils.encryptMD5ToString(passwordString));//密码
+        map.put("mobile", mobile);//手机/邮箱
+        map.put("pwd", EncryptUtils.encryptMD5ToString(passwordString));//密码
 
         cmd = InterfaceInteraction.getCmdValue(map);
         sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
@@ -314,31 +327,34 @@ public class SignInActivity extends BaseActivity<SignInPerson>
                 }
                 break;
             case R.id.sign_in://登录
-//                mobile = phone.getText().toString().replace(" ", "");
-//                passwordString = password.getText().toString();
-//                if (StringUtils.isEmpty(mobile)) {
-//                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt3));
+//
+                mobile = phone.getText().toString().replace(" ", "");
+                passwordString = password.getText().toString();
+                mobile = "13305971093";
+                passwordString = "123456";
+                if (StringUtils.isEmpty(mobile)) {
+                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt6));
+                    return;
+                } else if (StringUtils.isEmpty(passwordString)) {
+                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt7));
+                    return;
+                }
+//                else if (passwordString.length() <= 5) {
+//                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt14));
 //                    return;
-//                } else if (StringUtils.isEmpty(passwordString)) {
-//                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt4));
+//                } else if (passwordString.length() > 21) {
+//                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt15));
 //                    return;
 //                }
-////                else if (passwordString.length() <= 5) {
-////                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt14));
-////                    return;
-////                } else if (passwordString.length() > 21) {
-////                    ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt15));
-////                    return;
-////                }
 //                else {
 //                    networkType = "1";
-//                    ApiInterface.showPro(mContext);
-//
-//                    getTimeStamp();
+                ApiInterface.showPro(mContext);
 
-                Intent intent = new Intent();
-                intent.setClass(mContext, MainActivity.class);
-                startActivity(intent);
+                getTimeStamp();
+
+//                Intent intent = new Intent();
+//                intent.setClass(mContext, MainActivity.class);
+//                startActivity(intent);
 
 
 //                    getSignIn();

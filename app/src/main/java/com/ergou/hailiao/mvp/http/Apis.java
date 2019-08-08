@@ -22,9 +22,10 @@ public interface Apis {
 //  获取系统时间
     Flowable<HttpResponse<TimeStampBean>> getTime(@Body RequestBody Body);
 
-    @POST("index")
+    @POST("login")
 //  登录
     Flowable<HttpResponse<List<LoginBean>>> getLogin(@Body RequestBody Body);
+
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
     Flowable<HttpResponse<List<LoginBean>>> getCheckChangeDevice(@Body RequestBody Body);
@@ -32,6 +33,7 @@ public interface Apis {
     @POST("login/SendChuanglanSms/")
 //  获取验证码（手机注册）
     Flowable<HttpResponse<List<BeanBean>>> getSendChuanglanSms(@Body RequestBody Body);
+
     @POST("login/sendMail/")
 //  获取验证码（邮箱注册）
     Flowable<HttpResponse<List<BeanBean>>> getSendMail(@Body RequestBody Body);

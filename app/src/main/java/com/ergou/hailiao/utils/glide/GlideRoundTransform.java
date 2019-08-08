@@ -1,5 +1,6 @@
 package com.ergou.hailiao.utils.glide;
 
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;

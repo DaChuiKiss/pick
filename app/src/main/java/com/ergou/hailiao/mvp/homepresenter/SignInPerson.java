@@ -74,7 +74,7 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
                         } else {
                             mView.get().codeTypeError(response.getCode());
 //                            if (response.getCode() != ApiInterface.sizeThreeOneTwo) {
-//                                mView.get().showError(response.getMsg().get(ApiInterface.languageType(activity)));
+                                mView.get().showError(response.getMsg());
 //                            }
                         }
                     }

@@ -3,7 +3,7 @@ package com.ergou.hailiao.mvp.http;
 import java.util.List;
 
 /**
- *  Created by LuoCy on 2017/9/26.
+ * Created by LuoCy on 2017/9/26.
  */
 
 public class HttpResponse<T> {
@@ -16,7 +16,7 @@ public class HttpResponse<T> {
 
     private int code;
     private T data;
-    private List<String> msg;
+    private String msg;
 
     public int getCode() {
         return code;
@@ -34,11 +34,11 @@ public class HttpResponse<T> {
         this.data = data;
     }
 
-    public List<String> getMsg() {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(List<String> msg) {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 }

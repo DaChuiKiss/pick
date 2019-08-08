@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ergou.hailiao"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 1
@@ -77,11 +77,19 @@ android {
 //        dexOptions {
 //            javaMaxHeapSize "4g"
 //        }
+
+//        /**
+//         * jar包冲突
+//         * */
+//        configurations {
+//            all*.exclude group: 'com.bumptech.glide.Glide'
+//        }
+
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -110,6 +118,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    api project(path: ':IMLib')
+    api project(path: ':IMKit')
 
 
 }

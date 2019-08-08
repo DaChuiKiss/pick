@@ -20,4 +20,6 @@
     <string name="prompt3">手机/邮箱不能为空</string>
     <string name="prompt4">密码不能为空</string>
     <string name="prompt5">网络错误</string>
+    <string name="prompt6">手机号不能为空！</string>
+    <string name="prompt7">密码不能为空！</string>
 </resources>
