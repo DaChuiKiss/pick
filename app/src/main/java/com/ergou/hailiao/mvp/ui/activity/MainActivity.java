@@ -15,6 +15,7 @@ import com.ergou.hailiao.mvp.ui.fragment.DialogueFragment;
 import com.ergou.hailiao.mvp.ui.fragment.GameFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MyFragment;
+import com.ergou.hailiao.utils.ToastUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,7 +46,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void showError(String msg) {
-        ApiInterface.disPro(MainActivity.this);
+        ApiInterface.disPro(mContext);
+        ToastUtils.showLongToast(mContext, msg);
     }
 
     @Override
@@ -54,7 +56,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void codeTypeError(int code) {
-
+        ApiInterface.disPro(mContext);
+//        ToastUtils.showLongToast(mContext, msg);
     }
 
     @Override
@@ -68,7 +71,66 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
+        manager = getSupportFragmentManager();
+        selectedtab(1);
+    }
 
+    public void selectedtab(int selectid) {
+        transaction = manager.beginTransaction();
+        hideFragments();
+        switch (selectid) {
+            case 1:
+                if (dialogueFragment == null) {
+                    dialogueFragment = new DialogueFragment();
+                    transaction.add(R.id.home_home, dialogueFragment); // 如果为空加入FragmentTransaction管理器
+                }
+                transaction.show(dialogueFragment);
+                dialogueImg();//切换字体颜色与图片
+                break;
+            case 2:
+                if (mailListFragment == null) {
+                    mailListFragment = new MailListFragment();
+                    transaction.add(R.id.home_home, mailListFragment);
+                }
+                transaction.show(mailListFragment);
+                mailListImg();//切换字体颜色与图片
+                break;
+            case 3:
+                if (gameFragment == null) {
+                    gameFragment = new GameFragment();
+                    transaction.add(R.id.home_home, gameFragment);
+                }
+                transaction.show(gameFragment);
+                gameImg();//切换字体颜色与图片
+                break;
+            case 4:
+                if (myFragment == null) {
+                    myFragment = new MyFragment();
+                    transaction.add(R.id.home_home, myFragment);
+                }
+                transaction.show(myFragment);
+                myImg();//切换字体颜色与图片
+                break;
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
+    private void hideFragments() {
+        if (dialogueFragment != null) {
+            transaction.hide(dialogueFragment);
+        }
+
+        if (mailListFragment != null) {
+            transaction.hide(mailListFragment);
+        }
+
+        if (gameFragment != null) {
+            transaction.hide(gameFragment);
+        }
+
+        if (myFragment != null) {
+            transaction.hide(myFragment);
+        }
     }
 
     public void dialogueImg() {//对话
