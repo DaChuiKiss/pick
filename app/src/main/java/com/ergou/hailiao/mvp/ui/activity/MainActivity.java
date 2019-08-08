@@ -165,16 +165,16 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.dialogue_ll://对话
-                dialogueImg();
+                selectedtab(1);
                 break;
             case R.id.mail_list_ll://通讯录
-                mailListImg();
+                selectedtab(2);
                 break;
             case R.id.game_ll://游戏
-                gameImg();
+                selectedtab(3);
                 break;
             case R.id.my_ll://我的
-                myImg();
+                selectedtab(4);
                 break;
         }
     }
