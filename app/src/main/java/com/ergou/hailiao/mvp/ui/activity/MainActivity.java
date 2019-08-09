@@ -1,10 +1,12 @@
 package com.ergou.hailiao.mvp.ui.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ergou.hailiao.R;
@@ -15,12 +17,15 @@ import com.ergou.hailiao.mvp.ui.fragment.DialogueFragment;
 import com.ergou.hailiao.mvp.ui.fragment.GameFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MyFragment;
+import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.ToastUtils;
+import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
@@ -32,6 +37,14 @@ public class MainActivity extends BaseActivity {
     ImageView gameImg;
     @BindView(R.id.my_img)
     ImageView myImg;
+    @BindView(R.id.dialogue_text)
+    TextView dialogueText;//对话
+    @BindView(R.id.mail_list_text)
+    TextView mailListText;//通讯录
+    @BindView(R.id.game_text)
+    TextView gameText;//游戏
+    @BindView(R.id.my_text)
+    TextView myText;//我的
 
 
     private FragmentTransaction transaction;
@@ -71,6 +84,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
+        LogUtils.e("TOKEN===:" + SPUtilsData.getToken());
         manager = getSupportFragmentManager();
         selectedtab(1);
     }
@@ -134,31 +148,47 @@ public class MainActivity extends BaseActivity {
     }
 
     public void dialogueImg() {//对话
-        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
-        mailListImg.setImageResource(R.drawable.ic_launcher_background);
-        gameImg.setImageResource(R.drawable.ic_launcher_background);
-        myImg.setImageResource(R.drawable.ic_launcher_background);
+        dialogueText.setTextColor(getResources().getColor(R.color.colorText4295D5));
+        mailListText.setTextColor(getResources().getColor(R.color.colorText));
+        gameText.setTextColor(getResources().getColor(R.color.colorText));
+        myText.setTextColor(getResources().getColor(R.color.colorText));
+        dialogueImg.setImageResource(R.drawable.dialogue_y);
+        mailListImg.setImageResource(R.drawable.mail_list_n);
+        gameImg.setImageResource(R.drawable.game_n);
+        myImg.setImageResource(R.drawable.my_n);
     }
 
     public void mailListImg() {//通讯录
-        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
-        mailListImg.setImageResource(R.drawable.ic_launcher_background);
-        gameImg.setImageResource(R.drawable.ic_launcher_background);
-        myImg.setImageResource(R.drawable.ic_launcher_background);
+        dialogueText.setTextColor(getResources().getColor(R.color.colorText));
+        mailListText.setTextColor(getResources().getColor(R.color.colorText4295D5));
+        gameText.setTextColor(getResources().getColor(R.color.colorText));
+        myText.setTextColor(getResources().getColor(R.color.colorText));
+        dialogueImg.setImageResource(R.drawable.dialogue_n);
+        mailListImg.setImageResource(R.drawable.mail_list_y);
+        gameImg.setImageResource(R.drawable.game_n);
+        myImg.setImageResource(R.drawable.my_n);
     }
 
     public void gameImg() {//游戏
-        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
-        mailListImg.setImageResource(R.drawable.ic_launcher_background);
-        gameImg.setImageResource(R.drawable.ic_launcher_background);
-        myImg.setImageResource(R.drawable.ic_launcher_background);
+        dialogueText.setTextColor(getResources().getColor(R.color.colorText));
+        mailListText.setTextColor(getResources().getColor(R.color.colorText));
+        gameText.setTextColor(getResources().getColor(R.color.colorText4295D5));
+        myText.setTextColor(getResources().getColor(R.color.colorText));
+        dialogueImg.setImageResource(R.drawable.dialogue_n);
+        mailListImg.setImageResource(R.drawable.mail_list_n);
+        gameImg.setImageResource(R.drawable.game_y);
+        myImg.setImageResource(R.drawable.my_n);
     }
 
     public void myImg() {//我的
-        dialogueImg.setImageResource(R.drawable.ic_launcher_background);
-        mailListImg.setImageResource(R.drawable.ic_launcher_background);
-        gameImg.setImageResource(R.drawable.ic_launcher_background);
-        myImg.setImageResource(R.drawable.ic_launcher_background);
+        dialogueText.setTextColor(getResources().getColor(R.color.colorText));
+        mailListText.setTextColor(getResources().getColor(R.color.colorText));
+        gameText.setTextColor(getResources().getColor(R.color.colorText));
+        myText.setTextColor(getResources().getColor(R.color.colorText4295D5));
+        dialogueImg.setImageResource(R.drawable.dialogue_n);
+        mailListImg.setImageResource(R.drawable.mail_list_n);
+        gameImg.setImageResource(R.drawable.game_n);
+        myImg.setImageResource(R.drawable.my_y);
     }
 
     @OnClick({R.id.dialogue_ll, R.id.mail_list_ll, R.id.game_ll, R.id.my_ll})
@@ -212,4 +242,10 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

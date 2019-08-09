@@ -9,41 +9,10 @@ public class LoginBean  {
 
 
     /**
-     * phone : 18622223333
-     * pwd :
-     * grade    （0:普遍用户（灰色）；1:会员（淡红色）；2:精灵（绿色）；3:牧师（蓝色）；4:堡主（金色））
-
+     * token : 4sCNSzqX+SyUdKWCYWLTX303ftBhTVqaQtHwhKZiey91+iJfSlIav5Hjvo6gTW7T2+4IkdmkYdVeSLgOXge+gojVMJBqZthA
      */
 
-    private String phone;
-    private String pwd;
-    private String key;
     private String token;
-    private String grade;
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public String getToken() {
         return token;
@@ -52,12 +21,4 @@ public class LoginBean  {
     public void setToken(String token) {
         this.token = token;
     }
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
 }

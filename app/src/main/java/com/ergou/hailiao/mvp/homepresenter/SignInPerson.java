@@ -44,7 +44,7 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
                         if (response.getCode() == 200) {
                             mView.get().getTimeStampTos(response.getData());
                         } else {
-//                            mView.get().timeShowError(response.getMsg().get(ApiInterface.languageType(activity)));
+                            mView.get().timeShowError(response.getMsg());
                         }
                     }
 
@@ -65,17 +65,15 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
     public void getSignInBean(RequestBody body) {
 
         addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getLogin(body),
-                new ResourceSubscriber<HttpResponse<List<LoginBean>>>() {
+                new ResourceSubscriber<HttpResponse<LoginBean>>() {
                     @Override
-                    public void onNext(HttpResponse<List<LoginBean>> response) {
+                    public void onNext(HttpResponse<LoginBean> response) {
                         LogUtils.e("=========登录返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
                             mView.get().getSignInTos(response.getData());
                         } else {
                             mView.get().codeTypeError(response.getCode());
-//                            if (response.getCode() != ApiInterface.sizeThreeOneTwo) {
-                                mView.get().showError(response.getMsg());
-//                            }
+                            mView.get().showError(response.getMsg());
                         }
                     }
 
@@ -92,88 +90,4 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
                 }));
     }
 
-    @Override
-    public void getCheckChangeDeviceBean(RequestBody body) {
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getCheckChangeDevice(body),
-                new ResourceSubscriber<HttpResponse<List<LoginBean>>>() {
-                    @Override
-                    public void onNext(HttpResponse<List<LoginBean>> response) {
-                        LogUtils.e("=========更换手机设备号验证返回：" + response.getData().toString());
-                        if (response.getCode() == 200) {
-                            mView.get().getCheckChangeDeviceTos(response.getData());
-                        } else {
-//                            mView.get().showError(response.getMsg().get(ApiInterface.languageType(activity)));
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================更换手机设备号验证异常：");
-                        mView.get().onError(t);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                }));
-
-    }
-
-
-    @Override
-    public void getCheckCodePBean(RequestBody body) {
-
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getSendChuanglanSms(body),
-                new ResourceSubscriber<HttpResponse<List<BeanBean>>>() {
-                    @Override
-                    public void onNext(HttpResponse<List<BeanBean>> response) {
-                        LogUtils.e("=========验证码（手机注册）返回：" + response.getData().toString());
-                        if (response.getCode() == 200) {
-                            mView.get().getCheckCodePTos(response.getData());
-                        } else {
-//                            mView.get().showError(response.getMsg().get(ApiInterface.languageType(activity)));
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================验证码（手机注册）异常：");
-                        mView.get().onError(t);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                }));
-    }
-
-    @Override
-    public void getCheckCodeMBean(RequestBody body) {
-
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getSendMail(body),
-                new ResourceSubscriber<HttpResponse<List<BeanBean>>>() {
-                    @Override
-                    public void onNext(HttpResponse<List<BeanBean>> response) {
-                        LogUtils.e("=========验证码（邮箱注册）返回：" + response.getData().toString());
-                        if (response.getCode() == 200) {
-                            mView.get().getCheckCodeMTos(response.getData());
-                        } else {
-//                            mView.get().showError(response.getMsg().get(ApiInterface.languageType(activity)));
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================验证码（邮箱注册）异常：");
-                        mView.get().onError(t);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                }));
-    }
 }

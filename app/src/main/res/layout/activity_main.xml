@@ -32,7 +32,7 @@
                 android:id="@+id/dialogue_img"
                 android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_22"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/dialogue_y" />
 
             <TextView
                 android:id="@+id/dialogue_text"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
                 android:text="@string/dialogue"
-                android:textColor="@color/colorText"
+                android:textColor="@color/colorText4295D5"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
@@ -58,7 +58,7 @@
                 android:id="@+id/mail_list_img"
                 android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_22"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/mail_list_n" />
 
             <TextView
                 android:id="@+id/mail_list_text"
@@ -84,7 +84,7 @@
                 android:id="@+id/game_img"
                 android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_22"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/game_n" />
 
             <TextView
                 android:id="@+id/game_text"
@@ -109,7 +109,7 @@
                 android:id="@+id/my_img"
                 android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_22"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/my_n" />
 
             <TextView
                 android:id="@+id/my_text"

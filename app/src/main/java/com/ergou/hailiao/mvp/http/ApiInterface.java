@@ -18,7 +18,7 @@ public class ApiInterface {
     public static final String API = "http://red.aliyunxin.com/";//
     private static ProgressDialog m_pDialog;
 
-    private static String appName= String.valueOf(R.string.app_name);
+    private static String appName = String.valueOf(R.string.app_name);
 
     public static void showPro(Context context) {
         m_pDialog = new ProgressDialog(context, ProgressDialog.THEME_HOLO_LIGHT);

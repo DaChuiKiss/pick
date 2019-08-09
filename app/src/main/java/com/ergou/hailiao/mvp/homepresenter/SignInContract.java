@@ -18,19 +18,17 @@ import okhttp3.RequestBody;
 public interface SignInContract {
     interface MainView extends BaseView {
         void onError(Throwable throwable);
+
         void timeOnError(Throwable throwable);
+
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
-        void getSignInTos(List<LoginBean> loginBean);//登录
-        void getCheckChangeDeviceTos(List<LoginBean> loginBeans);//更换手机设备号验证
-        void getCheckCodePTos(List<BeanBean> beanBean);//获取验证码（手机注册）
-        void getCheckCodeMTos(List<BeanBean> beanBean);//获取验证码（邮箱注册）
+
+        void getSignInTos(LoginBean loginBean);//登录
     }
 
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
+
         void getSignInBean(RequestBody body);
-        void getCheckChangeDeviceBean(RequestBody body);
-        void getCheckCodePBean(RequestBody body);
-        void getCheckCodeMBean(RequestBody body);
     }
 }

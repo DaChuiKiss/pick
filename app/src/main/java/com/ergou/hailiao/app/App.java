@@ -13,6 +13,7 @@ import com.ergou.hailiao.di.module.AppMoudle;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.utils.CrashUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.utils.Utils;
 
 
 /**
@@ -51,6 +52,8 @@ public class App extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
+
+        Utils.init(instance);
 
     }
 

@@ -24,7 +24,7 @@ public interface Apis {
 
     @POST("login")
 //  登录
-    Flowable<HttpResponse<List<LoginBean>>> getLogin(@Body RequestBody Body);
+    Flowable<HttpResponse<LoginBean>> getLogin(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
