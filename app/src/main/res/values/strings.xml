@@ -13,6 +13,14 @@
     <string name="mail_list">通讯录</string>
     <string name="game">游戏</string>
     <string name="my">我的</string>
+    <string name="hai_liao_number">嗨聊号：</string>
+    <string name="small_change">零钱</string>
+    <string name="payment_password">支付密码</string>
+    <string name="login_password">登陆密码</string>
+    <string name="promotional_posters">推广海报</string>
+    <string name="promotional_benefits">推广收益</string>
+    <string name="my_team">我的团队</string>
+    <string name="settings">设置</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>

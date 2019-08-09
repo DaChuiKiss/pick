@@ -48,8 +48,41 @@
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.MainActivity"
             android:screenOrientation="portrait" />
+        <!-- 登录——Activity -->
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <!-- 个人中心——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.PersonalCenterActivity"
+            android:screenOrientation="portrait" />
+        <!--零钱——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.SmallChangeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 支付密码——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.PaymenyPasswordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 登录密码——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.LoginPasswordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 推广海报——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.PromotionalPostersActivity"
+            android:screenOrientation="portrait" />
+        <!-- 推广收益——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.PromotionalBenefitsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 团队成员——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.MyTeamActivity"
+            android:screenOrientation="portrait" />
+        <!-- 设置——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.SettingsActivity"
             android:screenOrientation="portrait" />
 
     </application>
