@@ -78,15 +78,17 @@ android {
 //            javaMaxHeapSize "4g"
 //        }
 
-//        /**
-//         * jar包冲突
-//         * */
-//        configurations {
-//            all*.exclude group: 'com.bumptech.glide.Glide'
-//        }
+        /**
+         * jar包冲突
+         * */
+        configurations {
+            all*.exclude group: 'com.android.tools.build:gradle:3.1.2'
+        }
 
     }
+
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
@@ -118,7 +120,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-//    api project(path: ':IMLib')
-//    api project(path: ':IMKit')
+    implementation project(path: ':IMKit')
+    implementation project(path: ':IMLib')
+
 
 }
