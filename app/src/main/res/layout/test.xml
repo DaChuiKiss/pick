@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/dialogue"-->
-        <!--android:textColor="@color/colorText"-->
-        <!--android:textSize="@dimen/sp_25" />-->
 
     <fragment
         android:id="@+id/conversationlist"

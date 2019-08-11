@@ -267,7 +267,10 @@ public class SignInActivity extends BaseActivity<SignInPerson>
     @Override
     public void getSignInTos(LoginBean loginBean) {//登录
         ApiInterface.disPro(mContext);
-        UserInfoSPUtils.getInstance().put("token", loginBean.getToken());//token
+        UserInfoSPUtils.getInstance().put("rong_token", loginBean.getRong_token());//token
+        UserInfoSPUtils.getInstance().put("nick_name", loginBean.getNick_name());//昵称
+        UserInfoSPUtils.getInstance().put("user_header_img", loginBean.getUser_header_img());//头像
+        UserInfoSPUtils.getInstance().put("user_id", loginBean.getUser_id());//融云ID
         intent = new Intent();
         intent.setClass(mContext, MainActivity.class);
         startActivity(intent);
@@ -276,7 +279,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
 
 
 //    public void promptWindow(View view) {//更换设备（输入验证码）
-//        View contentView = LayoutInflater.from(this).inflate(R.layout.pop_whether_s, null);
+//        View contentView = LayoutInflater.from(this).inflate(R.test.pop_whether_s, null);
 ////        final PopupWindow popupWindow = new PopupWindow(contentView, 600, 400);
 //        popupWindow = new PopupWindow(contentView);
 //        popupWindow.setContentView(contentView);

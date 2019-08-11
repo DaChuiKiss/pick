@@ -48,9 +48,9 @@ ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:13:5-79
 application
 ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:15:5-64:19
 meta-data#RONG_CLOUD_APP_KEY
-ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:18:9-20:43
+ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:18:9-20:45
 	android:value
-		ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:20:13-40
+		ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:20:13-42
 	android:name
 		ADDED from E:\work\HL\HaiLiao\IMLib\AndroidManifest.xml:19:13-46
 service#io.rong.imlib.ipc.RongService

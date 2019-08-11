@@ -1,29 +1,26 @@
 package com.ergou.hailiao.mvp.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.BaseFragment;
 import com.ergou.hailiao.mvp.ui.activity.LoginPasswordActivity;
-import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.mvp.ui.activity.MyTeamActivity;
 import com.ergou.hailiao.mvp.ui.activity.PaymenyPasswordActivity;
-import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalBenefitsActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalPostersActivity;
 import com.ergou.hailiao.mvp.ui.activity.SettingsActivity;
 import com.ergou.hailiao.mvp.ui.activity.SmallChangeActivity;
+import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
+import com.ergou.hailiao.mvp.ui.activity.TestDuihuaList;
+import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
+import com.ergou.hailiao.utils.glide.GlideManager;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * * 我的——Fragmen
@@ -33,7 +30,7 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.head_img)
     ImageView headImg;//头像
     @BindView(R.id.nickname)
-    TextView nickname;//你猜
+    TextView nickname;//昵称
     @BindView(R.id.hai_liao_number)
     TextView haiLiaoNumber;//号
 
@@ -51,7 +48,9 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initEventAndData() {
-
+        GlideManager.loadImageView(mContext, SPUtilsData.getUserHeaderImg(),
+                headImg, R.mipmap.ic_launcher);//头像
+        nickname.setText(SPUtilsData.getNickName());
     }
 
     @Override
@@ -81,12 +80,13 @@ public class MyFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.head_img://头像
                 intent = new Intent();
-                intent.setClass(mContext, PersonalCenterActivity.class);
+                intent.setClass(mContext, TestDuihuaList.class);
                 startActivity(intent);
                 break;
             case R.id.qr_code://二维码
                 intent = new Intent();
-                intent.setClass(mContext, PersonalCenterActivity.class);
+//                intent.setClass(mContext, PersonalCenterActivity.class);
+                intent.setClass(mContext, ConversationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.small_change_rl://零钱

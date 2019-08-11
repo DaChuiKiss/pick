@@ -22,7 +22,7 @@ public class HomeAdapter
 //    @NonNull
 //    @Override
 //    protected MyViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-//        MyViewHolder holder = new MyViewHolder(inflater.inflate(R.layout.item_home, parent, false));
+//        MyViewHolder holder = new MyViewHolder(inflater.inflate(R.test.item_home, parent, false));
 //        linearLayoutManager = new LinearLayoutManager(holder.itemView.getContext());
 //        return holder;
 //    }

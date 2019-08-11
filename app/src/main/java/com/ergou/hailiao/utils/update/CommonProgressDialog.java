@@ -76,7 +76,7 @@ public class CommonProgressDialog extends AlertDialog {
                 }
             }
         };
-        // View view = inflater.inflate(R.layout.common_progress_dialog, null);
+        // View view = inflater.inflate(R.test.common_progress_dialog, null);
         // mProgress = (ProgressBar) view.findViewById(R.id.progress);
         // mProgressNumber = (TextView) view.findViewById(R.id.progress_number);
         // mProgressPercent = (TextView)

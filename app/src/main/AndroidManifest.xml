@@ -28,6 +28,49 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- Android8.0未知来源应用安装权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <!--&lt;!&ndash; ⼩米 配置开始 < &ndash;&gt;-->
+    <!--<permission-->
+    <!--android:name="cn.rongcloud.im.permission.MIPUSH_RECEIVE"-->
+    <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="cn.rongcloud.im.permission.MIPUSH_RECEIVE" />-->
+    <!--&lt;!&ndash; ⼩米 配置结束 < &ndash;&gt;-->
+    <!--&lt;!&ndash; GCM 配置开始 < &ndash;&gt;-->
+    <!--<permission-->
+    <!--android:name="cn.rongcloud.im.permission.C2D_MESSAGE"-->
+    <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="cn.rongcloud.im.permission.C2D_MESSAGE" />-->
+    <!--&lt;!&ndash; GCM 配置结束 < &ndash;&gt;-->
+    <!--&lt;!&ndash; 华为 配置开始 < &ndash;&gt;-->
+    <!--&lt;!&ndash;HMS-SDK引导升级HMS功能，访问OTA服务器需要网络权限&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <!--&lt;!&ndash;HMS-SDK引导升级HMS功能，保存下载的升级包需要SD卡写权限&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--&lt;!&ndash;检测网络状态&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <!--&lt;!&ndash;检测wifi状态&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <!--&lt;!&ndash;为了获取用户手机的IMEI，用来唯一的标识用户。&ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+
+    <!--&lt;!&ndash;如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />-->
+    <!--&lt;!&ndash; 华为 配置结束 < &ndash;&gt;-->
+
+    <!--&lt;!&ndash; MeiZu 配置开始 < &ndash;&gt;-->
+    <!--&lt;!&ndash; 兼容 flyme5.0 以下版本，魅族内部集成 pushSDK 必填，不然无法收到 消息&ndash;&gt;-->
+    <!--<uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />-->
+    <!--<permission-->
+    <!--android:name="cn.rongcloud.im.push.permission.MESSAGE"-->
+    <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="cn.rongcloud.im.push.permission.MESSAGE" />-->
+    <!--&lt;!&ndash; 兼容 flyme3.0 配置权限&ndash;&gt;-->
+    <!--<uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />-->
+    <!--&lt;!&ndash; MeiZu 配置结束 < &ndash;&gt;-->
+
+    <!--&lt;!&ndash; OPPPO 权限配置&ndash;&gt;-->
+    <!--<uses-permission android:name="com.coloros.mcs.permission.SEND_MCS_MESSAGE" />-->
+    <!--&lt;!&ndash; OPPO 配置结束&ndash;&gt;-->
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -47,7 +90,22 @@
         </activity>
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.MainActivity"
-            android:screenOrientation="portrait" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.ergou.hailiao"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
         <!-- 登录——Activity -->
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.SignInActivity"
@@ -84,6 +142,52 @@
         <activity
             android:name=".mvp.ui.activity.SettingsActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.ergou.hailiao.mvp.ui.activity.TestDuihuaList"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.ergou.hailiao"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <!--会话界面-->
+        <activity
+            android:name="com.ergou.hailiao.mvp.ui.activity.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.ergou.hailiao"
+                    android:pathPrefix="/conversation"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ergou.hailiao.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
 
     </application>
 
