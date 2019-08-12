@@ -156,7 +156,7 @@
 
                 <data
                     android:host="com.ergou.hailiao"
-                    android:pathPrefix="/conversationlist"
+                    android:pathPrefix="/subconversationlist"
                     android:scheme="rong" />
             </intent-filter>
         </activity>

@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ergou.hailiao.R;
 import com.ergou.hailiao.mvp.ui.adapter.ConversationListAdapterEx;
 import com.ergou.hailiao.utils.ToastUtils;
 
+import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imkit.widget.adapter.ConversationListAdapter;
 import io.rong.imlib.model.Conversation;
@@ -17,6 +19,7 @@ public class MainConversationListFragment extends ConversationListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setContentView(R.layout.fragment_dialogue);
         setUri();
     }
 
