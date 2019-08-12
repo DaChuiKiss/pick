@@ -2,11 +2,13 @@ package com.ergou.hailiao.mvp.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,12 +32,16 @@ import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.UserInfoSPUtils;
+import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -44,7 +50,7 @@ import okhttp3.RequestBody;
  */
 
 public class SignInActivity extends BaseActivity<SignInPerson>
-        implements SignInContract.MainView {
+        implements SignInContract.MainView, RongIM.UserInfoProvider {
     @BindView(R.id.phone)
     EditText phone;//账号/邮箱
     @BindView(R.id.phone_img)
@@ -77,6 +83,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
     private LoginBean mLoginBean = new LoginBean();
     private LoginBean loginBeanw;
     private PopupWindow popupWindow;
+    private String mUserId = "";//融云ID
 
     @Override
     public void showError(String msg) {
@@ -117,6 +124,17 @@ public class SignInActivity extends BaseActivity<SignInPerson>
         }
         init();
         startBgAnimation();
+        if (StringUtils.isEmpty(SPUtilsData.getRongToken())) {
+            token = "";
+        } else {
+            token = SPUtilsData.getRongToken();
+            mobile = "";//手机
+            passwordString = "";//密码
+
+//            ApiInterface.showPro(mContext);
+//            connect(SPUtilsData.getRongToken());
+//            getTimeStamp();
+        }
     }
 
     /**
@@ -174,7 +192,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
         map.put("client_version", version);
         map.put("device_token", device_token);//
         map.put("timestamp", timestamp);
-//        map.put("token", token);//
+        map.put("token", token);//
         map.put("mobile", mobile);//手机/邮箱
         map.put("pwd", passwordString);//密码
 
@@ -266,15 +284,79 @@ public class SignInActivity extends BaseActivity<SignInPerson>
 
     @Override
     public void getSignInTos(LoginBean loginBean) {//登录
-        ApiInterface.disPro(mContext);
+//        ApiInterface.disPro(mContext);
         UserInfoSPUtils.getInstance().put("rong_token", loginBean.getRong_token());//token
         UserInfoSPUtils.getInstance().put("nick_name", loginBean.getNick_name());//昵称
         UserInfoSPUtils.getInstance().put("user_header_img", loginBean.getUser_header_img());//头像
         UserInfoSPUtils.getInstance().put("user_id", loginBean.getUser_id());//融云ID
-        intent = new Intent();
-        intent.setClass(mContext, MainActivity.class);
-        startActivity(intent);
-        finish();
+        connect(SPUtilsData.getRongToken());
+//        intent = new Intent();
+//        intent.setClass(mContext, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+    }
+
+    /**
+     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #} 之后调用。</p>
+     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
+     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
+     *
+     * @param token 从服务端获取的用户身份令牌（Token）。
+     * @param
+     * @return RongIM  客户端核心类的实例。
+     */
+    private void connect(String token) {
+
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onSuccess(String userId) {
+                mUserId = userId;
+                RongIM.getInstance().setCurrentUserInfo(new UserInfo(mUserId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg())));
+                getRefreshUserInfoCache();//刷新用户缓存数据。需要更新的用户缓存数据。
+                getUserInfoProvider();//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK
+                Log.e("main", "融云连接成功：" + mUserId);
+                ApiInterface.disPro(mContext);
+                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ApiInterface.disPro(mContext);
+                Log.e("main", "融云连失败:" + errorCode.getValue());
+            }
+
+            @Override
+            public void onTokenIncorrect() {
+                Log.e("main", "token is error , please check token and appkey ");
+                ApiInterface.disPro(mContext);
+            }
+        });
+
+    }
+
+    @Override
+    public UserInfo getUserInfo(String userId) {
+        return new UserInfo(userId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg()));
+    }
+
+    public void getUserInfoProvider() {///根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK
+        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+            @Override
+            public UserInfo getUserInfo(String userId) {
+
+                return new UserInfo(mUserId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg()));//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+            }
+
+        }, true);
+    }
+
+    /**
+     * @ 刷新用户缓存数据。需要更新的用户缓存数据。
+     */
+    public void getRefreshUserInfoCache() {
+        RongIM.getInstance().refreshUserInfoCache(new UserInfo(mUserId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg())));
     }
 
 

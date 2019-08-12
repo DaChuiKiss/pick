@@ -34,7 +34,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
 
-public class MainActivity extends BaseActivity implements RongIM.UserInfoProvider {
+public class MainActivity extends BaseActivity  {
     @BindView(R.id.dialogue_img)
     ImageView dialogueImg;
     @BindView(R.id.mail_list_img)
@@ -60,8 +60,6 @@ public class MainActivity extends BaseActivity implements RongIM.UserInfoProvide
     private MailListFragment mailListFragment;//通讯录
     private GameFragment gameFragment;//游戏
     private MyFragment myFragment;//我的
-
-    private String mUserId = "";//融云ID
 
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
@@ -92,45 +90,9 @@ public class MainActivity extends BaseActivity implements RongIM.UserInfoProvide
 
     @Override
     protected void initEventAndData() {
-        connect(SPUtilsData.getRongToken());
+
         manager = getSupportFragmentManager();
         selectedtab(1);
-    }
-
-    /**
-     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #} 之后调用。</p>
-     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
-     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
-     *
-     * @param token 从服务端获取的用户身份令牌（Token）。
-     * @param
-     * @return RongIM  客户端核心类的实例。
-     */
-    private void connect(String token) {
-
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onSuccess(String userId) {
-                mUserId = userId;
-                Log.e("main", "融云连接成功：" + mUserId);
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("main", "融云连失败:" + errorCode.getValue());
-            }
-
-            @Override
-            public void onTokenIncorrect() {
-                Log.e("main", "token is error , please check token and appkey ");
-            }
-        });
-
-    }
-
-    @Override
-    public UserInfo getUserInfo(String userId) {
-        return new UserInfo(userId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg()));
     }
 
     public void selectedtab(int selectid) {
