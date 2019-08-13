@@ -39,6 +39,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
@@ -50,7 +51,7 @@ import okhttp3.RequestBody;
  */
 
 public class SignInActivity extends BaseActivity<SignInPerson>
-        implements SignInContract.MainView, RongIM.UserInfoProvider {
+        implements SignInContract.MainView {
     @BindView(R.id.phone)
     EditText phone;//账号/邮箱
     @BindView(R.id.phone_img)
@@ -124,6 +125,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
         }
         init();
         startBgAnimation();
+
         if (StringUtils.isEmpty(SPUtilsData.getRongToken())) {
             token = "";
         } else {
@@ -239,6 +241,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
                 mobile = phone.getText().toString().replace(" ", "");
                 passwordString = password.getText().toString();
                 mobile = "18670316044";
+//                mobile = "13818472232";
                 passwordString = "123456";
                 if (StringUtils.isEmpty(mobile)) {
                     ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt6));
@@ -311,10 +314,8 @@ public class SignInActivity extends BaseActivity<SignInPerson>
             @Override
             public void onSuccess(String userId) {
                 mUserId = userId;
-                RongIM.getInstance().setCurrentUserInfo(new UserInfo(mUserId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg())));
-                getRefreshUserInfoCache();//刷新用户缓存数据。需要更新的用户缓存数据。
-                getUserInfoProvider();//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK
                 Log.e("main", "融云连接成功：" + mUserId);
+                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg())));
                 ApiInterface.disPro(mContext);
                 startActivity(new Intent(SignInActivity.this, MainActivity.class));
                 finish();
@@ -333,30 +334,6 @@ public class SignInActivity extends BaseActivity<SignInPerson>
             }
         });
 
-    }
-
-    @Override
-    public UserInfo getUserInfo(String userId) {
-        return new UserInfo(userId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg()));
-    }
-
-    public void getUserInfoProvider() {///根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK
-        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
-
-            @Override
-            public UserInfo getUserInfo(String userId) {
-
-                return new UserInfo(mUserId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg()));//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
-            }
-
-        }, true);
-    }
-
-    /**
-     * @ 刷新用户缓存数据。需要更新的用户缓存数据。
-     */
-    public void getRefreshUserInfoCache() {
-        RongIM.getInstance().refreshUserInfoCache(new UserInfo(mUserId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg())));
     }
 
 

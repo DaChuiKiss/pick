@@ -33,7 +33,9 @@ import io.rong.push.RongPushClient;
 /**
  * Created by LuoCY on 2019/8/10.
  */
-public class TestDuihuaList extends FragmentActivity {
+public class TestDuihuaList extends FragmentActivity
+//        implements RongIM.UserInfoProvider
+{
 
 
     @Override
@@ -52,30 +54,33 @@ public class TestDuihuaList extends FragmentActivity {
                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
                 .build();
         fragement.setUri(uri);
-        TextMessage myTextMessage = TextMessage.obtain("二狗子");
-        Message myMessage = Message.obtain("65373", Conversation.ConversationType.PRIVATE, myTextMessage);
-        RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-            @Override
-            public void onAttached(Message message) {
-                //消息本地数据库存储成功的回调
-                Log.e("main","二狗："+"消息本地数据库存储成功的回调");
-            }
-
-            @Override
-            public void onSuccess(Message message) {
-                //消息通过网络发送成功的回调
-                Log.e("main","二狗："+"消息通过网络发送成功的回调");
-            }
-
-            @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                //消息发送失败的回调
-                Log.e("main","二狗："+"消息发送失败的回调");
-            }
-        });
+//        TextMessage myTextMessage = TextMessage.obtain("狗大爷");
+////        Message myMessage = Message.obtain("65373", Conversation.ConversationType.PRIVATE, myTextMessage);
+//        Message myMessage = Message.obtain("98497", Conversation.ConversationType.PRIVATE, myTextMessage);
+//        RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
+//            @Override
+//            public void onAttached(Message message) {
+//                //消息本地数据库存储成功的回调
+//                Log.e("main","二狗："+"消息本地数据库存储成功的回调");
+//            }
+//
+//            @Override
+//            public void onSuccess(Message message) {
+//                //消息通过网络发送成功的回调
+//                Log.e("main","二狗："+"消息通过网络发送成功的回调");
+//            }
+//
+//            @Override
+//            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+//                //消息发送失败的回调
+//                Log.e("main","二狗："+"消息发送失败的回调");
+//            }
+//        });
     }
 
 
-
-
+//    @Override
+//    public UserInfo getUserInfo(String s) {
+//        return new UserInfo(s,SPUtilsData.getNickName(),Uri.parse(SPUtilsData.getUserHeaderImg()));
+//    }
 }

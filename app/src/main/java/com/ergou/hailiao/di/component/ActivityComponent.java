@@ -5,6 +5,9 @@ import android.app.Activity;
 
 import com.ergou.hailiao.di.ActivityScope;
 import com.ergou.hailiao.di.module.ActivityMoudle;
+import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
+import com.ergou.hailiao.mvp.ui.activity.LaunchActivity;
+import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 
 import dagger.Component;
@@ -21,7 +24,7 @@ public interface ActivityComponent {
 
     void inject(SignInActivity signInActivity);
 //
-//    void inject(LaunchActivity launchActivity);
+    void inject(ConversationActivity conversationActivity);
 
 
 }

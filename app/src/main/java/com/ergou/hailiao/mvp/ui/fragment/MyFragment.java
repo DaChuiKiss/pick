@@ -10,6 +10,7 @@ import com.ergou.hailiao.base.BaseFragment;
 import com.ergou.hailiao.mvp.ui.activity.LoginPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.MyTeamActivity;
 import com.ergou.hailiao.mvp.ui.activity.PaymenyPasswordActivity;
+import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalBenefitsActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalPostersActivity;
 import com.ergou.hailiao.mvp.ui.activity.SettingsActivity;
@@ -80,7 +81,7 @@ public class MyFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.head_img://头像
                 intent = new Intent();
-                intent.setClass(mContext, TestDuihuaList.class);
+                intent.setClass(mContext, PersonalCenterActivity.class);
                 startActivity(intent);
                 break;
             case R.id.qr_code://二维码

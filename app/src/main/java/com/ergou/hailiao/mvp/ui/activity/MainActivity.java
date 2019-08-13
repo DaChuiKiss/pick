@@ -1,10 +1,7 @@
 package com.ergou.hailiao.mvp.ui.activity;
 
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,27 +11,19 @@ import android.widget.Toast;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.app.AppManager;
 import com.ergou.hailiao.base.BaseActivity;
-import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.ui.fragment.DialogueFragment;
 import com.ergou.hailiao.mvp.ui.fragment.GameFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
-import com.ergou.hailiao.mvp.ui.fragment.MainConversationListFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MyFragment;
-import com.ergou.hailiao.utils.ToastUtils;
-import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.UserInfo;
 
 
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.dialogue_img)
     ImageView dialogueImg;
     @BindView(R.id.mail_list_img)
@@ -65,8 +54,7 @@ public class MainActivity extends BaseActivity  {
 
     @Override
     public void showError(String msg) {
-        ApiInterface.disPro(mContext);
-        ToastUtils.showLongToast(mContext, msg);
+
     }
 
     @Override
@@ -75,12 +63,12 @@ public class MainActivity extends BaseActivity  {
 
     @Override
     public void codeTypeError(int code) {
-        ApiInterface.disPro(mContext);
-//        ToastUtils.showLongToast(mContext, msg);
+
     }
 
     @Override
     protected void initInject() {
+
     }
 
     @Override
@@ -90,10 +78,10 @@ public class MainActivity extends BaseActivity  {
 
     @Override
     protected void initEventAndData() {
-
         manager = getSupportFragmentManager();
         selectedtab(1);
     }
+
 
     public void selectedtab(int selectid) {
         transaction = manager.beginTransaction();
@@ -225,7 +213,6 @@ public class MainActivity extends BaseActivity  {
         }
     }
 
-
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         //拦截返回键
@@ -258,10 +245,4 @@ public class MainActivity extends BaseActivity  {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
