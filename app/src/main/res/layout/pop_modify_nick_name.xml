@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/backpround_corners5_whilt"
+    android:orientation="vertical">
+
+    <!--
+
+修改昵称
+
+  -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:text="@string/modify_nick_name"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/sp_18" />
+
+    <!--  输入昵称   -->
+    <EditText
+        android:id="@+id/nick_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@null"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:text=""
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText_s"
+        android:textSize="@dimen/sp_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <!--    取消   -->
+        <RelativeLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/colorText_ss"
+                android:textSize="@dimen/sp_14" />
+
+        </RelativeLayout>
+
+        <!--    确定   -->
+        <RelativeLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/determine"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/determine"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/sp_14" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

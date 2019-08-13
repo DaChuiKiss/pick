@@ -142,6 +142,10 @@
         <activity
             android:name=".mvp.ui.activity.SettingsActivity"
             android:screenOrientation="portrait" />
+        <!-- 修改头像——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.ModifyHeadImgActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.TestDuihuaList"

@@ -25,17 +25,13 @@ public class LaunchActivity extends BaseActivity {
     private AlphaAnimation mAlphaAnimation;
 
     @Override
-    public void showError(String msg) {
+    public void showError() {
 
     }
 
     @Override
-    public void timeShowError(String time) {
+    public void timeShowError() {
 
-    }
-
-    @Override
-    public void codeTypeError(int code) {
     }
 
     @Override

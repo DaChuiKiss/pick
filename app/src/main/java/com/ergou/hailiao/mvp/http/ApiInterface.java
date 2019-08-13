@@ -6,6 +6,8 @@ import android.content.Context;
 import android.provider.Settings;
 
 import com.ergou.hailiao.R;
+import com.ergou.hailiao.utils.StringUtils;
+import com.ergou.hailiao.utils.ToastUtils;
 
 import java.util.HashMap;
 
@@ -32,6 +34,14 @@ public class ApiInterface {
     public static void disPro(Context context) {
         if (m_pDialog != null) {
             m_pDialog.dismiss();
+        }
+    }
+
+    public static void getToastUtils(Context context, String msg) {
+        if (StringUtils.isEmpty(msg)) {
+            ToastUtils.showLongToast(context, context.getResources().getText(R.string.prompt5));
+        } else {
+            ToastUtils.showLongToast(context, msg);
         }
     }
 

@@ -53,17 +53,12 @@ public class MainActivity extends BaseActivity {
     private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
     @Override
-    public void showError(String msg) {
+    public void showError() {
 
     }
 
     @Override
-    public void timeShowError(String time) {
-    }
-
-    @Override
-    public void codeTypeError(int code) {
-
+    public void timeShowError() {
     }
 
     @Override

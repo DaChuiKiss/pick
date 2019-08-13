@@ -9,22 +9,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
+        android:background="@color/colorText4295D5"
         android:gravity="center"
         android:text="@string/dialogue"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_18" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/colorLine" />
+        android:background="@color/colorLine"
+        android:visibility="gone" />
 
     <!--<fragment-->
-        <!--android:id="@+id/conversationlist"-->
-        <!--android:name="io.rong.imkit.fragment.ConversationListFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:visibility="gone" />-->
+    <!--android:id="@+id/conversationlist"-->
+    <!--android:name="io.rong.imkit.fragment.ConversationListFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:visibility="gone" />-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/rc_viewpager"

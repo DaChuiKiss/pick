@@ -1,6 +1,7 @@
 package com.ergou.hailiao.mvp.http;
 
 import com.ergou.hailiao.mvp.bean.BeanBean;
+import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -30,6 +31,14 @@ public interface Apis {
     @POST("get_info")
 //  用户融云信息
     Flowable<HttpResponse<RongYunInfoBean>> getInfo(@Body RequestBody Body);
+
+    @POST("get_header_imgs")
+//  头像列表
+    Flowable<HttpResponse<List<HeadImgBean>>> getHeadImg(@Body RequestBody Body);
+
+    @POST("update_user")
+//  修改头像
+    Flowable<HttpResponse<BeanBean>> getModifyHeadImg(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

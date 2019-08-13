@@ -6,7 +6,7 @@ import com.ergou.hailiao.base.BaseActivity;
 /**
  * Created by LuoCY on 2019/8/10.
  *
- * 个人中心
+ * 修改登录密码
  *
  */
 public class LoginPasswordActivity extends BaseActivity {
@@ -26,17 +26,13 @@ public class LoginPasswordActivity extends BaseActivity {
     }
 
     @Override
-    public void showError(String msg) {
+    public void showError() {
 
     }
 
     @Override
-    public void timeShowError(String time) {
+    public void timeShowError() {
 
     }
 
-    @Override
-    public void codeTypeError(int code) {
-
-    }
 }

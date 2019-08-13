@@ -42,7 +42,7 @@
                 android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="二狗"
+                android:text=""
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/sp_18" />
 
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/hai_liao_text"
-                    android:text="0213"
+                    android:text=""
                     android:textColor="@color/colorText_666666"
                     android:textSize="@dimen/sp_12" />
 
@@ -82,7 +82,7 @@
                         android:layout_width="@dimen/dp_15"
                         android:layout_height="@dimen/dp_15"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_launcher_background" />
+                        android:src="@drawable/ewm" />
 
                     <TextView
                         android:layout_width="@dimen/dp_6"

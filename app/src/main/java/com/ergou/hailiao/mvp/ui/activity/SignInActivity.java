@@ -87,20 +87,13 @@ public class SignInActivity extends BaseActivity<SignInPerson>
     private String mUserId = "";//融云ID
 
     @Override
-    public void showError(String msg) {
-        ApiInterface.disPro(mContext);
-        ToastUtils.showLongToast(mContext, msg);
+    public void showError() {
     }
 
     @Override
-    public void timeShowError(String time) {
+    public void timeShowError() {
         LogUtils.e("获取服务器时间=====获取服务器时间失败");
         getSignIn();
-    }
-
-    @Override
-    public void codeTypeError(int code) {
-        ApiInterface.disPro(mContext);
     }
 
     @Override
@@ -132,10 +125,8 @@ public class SignInActivity extends BaseActivity<SignInPerson>
             token = SPUtilsData.getRongToken();
             mobile = "";//手机
             passwordString = "";//密码
-
-//            ApiInterface.showPro(mContext);
-//            connect(SPUtilsData.getRongToken());
-//            getTimeStamp();
+            ApiInterface.showPro(mContext);
+            connect(SPUtilsData.getRongToken());
         }
     }
 
@@ -268,7 +259,6 @@ public class SignInActivity extends BaseActivity<SignInPerson>
 
     @Override
     public void onError(Throwable throwable) {
-        ApiInterface.disPro(mContext);
         ToastUtils.showLongToast(mContext, getResources().getString(R.string.prompt5));
     }
 
@@ -287,11 +277,11 @@ public class SignInActivity extends BaseActivity<SignInPerson>
 
     @Override
     public void getSignInTos(LoginBean loginBean) {//登录
-//        ApiInterface.disPro(mContext);
         UserInfoSPUtils.getInstance().put("rong_token", loginBean.getRong_token());//token
         UserInfoSPUtils.getInstance().put("nick_name", loginBean.getNick_name());//昵称
         UserInfoSPUtils.getInstance().put("user_header_img", loginBean.getUser_header_img());//头像
         UserInfoSPUtils.getInstance().put("user_id", loginBean.getUser_id());//融云ID
+        UserInfoSPUtils.getInstance().put("phone_number", mobile);//手机号码
         connect(SPUtilsData.getRongToken());
 //        intent = new Intent();
 //        intent.setClass(mContext, MainActivity.class);

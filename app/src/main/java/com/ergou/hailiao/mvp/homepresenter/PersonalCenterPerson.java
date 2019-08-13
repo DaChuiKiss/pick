@@ -4,14 +4,12 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
 import com.ergou.hailiao.mvp.http.RetrofitUtil;
 import com.ergou.hailiao.utils.LogUtils;
-
-import java.text.ParseException;
 
 import javax.inject.Inject;
 
@@ -22,13 +20,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class ConversationPerson extends RxPresenter<ConversationContract.MainView>
-        implements ConversationContract.Presenter {
+public class PersonalCenterPerson extends RxPresenter<PersonalCenterContract.MainView>
+        implements PersonalCenterContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public ConversationPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public PersonalCenterPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -61,32 +59,27 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
     }
 
     @Override
-    public void ggetInfoBean(RequestBody body) {
+    public void getModifyNickNameBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getInfo(body),
-                new ResourceSubscriber<HttpResponse<RongYunInfoBean>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getModifyHeadImg(body),
+                new ResourceSubscriber<HttpResponse<BeanBean>>() {
                     @Override
-                    public void onNext(HttpResponse<RongYunInfoBean> response) {
-                        LogUtils.e("=========用户融云信息返回：" + response.getData().toString());
-                        try {
-                            if (response.getCode() == 200) {
-                                mView.get().getInfoTos(response.getData());
-                            } else {
-                                mView.get().showError();
-                                ApiInterface.getToastUtils(activity, response.getMsg());
-                            }
-                        }catch(Exception e) {
-                            e.printStackTrace();
-                            LogUtils.e("=========用户融云信息失败：" + response.getData().toString());
-                            ApiInterface.getToastUtils(activity, "");
+                    public void onNext(HttpResponse<BeanBean> response) {
+                        LogUtils.e("=========修改昵称返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getModifyNickNameTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
                         }
-
+                        ApiInterface.disPro(activity);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================用户融云信息异常：");
+                        LogUtils.w(t.toString() + "=================修改昵称异常：");
                         mView.get().onError(t);
+                        ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");
                     }
 
@@ -96,5 +89,6 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                     }
                 }));
     }
+
 
 }

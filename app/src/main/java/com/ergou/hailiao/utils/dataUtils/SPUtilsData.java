@@ -35,4 +35,12 @@ public class SPUtilsData {
         String ticket = UserInfoSPUtils.getInstance().getString("user_id");
         return ticket;
     }
+
+    /**
+     * 获取手机号码
+     */
+    public static String getPhoneNumber() {
+        String ticket = UserInfoSPUtils.getInstance().getString("phone_number");
+        return ticket;
+    }
 }

@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.ergou.hailiao.base.RxPresenter;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
+import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
 import com.ergou.hailiao.mvp.http.RetrofitUtil;
 import com.ergou.hailiao.utils.LogUtils;
@@ -40,7 +41,7 @@ public class DialogueFPerson extends RxPresenter<ConversationContract.MainView>
                         if (response.getCode() == 200) {
                             mView.get().getTimeStampTos(response.getData());
                         } else {
-                            mView.get().timeShowError(response.getMsg());
+                            mView.get().timeShowError();
                         }
                     }
 
@@ -69,12 +70,13 @@ public class DialogueFPerson extends RxPresenter<ConversationContract.MainView>
                             if (response.getCode() == 200) {
                                 mView.get().getInfoTos(response.getData());
                             } else {
-                                mView.get().codeTypeError(response.getCode());
-                                mView.get().showError(response.getMsg());
+                                mView.get().showError();
+//                                ApiInterface.getToastUtils(activity, response.getMsg());
                             }
-                        }catch(Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                             LogUtils.e("=========用户融云信息失败：" + response.getData().toString());
+//                            ApiInterface.getToastUtils(activity, "");
                         }
 
                     }
@@ -83,6 +85,7 @@ public class DialogueFPerson extends RxPresenter<ConversationContract.MainView>
                     public void onError(Throwable t) {
                         LogUtils.w(t.toString() + "=================用户融云信息异常：");
                         mView.get().onError(t);
+//                        ApiInterface.getToastUtils(activity, "");
                     }
 
                     @Override

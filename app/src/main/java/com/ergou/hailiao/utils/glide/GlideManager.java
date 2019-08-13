@@ -1,19 +1,23 @@
 package com.ergou.hailiao.utils.glide;
 
 import android.content.Context;
+import android.text.Layout;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 /**
+ *
  */
 public class GlideManager {
     /**
      * 基本的加载图片
-     *  @param context
-     * @param url       加载图片的url
-     * @param imageView 要加载的ImageView
+     *
+     * @param context
+     * @param url                    加载图片的url
+     * @param imageView              要加载的ImageView
      * @param login_register_btn_add
      */
     public static void loadImageView(Context context, String url, ImageView imageView, int login_register_btn_add) {
@@ -25,6 +29,7 @@ public class GlideManager {
                 //.placeholder(defaultImg)  //设置正在加载中显示的图片,需要的话自己加上 defaultImg可以为R.drawable.
                 //.error(defaultImg)        // 加载失败的时候显示的图片,需要的话自己加上
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .transform(new GlideRoundTransform(context, 0))
                 .into(imageView);
     }
 
@@ -56,7 +61,7 @@ public class GlideManager {
      * @param url       加载图片的url
      * @param imageView 要加载的ImageView
      */
-    public static void loadCircleImageView(Context context, String url, ImageView imageView ,int defaultImg) {
+    public static void loadCircleImageView(Context context, String url, ImageView imageView, int defaultImg) {
         Glide.with(context)
                 .load(url)
                 .asBitmap()
@@ -68,4 +73,5 @@ public class GlideManager {
                 .transform(new GlideCircleTransform(context))
                 .into(imageView);
     }
+
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">HaiLiao</string>
 
     <string name="welcome_to_use">欢迎使用</string>
@@ -21,17 +21,27 @@
     <string name="promotional_benefits">推广收益</string>
     <string name="my_team">我的团队</string>
     <string name="settings">设置</string>
+    <string name="head_img">头像</string>
+    <string name="account_number_s">账号</string>
+    <string name="nick_name">昵称</string>
+    <string name="real_name">真实姓名</string>
+    <string name="phone_number">手机号码</string>
+    <string name="personal_center">个人资料</string>
+    <string name="modify_head_img">修改头像</string>
+    <string name="modify_nick_name">修改昵称</string>
+    <string name="determine">确定</string>
+    <string name="cancel">取消</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
     <string name="prompt2">加载中...</string>
     <string name="prompt3">手机/邮箱不能为空</string>
     <string name="prompt4">密码不能为空</string>
-    <string name="prompt5">网络错误</string>
+    <string name="prompt5">网络错误!</string>
     <string name="prompt6">手机号不能为空！</string>
     <string name="prompt7">密码不能为空！</string>
+    <string name="prompt8">成功！</string>
+    <string name="prompt9">请输入昵称！</string>
 
-
-    
 
 </resources>

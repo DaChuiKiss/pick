@@ -3,9 +3,11 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import android.app.Activity;
 
+import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.RxPresenter;
 import com.ergou.hailiao.mvp.bean.BeanBean;
-import com.ergou.hailiao.mvp.bean.LoginBean;
+import com.ergou.hailiao.mvp.bean.HeadImgBean;
+import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
@@ -23,13 +25,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class SignInPerson extends RxPresenter<SignInContract.MainView>
-        implements SignInContract.Presenter {
+public class ModifyHeadImPerson extends RxPresenter<ModifyHeadImContract.MainView>
+        implements ModifyHeadImContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public SignInPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public ModifyHeadImPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -62,15 +64,15 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
     }
 
     @Override
-    public void getSignInBean(RequestBody body) {
+    public void getHeadImgBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getLogin(body),
-                new ResourceSubscriber<HttpResponse<LoginBean>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getHeadImg(body),
+                new ResourceSubscriber<HttpResponse<List<HeadImgBean>>>() {
                     @Override
-                    public void onNext(HttpResponse<LoginBean> response) {
-                        LogUtils.e("=========登录返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<List<HeadImgBean>> response) {
+                        LogUtils.e("=========头像列表返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getSignInTos(response.getData());
+                            mView.get().getHeadImgTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -80,7 +82,7 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================登录异常：");
+                        LogUtils.w(t.toString() + "=================头像列表异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");
@@ -92,5 +94,38 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
                     }
                 }));
     }
+
+    @Override
+    public void getModifyHeadImgBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getModifyHeadImg(body),
+                new ResourceSubscriber<HttpResponse<BeanBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<BeanBean> response) {
+                        LogUtils.e("=========修改头像返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getModifyHeadImgTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================修改头像异常：");
+                        mView.get().onError(t);
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
 
 }

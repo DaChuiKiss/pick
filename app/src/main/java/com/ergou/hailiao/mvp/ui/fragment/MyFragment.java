@@ -49,9 +49,16 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initEventAndData() {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         GlideManager.loadImageView(mContext, SPUtilsData.getUserHeaderImg(),
                 headImg, R.mipmap.ic_launcher);//头像
         nickname.setText(SPUtilsData.getNickName());
+        haiLiaoNumber.setText(SPUtilsData.getUserId());
     }
 
     @Override
@@ -60,17 +67,12 @@ public class MyFragment extends BaseFragment {
     }
 
     @Override
-    public void showError(String msg) {
+    public void showError() {
 
     }
 
     @Override
-    public void timeShowError(String time) {
-
-    }
-
-    @Override
-    public void codeTypeError(int code) {
+    public void timeShowError() {
 
     }
 
@@ -86,8 +88,8 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.qr_code://二维码
                 intent = new Intent();
-//                intent.setClass(mContext, PersonalCenterActivity.class);
-                intent.setClass(mContext, ConversationActivity.class);
+                intent.setClass(mContext, PersonalCenterActivity.class);
+//                intent.setClass(mContext, ConversationActivity.class);
                 startActivity(intent);
                 break;
             case R.id.small_change_rl://零钱

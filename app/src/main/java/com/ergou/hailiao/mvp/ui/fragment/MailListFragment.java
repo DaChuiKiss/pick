@@ -29,17 +29,13 @@ public class MailListFragment extends BaseFragment {
     }
 
     @Override
-    public void showError(String msg) {
+    public void showError() {
 
     }
 
     @Override
-    public void timeShowError(String time) {
+    public void timeShowError() {
 
     }
 
-    @Override
-    public void codeTypeError(int code) {
-
-    }
 }
