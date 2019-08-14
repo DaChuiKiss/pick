@@ -4,6 +4,7 @@ import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
+import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -57,6 +58,10 @@ public interface Apis {
     @POST("appsms")
 //  获取验证码
     Flowable<HttpResponse<BeanBean>> getAppsms(@Body RequestBody Body);
+
+    @POST("get_friends")
+//  获取验证码
+    Flowable<HttpResponse<List<MailListBean>>> getFriends(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

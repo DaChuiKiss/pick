@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.ergou.hailiao.di.FragmentScope;
 import com.ergou.hailiao.di.module.FragmentMoudle;
 import com.ergou.hailiao.mvp.ui.fragment.DialogueFragment;
+import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
 
 import dagger.Component;
 
@@ -18,7 +19,8 @@ import dagger.Component;
 public interface FragmentComponent {
     Activity getActivity();
 
-    void inject(DialogueFragment dialogueFragment);
+    void inject(DialogueFragment dialogueFragment);//对话
 
+    void inject(MailListFragment mailListFragment);//通讯录
 
 }

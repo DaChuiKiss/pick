@@ -117,12 +117,11 @@ public class DialogueFragment extends BaseFragment<DialogueFPerson>
 
         RongIM.setUserInfoProvider(this, true);
         ConversationListFragment fragement = new ConversationListFragment();
+//        fragement.conversationType
         Uri uri = Uri.parse("rong://" + getActivity().getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversationlist")
-                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
-                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")
-                .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
+                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //二人单聊会话类型
+                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")// 系统消息类型
                 .build();
         fragement.setUri(uri);
         return fragement;
