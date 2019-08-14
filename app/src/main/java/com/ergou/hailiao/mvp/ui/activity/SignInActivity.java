@@ -21,6 +21,7 @@ import android.widget.PopupWindow;
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.BaseActivity;
+import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.SignInContract;
@@ -174,6 +175,14 @@ public class SignInActivity extends BaseActivity<SignInPerson>
         mPresenter.getTimeStampBean(requestBody);
     }
 
+    public void getAppkeys() {//获取服务器时间
+
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("", "");
+        RequestBody requestBody = build.build();
+        mPresenter.getTimeStampBean(requestBody);
+    }
+
     public void getSignIn() {//登录
         device_token = ApiInterface.deviceToken(mContext);//设备号
         version = AppUtils.getAppVersionName(mContext);//版本号
@@ -305,6 +314,7 @@ public class SignInActivity extends BaseActivity<SignInPerson>
             public void onSuccess(String userId) {
                 mUserId = userId;
                 Log.e("main", "融云连接成功：" + mUserId);
+//                RongIM.getInstance().enableUnreadMessageIcon(true);//显示未读消息数目
                 RongIM.getInstance().setCurrentUserInfo(new UserInfo(userId, SPUtilsData.getNickName(), Uri.parse(SPUtilsData.getUserHeaderImg())));
                 ApiInterface.disPro(mContext);
                 startActivity(new Intent(SignInActivity.this, MainActivity.class));

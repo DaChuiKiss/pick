@@ -94,6 +94,8 @@
                     android:cursorVisible="true"
                     android:gravity="center|left"
                     android:hint="@string/phone_mailbox_editText"
+                    android:inputType="numberDecimal"
+                    android:maxLength="11"
                     android:paddingRight="@dimen/dp_10"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorBackground_f5f5f9"
@@ -157,7 +159,8 @@
                     android:background="@null"
                     android:cursorVisible="true"
                     android:hint="@string/sign_in_password_editText"
-                    android:inputType="textPassword"
+                    android:inputType="numberPassword"
+                    android:maxLength="6"
                     android:paddingRight="@dimen/dp_10"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorBackground_f5f5f9"
@@ -202,7 +205,7 @@
                 android:text="@string/register"
                 android:textColor="@color/colorText_sign"
                 android:textSize="@dimen/sp_16"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <!--   忘记密码   -->
             <TextView

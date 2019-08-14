@@ -4,16 +4,12 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
-import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
 import com.ergou.hailiao.mvp.http.RetrofitUtil;
 import com.ergou.hailiao.utils.LogUtils;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,13 +20,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class SignInPerson extends RxPresenter<SignInContract.MainView>
-        implements SignInContract.Presenter {
+public class ForgetPayPasswordPerson extends RxPresenter<ForgetPayPasswordContract.MainView>
+        implements ForgetPayPasswordContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public SignInPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public ForgetPayPasswordPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -62,17 +58,16 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
                 }));
     }
 
-
     @Override
-    public void getSignInBean(RequestBody body) {
+    public void getSentCodeBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getLogin(body),
-                new ResourceSubscriber<HttpResponse<LoginBean>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getAppsms(body),
+                new ResourceSubscriber<HttpResponse<BeanBean>>() {
                     @Override
-                    public void onNext(HttpResponse<LoginBean> response) {
-                        LogUtils.e("=========登录返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<BeanBean> response) {
+                        LogUtils.e("=========获取验证码返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getSignInTos(response.getData());
+                            mView.get().getSentCodeTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -82,7 +77,7 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================登录异常：");
+                        LogUtils.w(t.toString() + "=================获取验证码异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");
@@ -94,5 +89,39 @@ public class SignInPerson extends RxPresenter<SignInContract.MainView>
                     }
                 }));
     }
+
+
+    @Override
+    public void getForgetPayPasswordBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getForgetPwd(body),
+                new ResourceSubscriber<HttpResponse<BeanBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<BeanBean> response) {
+                        LogUtils.e("=========忘记支付密码返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getForgetPayPasswordTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================忘记支付密码异常：");
+                        mView.get().onError(t);
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
 
 }

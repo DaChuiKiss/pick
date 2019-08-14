@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_45"
+    android:layout_height="@dimen/dp_40"
     android:orientation="vertical"
     android:background="@color/colorText4295D5">
 
     <RelativeLayout
         android:id="@+id/fallback"
-        android:layout_width="@dimen/dp_45"
-        android:layout_height="@dimen/dp_45"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
         android:gravity="center|left"
         android:paddingLeft="@dimen/dp_15">
 
@@ -30,7 +30,7 @@
     <RelativeLayout
         android:id="@+id/title_right_rl"
         android:layout_width="@dimen/dp_100"
-        android:layout_height="@dimen/dp_45"
+        android:layout_height="@dimen/dp_40"
         android:layout_alignParentRight="true"
         android:visibility="gone">
 

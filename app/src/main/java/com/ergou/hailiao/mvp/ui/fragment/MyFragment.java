@@ -14,9 +14,12 @@ import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalBenefitsActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalPostersActivity;
 import com.ergou.hailiao.mvp.ui.activity.SettingsActivity;
+import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 import com.ergou.hailiao.mvp.ui.activity.SmallChangeActivity;
 import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.activity.TestDuihuaList;
+import com.ergou.hailiao.utils.ActivityCollector;
+import com.ergou.hailiao.utils.UserInfoSPUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 import com.ergou.hailiao.utils.glide.GlideManager;
 
@@ -123,9 +126,14 @@ public class MyFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.settings_rl://设置
+//                intent = new Intent();
+//                intent.setClass(mContext, SettingsActivity.class);
+//                startActivity(intent);
+                UserInfoSPUtils.getInstance().clear();
                 intent = new Intent();
-                intent.setClass(mContext, SettingsActivity.class);
+                intent.setClass(mContext, SignInActivity.class);
                 startActivity(intent);
+                ActivityCollector.finishAll();
                 break;
         }
     }

@@ -19,6 +19,8 @@ public class ApiInterface {
 
     public static final String API = "http://red.aliyunxin.com/";//
     private static ProgressDialog m_pDialog;
+    public static int getCode = 59999;//获取验证码间隔倒计时
+    public static int getCode_s = 1000;//获取验证码间隔倒计时计算
 
     private static String appName = String.valueOf(R.string.app_name);
 

@@ -3,7 +3,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
-import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
+import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
 import okhttp3.RequestBody;
@@ -12,7 +12,7 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public interface DialogueFContract {
+public interface SmallChangeContract {
     interface MainView extends BaseView {
         void onError(Throwable throwable);
 
@@ -20,12 +20,12 @@ public interface DialogueFContract {
 
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
 
-        void getInfoTos(RongYunInfoBean rongYunInfo);//用户融云信息
+        void getSmallChangeTos(SmallChangeBean smallChangeBean);//零钱
     }
 
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
 
-        void getInfoBean(RequestBody body);
+        void getSmallChangeBean(RequestBody body);
     }
 }

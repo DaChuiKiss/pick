@@ -41,19 +41,19 @@ public class TestDuihuaList extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.test);
-        FragmentManager fragmentManage = getSupportFragmentManager();
-        ConversationListFragment fragement = (ConversationListFragment) fragmentManage.findFragmentById(R.id.conversationlist1);
-        Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                .appendPath("conversationlist")
-                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")
-                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
-                .build();
-        fragement.setUri(uri);
+//
+//        setContentView(R.layout.test);
+//        FragmentManager fragmentManage = getSupportFragmentManager();
+//        ConversationListFragment fragement = (ConversationListFragment) fragmentManage.findFragmentById(R.id.conversationlist1);
+//        Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+//                .appendPath("conversationlist")
+//                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")
+//                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")
+//                .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")
+//                .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")
+//                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")
+//                .build();
+//        fragement.setUri(uri);
 //        TextMessage myTextMessage = TextMessage.obtain("狗大爷");
 ////        Message myMessage = Message.obtain("65373", Conversation.ConversationType.PRIVATE, myTextMessage);
 //        Message myMessage = Message.obtain("98497", Conversation.ConversationType.PRIVATE, myTextMessage);

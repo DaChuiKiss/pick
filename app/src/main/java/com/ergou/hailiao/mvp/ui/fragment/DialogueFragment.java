@@ -2,6 +2,8 @@ package com.ergou.hailiao.mvp.ui.fragment;
 
 
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -109,7 +111,10 @@ public class DialogueFragment extends BaseFragment<DialogueFPerson>
 //        FragmentManager fragmentManage = getActivity().getSupportFragmentManager();
 //        ConversationListFragment fragement = (ConversationListFragment) fragmentManage.findFragmentById(R.id.conversationlist);
         mUserId = SPUtilsData.getUserId();
-        getSignIn();
+        msgMsg1 = new Message();
+        msgMsg1.what = 0;
+        mHandler1.sendMessage(msgMsg1);
+
         RongIM.setUserInfoProvider(this, true);
         ConversationListFragment fragement = new ConversationListFragment();
         Uri uri = Uri.parse("rong://" + getActivity().getApplicationInfo().packageName).buildUpon()
@@ -149,7 +154,7 @@ public class DialogueFragment extends BaseFragment<DialogueFPerson>
                 .addFormDataPart("sign", sign)
                 .addFormDataPart("cmd", cmd);
         RequestBody requestBody = build.build();
-        mPresenter.ggetInfoBean(requestBody);
+        mPresenter.getInfoBean(requestBody);
     }
 
     @Override
@@ -201,4 +206,22 @@ public class DialogueFragment extends BaseFragment<DialogueFPerson>
             return userInfo;
         }
     }
+
+    private Message msgMsg1;
+    private Handler mHandler1 = new Handler() {
+        public void handleMessage(Message msg) {
+            //
+            switch (msg.what) {
+                case 0:
+                    getSignIn();
+                    break;
+
+            }
+        }
+
+        ;
+    };
+
+
+
 }

@@ -2,17 +2,18 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
+import com.ergou.hailiao.mvp.bean.BeanBean;
+import com.ergou.hailiao.mvp.bean.HeadImgBean;
+import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
 import com.ergou.hailiao.mvp.http.RetrofitUtil;
 import com.ergou.hailiao.utils.LogUtils;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,13 +24,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class DialogueFPerson extends RxPresenter<DialogueFContract.MainView>
-        implements DialogueFContract.Presenter {
+public class SmallChangePerson extends RxPresenter<SmallChangeContract.MainView>
+        implements SmallChangeContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public DialogueFPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public SmallChangePerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -62,32 +63,27 @@ public class DialogueFPerson extends RxPresenter<DialogueFContract.MainView>
     }
 
     @Override
-    public void getInfoBean(RequestBody body) {
+    public void getSmallChangeBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getInfo(body),
-                new ResourceSubscriber<HttpResponse<RongYunInfoBean>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getAsset(body),
+                new ResourceSubscriber<HttpResponse<SmallChangeBean>>() {
                     @Override
-                    public void onNext(HttpResponse<RongYunInfoBean> response) {
-                        LogUtils.e("=========用户融云信息返回：" + response.getData().toString());
-                        try {
-                            if (response.getCode() == 200) {
-                                mView.get().getInfoTos(response.getData());
-                            } else {
-                                mView.get().showError();
-                                ApiInterface.getToastUtils(activity, response.getMsg());
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            LogUtils.e("=========用户融云信息失败：" + response.getData().toString());
-                            ApiInterface.getToastUtils(activity, "");
+                    public void onNext(HttpResponse<SmallChangeBean> response) {
+                        LogUtils.e("=========零钱返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getSmallChangeTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
                         }
-
+                        ApiInterface.disPro(activity);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================用户融云信息异常：");
+                        LogUtils.w(t.toString() + "=================零钱异常：");
                         mView.get().onError(t);
+                        ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");
                     }
 

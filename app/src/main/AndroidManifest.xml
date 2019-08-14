@@ -146,6 +146,14 @@
         <activity
             android:name=".mvp.ui.activity.ModifyHeadImgActivity"
             android:screenOrientation="portrait" />
+        <!-- 忘记支付密码——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.ForgetPaymenyPasswordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 忘记登录密码——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.ForgetLoginPasswordActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.TestDuihuaList"

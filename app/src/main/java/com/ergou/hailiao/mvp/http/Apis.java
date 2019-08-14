@@ -1,9 +1,11 @@
 package com.ergou.hailiao.mvp.http;
 
+import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
+import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
 import java.util.List;
@@ -40,13 +42,26 @@ public interface Apis {
 //  修改头像
     Flowable<HttpResponse<BeanBean>> getModifyHeadImg(@Body RequestBody Body);
 
+    @POST("get_asset")
+//  零钱
+    Flowable<HttpResponse<SmallChangeBean>> getAsset(@Body RequestBody Body);
+
+    @POST("update_pwd")
+//  修改密码
+    Flowable<HttpResponse<BeanBean>> getUpdatePwd(@Body RequestBody Body);
+
+    @POST("forget_pwd")
+//  忘记密码
+    Flowable<HttpResponse<BeanBean>> getForgetPwd(@Body RequestBody Body);
+
+    @POST("appsms")
+//  获取验证码
+    Flowable<HttpResponse<BeanBean>> getAppsms(@Body RequestBody Body);
+
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
     Flowable<HttpResponse<List<LoginBean>>> getCheckChangeDevice(@Body RequestBody Body);
 
-    @POST("login/SendChuanglanSms/")
-//  获取验证码（手机注册）
-    Flowable<HttpResponse<List<BeanBean>>> getSendChuanglanSms(@Body RequestBody Body);
 
     @POST("login/sendMail/")
 //  获取验证码（邮箱注册）

@@ -2,7 +2,10 @@ package com.ergou.hailiao.mvp.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
@@ -21,9 +24,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
-
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.MultipartBody;
@@ -34,6 +39,8 @@ import okhttp3.RequestBody;
  */
 public class ConversationActivity extends BaseActivity<ConversationPerson>
         implements ConversationContract.MainView, RongIM.UserInfoProvider {
+    @BindView(R.id.title_share)
+    TextView titleShare;
     private String title;
     /**
      * 对方id
@@ -77,6 +84,7 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         conversationType = Conversation.ConversationType.valueOf(intent.getData()
                 .getLastPathSegment().toUpperCase(Locale.US));
         title = intent.getData().getQueryParameter("title");
+        titleShare.setText(title);
         mUserId = targetId;
         getSignIn();
         RongIM.setUserInfoProvider(this, true);
@@ -198,6 +206,16 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
             mUserId = userId;
             getSignIn();
             return userInfo;
+        }
+    }
+
+
+    @OnClick({R.id.fallback})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fallback:
+                finish();
+                break;
         }
     }
 }

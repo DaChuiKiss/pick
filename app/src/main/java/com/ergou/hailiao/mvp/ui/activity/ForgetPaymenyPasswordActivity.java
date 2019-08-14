@@ -1,6 +1,6 @@
 package com.ergou.hailiao.mvp.ui.activity;
 
-import android.content.Intent;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
@@ -8,7 +8,6 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
@@ -16,15 +15,14 @@ import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.BaseActivity;
 import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
-import com.ergou.hailiao.mvp.homepresenter.ModifyPayPasswordContract;
-import com.ergou.hailiao.mvp.homepresenter.ModifyPayPasswordPerson;
+import com.ergou.hailiao.mvp.homepresenter.ForgetPayPasswordContract;
+import com.ergou.hailiao.mvp.homepresenter.ForgetPayPasswordPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
-import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,32 +33,29 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Created by LuoCY on 2019/8/10.
- * <p>
- * 修改登录密码
+ * 忘记支付密码
  */
-public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
-        implements ModifyPayPasswordContract.MainView {
+public class ForgetPaymenyPasswordActivity extends BaseActivity<ForgetPayPasswordPerson>
+        implements ForgetPayPasswordContract.MainView {
     @BindView(R.id.title_share)
     TextView titleShare;
-    @BindView(R.id.title_right_text)
-    TextView titleRightText;//忘记密码
-    @BindView(R.id.title_right_rl)
-    RelativeLayout titleRightRl;
-    @BindView(R.id.original_password)
-    EditText originalPassword;//原密码
-    @BindView(R.id.password_img_1)
-    ImageView passwordImg1;
+    @BindView(R.id.phone_number)
+    EditText phoneNumber;//号码
+    @BindView(R.id.phone_img)
+    ImageView phoneImg;
+    @BindView(R.id.code_code)
+    EditText codeCode;//验证码
+    @BindView(R.id.get_check_code)
+    TextView getCheckCode;
     @BindView(R.id.new_password)
     EditText newPassword;//新密码
     @BindView(R.id.password_img_2)
     ImageView passwordImg2;
     @BindView(R.id.new_password_determine)
-    EditText newPasswordDetermine;//确认密码
+    EditText newPasswordDetermine;//确认新密码
     @BindView(R.id.password_img_3)
     ImageView passwordImg3;
 
-    private Boolean showPassword1 = true;
     private Boolean showPassword2 = true;
     private Boolean showPassword3 = true;
 
@@ -72,30 +67,31 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
     private String timeStamp = "";
     private String device_token = "";
 
-    private String networkType = "1";//请求接口状态（(1:登录密码;2:支付密码)）
-    private String mOriginalPassword = "";//原密码
+    private String networkType = "2";//请求接口状态（(1:登录密码;2:支付密码)）
     private String mNewPassword = "";//新密码
+    private String mNewPasswordDetermine = "";//确认新密码
+    private String code_code = "";//手机验证码
+    private String mPhoneNumber = "";//手机号
 
-    private Intent intent;
+    private TimeCount timer;//验证码倒计时
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(LoginPasswordActivity.this);
+        getActivityComponent().inject(ForgetPaymenyPasswordActivity.this);
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_login_password;
+        return R.layout.activity_forget_paymeny_password;
     }
 
     @Override
     protected void initEventAndData() {
-        titleShare.setText(getResources().getText(R.string.login_password));
-        titleRightText.setText(getResources().getText(R.string.forget_password));
-        titleRightText.setVisibility(View.VISIBLE);
-        titleRightRl.setVisibility(View.VISIBLE);
-        //原密码-输入监听
-        originalPassword.addTextChangedListener(new TextWatcher() {
+        titleShare.setText(getResources().getText(R.string.modify_payment_password));
+        timer = new TimeCount(ApiInterface.getCode, ApiInterface.getCode_s);
+
+        //手机号-输入监听
+        phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -103,12 +99,11 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int i2) {
-
                 if (s == null || s.length() == 0) {
-                    passwordImg1.setVisibility(View.GONE);
+                    phoneImg.setVisibility(View.GONE);
                     return;
                 } else {
-                    passwordImg1.setVisibility(View.VISIBLE);
+                    phoneImg.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -117,7 +112,6 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
 
             }
         });
-
         //新密码-输入监听
         newPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -165,7 +159,6 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
 
             }
         });
-
     }
 
     public void getTimeStamp() {//获取服务器时间
@@ -176,7 +169,10 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
         mPresenter.getTimeStampBean(requestBody);
     }
 
-    public void getModifyPayPassword() {//修改登录密码
+    /**
+     * 获取验证码
+     */
+    public void getSentCode() {
         ApiInterface.showPro(mContext);
         device_token = ApiInterface.deviceToken(mContext);//设备号
         version = AppUtils.getAppVersionName(mContext);//版本号
@@ -188,10 +184,8 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
         map.put("client_version", version);
         map.put("device_token", device_token);//
         map.put("timestamp", timestamp);
-        map.put("mobile", SPUtilsData.getPhoneNumber());
-        map.put("type", networkType);//修改类型：1：登录密码；2支付密码
-        map.put("pwd", mOriginalPassword);//旧密码
-        map.put("new_pwd", mNewPassword);//新密码
+        map.put("mobile", mPhoneNumber);
+        map.put("type", "2");//(短信类型:1:注册;2:忘记密码)
 
         cmd = InterfaceInteraction.getCmdValue(map);
         sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
@@ -205,7 +199,39 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
                 .addFormDataPart("sign", sign)
                 .addFormDataPart("cmd", cmd);
         RequestBody requestBody = build.build();
-        mPresenter.getModifyPayPasswordBean(requestBody);
+        mPresenter.getSentCodeBean(requestBody);
+    }
+
+    public void getForgetPayPassword() {//忘记支付密码
+        ApiInterface.showPro(mContext);
+        device_token = ApiInterface.deviceToken(mContext);//设备号
+        version = AppUtils.getAppVersionName(mContext);//版本号
+        code = InterfaceInteraction.getUUID();//32位随机字符串
+        timestamp = timeStamp + "";//时间戳
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("client_type", "android");
+        map.put("client_version", version);
+        map.put("device_token", device_token);//
+        map.put("timestamp", timestamp);
+        map.put("mobile", mPhoneNumber);
+        map.put("type", networkType);//修改类型：1：登录密码；2支付密码
+        map.put("code", code_code);//手机验证码
+        map.put("new_pass", mNewPassword);//新密码
+
+        cmd = InterfaceInteraction.getCmdValue(map);
+        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
+
+        LogUtils.e("code=" + code);
+        LogUtils.e("sign=" + sign);
+        LogUtils.e("cmd=" + cmd);
+
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("code", code)
+                .addFormDataPart("sign", sign)
+                .addFormDataPart("cmd", cmd);
+        RequestBody requestBody = build.build();
+        mPresenter.getForgetPayPasswordBean(requestBody);
     }
 
     @Override
@@ -215,36 +241,31 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
 
     @Override
     public void timeShowError() {
-        getModifyPayPassword();
+        getForgetPayPassword();
     }
 
-    @OnClick({R.id.fallback, R.id.title_right_rl, R.id.password_img_1,
-            R.id.password_img_2, R.id.password_img_3, R.id.determine})
+    @OnClick({R.id.fallback, R.id.phone_img, R.id.get_check_code, R.id.password_img_2, R.id.password_img_3, R.id.determine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fallback:
                 finish();
                 break;
-            case R.id.title_right_rl://忘记密码
-                intent = new Intent();
-                intent.setClass(mContext, ForgetLoginPasswordActivity.class);
-                startActivity(intent);
-                finish();
+            case R.id.phone_img://清空手机号
+                phoneNumber.setText("");
                 break;
-            case R.id.password_img_1://原密码
-                if (showPassword1) {// 显示密码
-                    passwordImg1.setImageResource(R.drawable.password_look);
-                    originalPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    originalPassword.setSelection(originalPassword.getText().toString().length());
-                    showPassword1 = !showPassword1;
-                } else {// 隐藏密码
-                    passwordImg1.setImageResource(R.drawable.password_look_s);
-                    originalPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    originalPassword.setSelection(originalPassword.getText().toString().length());
-                    showPassword1 = !showPassword1;
+            case R.id.get_check_code://获取验证码
+                mPhoneNumber = phoneNumber.getText().toString();//手机号
+                if (StringUtils.isEmpty(mPhoneNumber)) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt3));
+                    return;
                 }
+                if (mPhoneNumber.length() < 11) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt17));
+                    return;
+                }
+                getSentCode();
                 break;
-            case R.id.password_img_2://新密码
+            case R.id.password_img_2:
                 if (showPassword2) {// 显示密码
                     passwordImg2.setImageResource(R.drawable.password_look);
                     newPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -257,7 +278,7 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
                     showPassword2 = !showPassword2;
                 }
                 break;
-            case R.id.password_img_3://确认密码
+            case R.id.password_img_3:
                 if (showPassword3) {// 显示密码
                     passwordImg3.setImageResource(R.drawable.password_look);
                     newPasswordDetermine.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -270,15 +291,25 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
                     showPassword3 = !showPassword3;
                 }
                 break;
-            case R.id.determine://确定
-                mOriginalPassword = originalPassword.getText().toString();//旧密码
+            case R.id.determine:
+                mPhoneNumber = phoneNumber.getText().toString();//手机号
+                code_code = codeCode.getText().toString();//验证码
                 mNewPassword = newPassword.getText().toString();//新密码
-                if (StringUtils.isEmpty(mOriginalPassword)) {
-                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt10));
+                mNewPasswordDetermine = newPasswordDetermine.getText().toString();//确认密码
+                if (StringUtils.isEmpty(mPhoneNumber)) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt15));
                     return;
                 }
-                if (mOriginalPassword.length() < 6) {
-                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt13));
+                if (mPhoneNumber.length() < 11) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt17));
+                    return;
+                }
+                if (StringUtils.isEmpty(code_code)) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt16));
+                    return;
+                }
+                if (code_code.length() < 6) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt18));
                     return;
                 }
                 if (StringUtils.isEmpty(mNewPassword)) {
@@ -289,15 +320,15 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
                     ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt13));
                     return;
                 }
-                if (StringUtils.isEmpty(newPasswordDetermine.getText().toString())) {
+                if (StringUtils.isEmpty(mNewPasswordDetermine)) {
                     ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt12));
                     return;
                 }
-                if (newPasswordDetermine.getText().toString().length() < 6) {
+                if (mNewPasswordDetermine.length() < 6) {
                     ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt13));
                     return;
                 }
-                if (!newPasswordDetermine.getText().toString().equals(mNewPassword)) {
+                if (!mNewPasswordDetermine.equals(mNewPassword)) {
                     ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt14));
                     return;
                 }
@@ -313,18 +344,52 @@ public class LoginPasswordActivity extends BaseActivity<ModifyPayPasswordPerson>
 
     @Override
     public void timeOnError(Throwable throwable) {
-        getModifyPayPassword();
+        getForgetPayPassword();
     }
 
     @Override
     public void getTimeStampTos(TimeStampBean timeStampBean) {
-        getModifyPayPassword();
+        getForgetPayPassword();
     }
 
     @Override
-    public void getModifyPayPasswordTos(BeanBean beanBean) {
+    public void getSentCodeTos(BeanBean beanBean) {
+        ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt19));
+        timer.start();
+    }
+
+    @Override
+    public void getForgetPayPasswordTos(BeanBean beanBean) {
         ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt8));
         finish();
+    }
+
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // TODO Auto-generated method stub
+            if (!ForgetPaymenyPasswordActivity.this.isFinishing()) {
+                getCheckCode.setClickable(false);
+                String str = (String) getResources().getText(R.string.prompt20);
+                getCheckCode.setText(millisUntilFinished / ApiInterface.getCode_s + str);
+
+            }
+        }
+
+        @Override
+        public void onFinish() {
+            // TODO Auto-generated method stub
+            if (!ForgetPaymenyPasswordActivity.this.isFinishing()) {
+                getCheckCode.setText(R.string.get_code);
+                getCheckCode.setClickable(true);
+            }
+        }
     }
 
 }

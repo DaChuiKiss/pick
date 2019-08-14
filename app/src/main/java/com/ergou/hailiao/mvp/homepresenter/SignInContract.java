@@ -3,6 +3,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
+import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
