@@ -48,6 +48,7 @@
     <string name="phone_number_s">手&amp;#160160机号码：</string>
     <string name="verification_code">验\u3000证\u3000码：</string>
     <string name="get_code">获取验证码</string>
+    <string name="group_chat">群聊号：</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>

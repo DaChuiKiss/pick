@@ -23,6 +23,7 @@ import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
+import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,6 +89,7 @@ public class ForgetPaymenyPasswordActivity extends BaseActivity<ForgetPayPasswor
     @Override
     protected void initEventAndData() {
         titleShare.setText(getResources().getText(R.string.modify_payment_password));
+        phoneNumber.setText(SPUtilsData.getPhoneNumber());
         timer = new TimeCount(ApiInterface.getCode, ApiInterface.getCode_s);
 
         //手机号-输入监听

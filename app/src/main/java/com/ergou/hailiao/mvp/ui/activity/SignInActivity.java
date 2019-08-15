@@ -254,9 +254,9 @@ public class SignInActivity extends BaseActivity<SignInPerson>
                 getTimeStamp();
                 break;
             case R.id.forget_password://忘记密码
-//                intent = new Intent();
-//                intent.setClass(mContext, ForgetPasswordActivity.class);
-//                startActivity(intent);
+                intent = new Intent();
+                intent.setClass(mContext, ForgetLoginPasswordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.register://注册账号
 //                intent = new Intent();

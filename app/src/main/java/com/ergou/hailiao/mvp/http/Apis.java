@@ -2,6 +2,7 @@ package com.ergou.hailiao.mvp.http;
 
 import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
+import com.ergou.hailiao.mvp.bean.GameBean;
 import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
@@ -60,8 +61,12 @@ public interface Apis {
     Flowable<HttpResponse<BeanBean>> getAppsms(@Body RequestBody Body);
 
     @POST("get_friends")
-//  获取验证码
+//  获取好友列表
     Flowable<HttpResponse<List<MailListBean>>> getFriends(@Body RequestBody Body);
+
+    @POST("getgroup")
+//  获取群列表
+    Flowable<HttpResponse<GameBean>> getGroup(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

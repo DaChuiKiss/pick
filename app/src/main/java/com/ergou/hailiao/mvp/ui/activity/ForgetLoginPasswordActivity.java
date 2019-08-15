@@ -23,6 +23,7 @@ import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
+import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,6 +89,14 @@ public class ForgetLoginPasswordActivity extends BaseActivity<ForgetPayPasswordP
     @Override
     protected void initEventAndData() {
         titleShare.setText(getResources().getText(R.string.forget_login_password));
+        if (StringUtils.isEmpty(SPUtilsData.getPhoneNumber())){
+            phoneNumber.setText("");
+            phoneNumber.setFocusable(true);
+        }else {
+            phoneNumber.setText(SPUtilsData.getPhoneNumber());
+            phoneNumber.setFocusable(false);
+        }
+
         timer = new TimeCount(ApiInterface.getCode, ApiInterface.getCode_s);
 
         //手机号-输入监听
