@@ -1,5 +1,6 @@
 package com.ergou.hailiao.mvp.ui.adapter;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -19,6 +20,8 @@ import com.ergou.hailiao.widget.recyclerview.multitype.ItemViewProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 /**
  * Created by LuoCY on 2019/8/14.
@@ -40,25 +43,18 @@ public class MailListAdapter extends ItemViewProvider<MailListBean,
     protected void onBindViewHolder(@NonNull final MyViewHolder holder,
                                     @NonNull final MailListBean mailListBean) {
 
-        GlideManager.loadImageView(holder.itemView.getContext(), mailListBean.getUser_header_img(),
+        GlideManager.loadCircleImageView(holder.itemView.getContext(), mailListBean.getUser_header_img(),
                 holder.head_img, R.mipmap.ic_launcher);//头像
         holder.nick_name.setText(mailListBean.getNick_name());//昵称
         holder.hailiao_number.setText(mailListBean.getUser_id());//嗨聊号
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent();
-//                intent.setClass(holder.itemView.getContext(), BillDetailsActivity.class);
-//                intent.putExtra("coinname", billBean.getMark()+"");//币种
-//                intent.putExtra("turn_type", billBean.getType()+"");////1转入，2转出
-//                intent.putExtra("arrive_num", billBean.getArrive_num()+"");//数量
-//                intent.putExtra("fee", billBean.getFee()+"");//手续费
-//                intent.putExtra("residue_asset", billBean.getResidue_asset()+"");//账户余额
-//                intent.putExtra("add_time", billBean.getAdd_time()+"");//账单时间
-//                holder.itemView.getContext().startActivity(intent);
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RongIM.getInstance().startConversation(holder.itemView.getContext(), Conversation
+                        .ConversationType.PRIVATE , mailListBean.getUser_id(), mailListBean.getNick_name());
+            }
+        });
 
     }
 

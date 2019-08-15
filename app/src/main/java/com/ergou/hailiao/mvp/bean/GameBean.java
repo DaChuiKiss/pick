@@ -24,6 +24,7 @@ public class GameBean {
         private String group_id;
         private String group_name;
         private String group_img;
+        private String type;//1:群组；2:聊天室
 
         public String getGroup_id() {
             return group_id;
@@ -47,6 +48,14 @@ public class GameBean {
 
         public void setGroup_img(String group_img) {
             this.group_img = group_img;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
     }
 }

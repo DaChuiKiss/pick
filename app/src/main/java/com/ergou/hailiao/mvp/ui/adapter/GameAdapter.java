@@ -1,5 +1,6 @@
 package com.ergou.hailiao.mvp.ui.adapter;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -13,12 +14,16 @@ import android.widget.TextView;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.mvp.bean.GameBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
+import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnItemClickListener;
 import com.ergou.hailiao.utils.glide.GlideManager;
 import com.ergou.hailiao.widget.recyclerview.multitype.ItemViewProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+import io.rong.push.RongPushClient;
 
 /**
  * Created by LuoCY on 2019/8/14.
@@ -45,20 +50,21 @@ public class GameAdapter extends ItemViewProvider<GameBean.GroupBean,
         holder.group_chat_name.setText(gameBean.getGroup_name());//群聊名
         holder.group_chat_number.setText(gameBean.getGroup_id());//群聊号
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent();
-//                intent.setClass(holder.itemView.getContext(), BillDetailsActivity.class);
-//                intent.putExtra("coinname", billBean.getMark()+"");//币种
-//                intent.putExtra("turn_type", billBean.getType()+"");////1转入，2转出
-//                intent.putExtra("arrive_num", billBean.getArrive_num()+"");//数量
-//                intent.putExtra("fee", billBean.getFee()+"");//手续费
-//                intent.putExtra("residue_asset", billBean.getResidue_asset()+"");//账户余额
-//                intent.putExtra("add_time", billBean.getAdd_time()+"");//账单时间
-//                holder.itemView.getContext().startActivity(intent);
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gameBean.getType().equals("1")) {//1:群组；2:聊天室
+//                    RongPushClient.ConversationType conversationType = RongPushClient.ConversationType.GROUP;
+                    RongIM.getInstance().startConversation(holder.itemView.getContext(), Conversation
+                            .ConversationType.GROUP, gameBean.getGroup_id(), gameBean.getGroup_name());
+                } else {//1:群组；2:聊天室
+//                    RongPushClient.ConversationType conversationType = RongPushClient.ConversationType.CHATROOM;
+                    RongIM.getInstance().startConversation(holder.itemView.getContext(), Conversation
+                            .ConversationType.CHATROOM, gameBean.getGroup_id(), gameBean.getGroup_name());
+                }
+
+            }
+        });
 
     }
 
