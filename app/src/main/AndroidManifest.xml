@@ -154,6 +154,10 @@
         <activity
             android:name=".mvp.ui.activity.ForgetLoginPasswordActivity"
             android:screenOrientation="portrait" />
+        <!-- 搜索——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.SearchMailListActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.TestDuihuaList"

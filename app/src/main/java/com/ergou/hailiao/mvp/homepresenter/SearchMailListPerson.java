@@ -4,8 +4,6 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.BeanBean;
-import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -25,13 +23,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class MailListPerson extends RxPresenter<MailListContract.MainView>
-        implements MailListContract.Presenter {
+public class SearchMailListPerson extends RxPresenter<SearchMailListContract.MainView>
+        implements SearchMailListContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public MailListPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public SearchMailListPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -64,15 +62,15 @@ public class MailListPerson extends RxPresenter<MailListContract.MainView>
     }
 
     @Override
-    public void getMailListBean(RequestBody body) {
+    public void getSearchMailListBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getFriends(body),
-                new ResourceSubscriber<HttpResponse<List<MailListBean>>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getSearchInfo(body),
+                new ResourceSubscriber<HttpResponse<List<SearchMailListBean>>>() {
                     @Override
-                    public void onNext(HttpResponse<List<MailListBean>> response) {
-                        LogUtils.e("=========好友列表返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<List<SearchMailListBean>> response) {
+                        LogUtils.e("=========搜索信息返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getMailListTos(response.getData());
+                            mView.get().getSearchMailListTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -82,7 +80,7 @@ public class MailListPerson extends RxPresenter<MailListContract.MainView>
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================好友列表异常：");
+                        LogUtils.w(t.toString() + "=================搜索信息异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");

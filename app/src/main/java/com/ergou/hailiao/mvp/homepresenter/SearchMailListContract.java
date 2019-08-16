@@ -3,8 +3,6 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
-import com.ergou.hailiao.mvp.bean.BeanBean;
-import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -17,7 +15,7 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public interface MailListContract {
+public interface SearchMailListContract {
     interface MainView extends BaseView {
         void onError(Throwable throwable);
 
@@ -25,15 +23,13 @@ public interface MailListContract {
 
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
 
-        void getMailListTos(List<MailListBean> mailListBeanList);//好友列表
-
+        void getSearchMailListTos(List<SearchMailListBean> searchMailListBean);//搜索信息
 
     }
 
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
 
-        void getMailListBean(RequestBody body);
-
+        void getSearchMailListBean(RequestBody body);
     }
 }

@@ -4,6 +4,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
 import com.ergou.hailiao.mvp.bean.GameBean;
+import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
 import java.util.List;
@@ -24,11 +25,15 @@ public interface GameContract {
 
         void getGameTos(GameBean gameBeans);//群列表
 
+        void getLunBoTos(List<LunBoBean> lunBoBeans);//轮播列表
+
     }
 
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
 
         void getGameBean(RequestBody body);
+
+        void getLunBoBean(RequestBody body);
     }
 }

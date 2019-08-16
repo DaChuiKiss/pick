@@ -1,38 +1,27 @@
-package com.ergou.hailiao.mvp.ui.fragment;
+package com.ergou.hailiao.mvp.ui.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
-import com.ergou.hailiao.base.BaseFragment;
-import com.ergou.hailiao.mvp.bean.MailListBean;
+import com.ergou.hailiao.base.BaseActivity;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
-import com.ergou.hailiao.mvp.homepresenter.MailListContract;
-import com.ergou.hailiao.mvp.homepresenter.MailListPerson;
+import com.ergou.hailiao.mvp.homepresenter.SearchMailListContract;
+import com.ergou.hailiao.mvp.homepresenter.SearchMailListPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
-import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
-import com.ergou.hailiao.mvp.ui.activity.SearchMailListActivity;
-import com.ergou.hailiao.mvp.ui.adapter.MailListAdapter;
+import com.ergou.hailiao.mvp.ui.adapter.SearchMailListAdapter;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnRcvScrollListener;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
-import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
-import com.ergou.hailiao.utils.glide.GlideManager;
 import com.ergou.hailiao.widget.recyclerview.multitype.Items;
 import com.ergou.hailiao.widget.recyclerview.multitype.MultiTypeAdapter;
 
@@ -41,21 +30,18 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.model.Conversation;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-/**
- * * 通讯录——Fragmen
- */
-public class MailListFragment extends BaseFragment<MailListPerson>
-        implements MailListContract.MainView {
+public class SearchMailListActivity extends BaseActivity<SearchMailListPerson>
+        implements SearchMailListContract.MainView {
+    @BindView(R.id.phone_id)
+    EditText phoneId;//
     @BindView(R.id.whether)
     TextView whether;
+    @BindView(R.id.title_share)
+    TextView titleShare;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
@@ -72,28 +58,21 @@ public class MailListFragment extends BaseFragment<MailListPerson>
     private MultiTypeAdapter multiTypeAdapter;
     private Items items;
     private String timeType = "1";
-
-    private Intent intent;
+    private String search_number = "";
 
     @Override
     protected void initInject() {
-        getFragmentComponent().inject(MailListFragment.this);
+        getActivityComponent().inject(SearchMailListActivity.this);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_mail_list;
+    protected int getLayout() {
+        return R.layout.activity_search_mail_list;
     }
 
     @Override
     protected void initEventAndData() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        init();
+        titleShare.setText(getResources().getText(R.string.search));
     }
 
     private void init() {
@@ -101,8 +80,8 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         items.clear();
         recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
         multiTypeAdapter = new MultiTypeAdapter(items);
-        MailListAdapter mailListAdapter = new MailListAdapter();
-        multiTypeAdapter.register(MailListBean.class, mailListAdapter);
+        SearchMailListAdapter searchMailListAdapter = new SearchMailListAdapter();
+        multiTypeAdapter.register(SearchMailListBean.class, searchMailListAdapter);
         recyclerview.setAdapter(multiTypeAdapter);
         refresh.setColorSchemeResources(R.color.colorBlue, R.color.colorBlue, R.color.colorBlue); // 设置圈圈转的颜色
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -129,7 +108,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
             public void run() {
 //                refreshBoolean = false;
                 refresh.setRefreshing(true);
-                getMailList();
+                getSearchMailList();
             }
         });
     }
@@ -141,7 +120,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         mPresenter.getTimeStampBean(requestBody);
     }
 
-    public void getMailList() {//获取通讯录列表
+    public void getSearchMailList() {//获取搜索列表
         device_token = ApiInterface.deviceToken(mContext);//设备号
         version = AppUtils.getAppVersionName(mContext);//版本号
         code = InterfaceInteraction.getUUID();//32位随机字符串
@@ -152,8 +131,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         map.put("client_version", version);
         map.put("device_token", device_token);//
         map.put("timestamp", timestamp);
-//        map.put("mobile", SPUtilsData.getPhoneNumber());
-        map.put("mobile", "186");
+        map.put("search_data", search_number);
 
         cmd = InterfaceInteraction.getCmdValue(map);
         sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
@@ -167,13 +145,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
                 .addFormDataPart("sign", sign)
                 .addFormDataPart("cmd", cmd);
         RequestBody requestBody = build.build();
-        mPresenter.getMailListBean(requestBody);
-    }
-
-
-    @Override
-    protected void lazyLoadData() {
-
+        mPresenter.getSearchMailListBean(requestBody);
     }
 
     @Override
@@ -186,7 +158,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         if (timeType.equals("1")) {//第一次进入页面获取数据
             init();
         } else {//下拉刷新、上拉加载数据
-            getMailList();
+            getSearchMailList();
         }
     }
 
@@ -200,7 +172,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         if (timeType.equals("1")) {//第一次进入页面获取数据
             init();
         } else {//下拉刷新、上拉加载数据
-            getMailList();
+            getSearchMailList();
         }
     }
 
@@ -209,30 +181,36 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         if (timeType.equals("1")) {//第一次进入页面获取数据
             init();
         } else {//下拉刷新、上拉加载数据
-            getMailList();
+            getSearchMailList();
         }
     }
 
     @Override
-    public void getMailListTos(List<MailListBean> mailListBeanList) {
+    public void getSearchMailListTos(List<SearchMailListBean> searchMailListBean) {
         refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
         items.clear();
-        if (mailListBeanList.size() != 0) {
+        if (searchMailListBean.size() != 0) {
             whether.setVisibility(View.GONE);
-            items.addAll(mailListBeanList);
+            items.addAll(searchMailListBean);
             multiTypeAdapter.notifyDataSetChanged();
         } else {
             whether.setVisibility(View.VISIBLE);
         }
     }
 
-    @OnClick({R.id.phone_id})
+    @OnClick({R.id.fallback, R.id.search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.phone_id://搜索
-                intent = new Intent();
-                intent.setClass(mContext, SearchMailListActivity.class);
-                startActivity(intent);
+            case R.id.fallback:
+                finish();
+                break;
+            case R.id.search:
+                search_number = phoneId.getText().toString();
+                if (StringUtils.isEmpty(search_number)) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt22));
+                    return;
+                }
+                init();
                 break;
         }
     }

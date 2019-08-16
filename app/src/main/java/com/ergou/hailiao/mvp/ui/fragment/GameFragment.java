@@ -10,18 +10,22 @@ import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.BaseFragment;
 import com.ergou.hailiao.mvp.bean.GameBean;
+import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.GameContract;
 import com.ergou.hailiao.mvp.homepresenter.GamePerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.ui.adapter.GameAdapter;
+import com.ergou.hailiao.mvp.ui.adapter.PictureCarouselLoopAdapter;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnRcvScrollListener;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.widget.recyclerview.multitype.Items;
 import com.ergou.hailiao.widget.recyclerview.multitype.MultiTypeAdapter;
+import com.jude.rollviewpager.RollPagerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +39,8 @@ import okhttp3.RequestBody;
  */
 public class GameFragment extends BaseFragment<GamePerson>
         implements GameContract.MainView {
+    @BindView(R.id.rollPagerView)
+    RollPagerView rollPagerView;
     @BindView(R.id.whether)
     TextView whether;
     @BindView(R.id.recyclerview)
@@ -53,6 +59,9 @@ public class GameFragment extends BaseFragment<GamePerson>
     private MultiTypeAdapter multiTypeAdapter;
     private Items items;
     private String timeType = "1";
+    private String[] imgs;
+    private List<String> imgDate = new ArrayList<>();//广告
+    private List<LunBoBean> lunBoBeanList = new ArrayList<>();
 
     @Override
     protected void initInject() {
@@ -107,8 +116,9 @@ public class GameFragment extends BaseFragment<GamePerson>
             @Override
             public void run() {
 //                refreshBoolean = false;
-                refresh.setRefreshing(true);
-                getGame();
+//                refresh.setRefreshing(true);
+                getTimeStamp();
+                getLunBo();
             }
         });
     }
@@ -147,6 +157,33 @@ public class GameFragment extends BaseFragment<GamePerson>
         mPresenter.getGameBean(requestBody);
     }
 
+    public void getLunBo() {//获取广告列表
+        device_token = ApiInterface.deviceToken(mContext);//设备号
+        version = AppUtils.getAppVersionName(mContext);//版本号
+        code = InterfaceInteraction.getUUID();//32位随机字符串
+        timestamp = timeStamp + "";//时间戳
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("client_type", "android");
+        map.put("client_version", version);
+        map.put("device_token", device_token);//
+        map.put("timestamp", timestamp);
+
+        cmd = InterfaceInteraction.getCmdValue(map);
+        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
+
+        LogUtils.e("code=" + code);
+        LogUtils.e("sign=" + sign);
+        LogUtils.e("cmd=" + cmd);
+
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("code", code)
+                .addFormDataPart("sign", sign)
+                .addFormDataPart("cmd", cmd);
+        RequestBody requestBody = build.build();
+        mPresenter.getLunBoBean(requestBody);
+    }
+
     @Override
     protected void lazyLoadData() {
 
@@ -159,11 +196,7 @@ public class GameFragment extends BaseFragment<GamePerson>
 
     @Override
     public void timeShowError() {
-        if (timeType.equals("1")) {//第一次进入页面获取数据
-            init();
-        } else {//下拉刷新、上拉加载数据
-            getGame();
-        }
+        getGame();
     }
 
     @Override
@@ -173,20 +206,12 @@ public class GameFragment extends BaseFragment<GamePerson>
 
     @Override
     public void timeOnError(Throwable throwable) {
-        if (timeType.equals("1")) {//第一次进入页面获取数据
-            init();
-        } else {//下拉刷新、上拉加载数据
-            getGame();
-        }
+        getGame();
     }
 
     @Override
     public void getTimeStampTos(TimeStampBean timeStampBean) {
-        if (timeType.equals("1")) {//第一次进入页面获取数据
-            init();
-        } else {//下拉刷新、上拉加载数据
-            getGame();
-        }
+        getGame();
     }
 
     @Override
@@ -199,6 +224,25 @@ public class GameFragment extends BaseFragment<GamePerson>
             multiTypeAdapter.notifyDataSetChanged();
         } else {
             whether.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void getLunBoTos(List<LunBoBean> lunBoBeans) {
+        imgDate.clear();
+        lunBoBeanList.clear();
+        if (lunBoBeans.size() != 0) {
+            lunBoBeanList.addAll(lunBoBeans);
+            for (int i = 0; i < lunBoBeanList.size(); i++) {
+                imgDate.add(lunBoBeanList.get(i).getImages());
+            }
+        }
+        if (imgDate.size() != 0) {
+            imgs = imgDate.toArray(new String[imgDate.size()]);
+        }
+        if (imgs.length != 0) {
+            rollPagerView.setPlayDelay(3000);
+            rollPagerView.setAdapter(new PictureCarouselLoopAdapter(rollPagerView, imgs, getActivity()));
         }
     }
 }

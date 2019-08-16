@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
 import com.ergou.hailiao.mvp.bean.GameBean;
+import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
@@ -80,6 +81,38 @@ public class GamePerson extends RxPresenter<GameContract.MainView>
                     @Override
                     public void onError(Throwable t) {
                         LogUtils.w(t.toString() + "=================群列表异常：");
+                        mView.get().onError(t);
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
+    @Override
+    public void getLunBoBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getLunBo(body),
+                new ResourceSubscriber<HttpResponse<List<LunBoBean>>>() {
+                    @Override
+                    public void onNext(HttpResponse<List<LunBoBean>> response) {
+                        LogUtils.e("=========轮播列表返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getLunBoTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================轮播列表异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");

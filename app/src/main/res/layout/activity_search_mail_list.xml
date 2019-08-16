@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".mvp.ui.activity.SearchMailListActivity">
 
-    <TextView
-        android:id="@+id/title"
+    <!--
+
+    支付密码
+
+    -->
+
+    <include
+        layout="@layout/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorText4295D5"
-        android:gravity="center"
-        android:paddingTop="@dimen/dp_5"
-        android:paddingBottom="@dimen/dp_15"
-        android:text="@string/mail_list"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/sp_18" />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/search_rl"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_below="@+id/title">
+        android:layout_height="@dimen/dp_45">
 
         <!--   手机/ID   -->
         <EditText
@@ -29,13 +30,11 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_5"
             android:layout_toLeftOf="@+id/search"
             android:background="@drawable/corners5_lines_while"
             android:cursorVisible="true"
-            android:focusable="false"
-            android:gravity="center"
+            android:gravity="center|left"
             android:hint="@string/prompt22"
             android:inputType="numberDecimal"
             android:maxLength="11"
@@ -56,15 +55,13 @@
             android:gravity="center"
             android:text="@string/search"
             android:textColor="@color/colorText_1A1A1A"
-            android:textSize="@dimen/sp_16"
-            android:visibility="gone" />
+            android:textSize="@dimen/sp_16" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search_rl">
+        android:layout_height="wrap_content">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh"
@@ -90,4 +87,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

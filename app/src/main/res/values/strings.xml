@@ -49,6 +49,7 @@
     <string name="verification_code">验\u3000证\u3000码：</string>
     <string name="get_code">获取验证码</string>
     <string name="group_chat">群聊号：</string>
+    <string name="search">搜索</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
@@ -72,6 +73,7 @@
     <string name="prompt19">验证码已发送</string>
     <string name="prompt20">秒后重试</string>
     <string name="prompt21">暂无好友</string>
+    <string name="prompt22">请输入手机号或用户ID</string>
 
 
 </resources>

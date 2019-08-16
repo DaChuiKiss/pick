@@ -5,8 +5,10 @@ import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.GameBean;
 import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
+import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
+import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
@@ -67,6 +69,14 @@ public interface Apis {
     @POST("getgroup")
 //  获取群列表
     Flowable<HttpResponse<GameBean>> getGroup(@Body RequestBody Body);
+
+    @POST("search_info")
+//  获取搜索信息
+    Flowable<HttpResponse<List<SearchMailListBean>>> getSearchInfo(@Body RequestBody Body);
+
+    @POST("lunbo")
+//  获取轮播信息
+    Flowable<HttpResponse<List<LunBoBean>>> getLunBo(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

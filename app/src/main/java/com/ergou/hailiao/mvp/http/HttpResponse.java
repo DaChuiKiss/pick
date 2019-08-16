@@ -10,7 +10,7 @@ public class HttpResponse<T> {
 
     /**
      * code : 200
-     * msg : ["成功","成功","success"]
+     * msg :
      * data : {"server_time":"1525275215"}
      */
 

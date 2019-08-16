@@ -121,4 +121,7 @@ dependencies {
     api project(path: ':IMLib')
     api project(path: ':IMKit')
 
+    //图片轮播
+    implementation 'com.jude:rollviewpager:1.4.6'
+
 }
