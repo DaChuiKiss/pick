@@ -60,7 +60,6 @@ public class RechargeRecordActivity extends BaseActivity<RechargeRecordPerson>
 
     private MultiTypeAdapter multiTypeAdapter;
     private Items items;
-    private String timeType = "1";
 
     @Override
     protected void initInject() {

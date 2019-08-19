@@ -3,6 +3,8 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
+import com.ergou.hailiao.mvp.bean.BankInformationBean;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
@@ -22,7 +24,11 @@ public interface CashWithdrawlContract {
 
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
 
-        void getMailListTos(List<MailListBean> mailListBeanList);//好友列表
+        void getBankInformationTos(BankInformationBean bankInformationBean);//银行信息
+
+        void getModifyBankInformationTos(BankInformationBean bankInformationBean);//修改、保存银行信息
+
+        void getWithdrawalTos(BeanBean beanBean);//申请提现
 
 
     }
@@ -30,7 +36,11 @@ public interface CashWithdrawlContract {
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
 
-        void getMailListBean(RequestBody body);
+        void getBankInformationBean(RequestBody body);
+
+        void getModifyBankInformationBean(RequestBody body);
+
+        void getWithdrawalBean(RequestBody body);
 
     }
 }

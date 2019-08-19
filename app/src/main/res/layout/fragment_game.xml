@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
 
 
     <TextView
@@ -20,14 +21,14 @@
     <RelativeLayout
         android:id="@+id/lunbo"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="225dp"
         android:layout_below="@+id/title">
 
         <com.jude.rollviewpager.RollPagerView
             android:id="@+id/rollPagerView"
             rollviewpager_play_delay="3000"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp_200"
             app:rollviewpager_hint_paddingBottom="@dimen/dp_10" />
 
         <RelativeLayout
@@ -35,7 +36,7 @@
             android:layout_height="@dimen/dp_30"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_65"
             android:background="@drawable/backpround_corners40_while">
 
             <TextView
@@ -57,12 +58,51 @@
                 android:background="@drawable/youjiantou" />
 
         </RelativeLayout>
+
+        <!--公告-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/backpround_corners5_while"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
+
+            <ImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_home_adver_trumpet" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_7"
+                android:layout_marginBottom="@dimen/dp_7"
+                android:background="@color/colorLine" />
+
+            <com.ergou.hailiao.view.XMarqueeView
+                android:id="@+id/marquee1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                app:isSetAnimDuration="true"
+                app:isSingleLine="true" />
+        </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lunbo">
+        android:layout_below="@+id/lunbo"
+        android:layout_marginTop="@dimen/dp_10">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh"

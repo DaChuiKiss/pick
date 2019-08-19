@@ -1,18 +1,23 @@
 package com.ergou.hailiao.mvp.http;
 
 import com.ergou.hailiao.mvp.bean.AppkeyBean;
+import com.ergou.hailiao.mvp.bean.BankInformationBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
+import com.ergou.hailiao.mvp.bean.CashWithdrawalRecordBean;
 import com.ergou.hailiao.mvp.bean.GameBean;
+import com.ergou.hailiao.mvp.bean.GameMarqueelBean;
 import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.RechargeBean;
 import com.ergou.hailiao.mvp.bean.RechargeRecordBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
+import com.ergou.hailiao.mvp.bean.TransferAccountsRecordBean;
 import com.ergou.hailiao.mvp.homepresenter.RechargeContract;
 
 import java.util.List;
@@ -81,6 +86,10 @@ public interface Apis {
 //  获取轮播信息
     Flowable<HttpResponse<List<LunBoBean>>> getLunBo(@Body RequestBody Body);
 
+    @POST("guangbo")
+//  获取消息轮播
+    Flowable<HttpResponse<List<GameMarqueelBean>>> getGuangBo(@Body RequestBody Body);
+
     @POST("chongzhi")
 //  获取充值列表
     Flowable<HttpResponse<List<RechargeRecordBean>>> getChongzhi(@Body RequestBody Body);
@@ -88,6 +97,30 @@ public interface Apis {
     @POST("jinerpeizhi")
 //  获取可充值列表
     Flowable<HttpResponse<List<RechargeBean>>> getJinerpeizhi(@Body RequestBody Body);
+
+    @POST("get_bank")
+//  获取银行信息
+    Flowable<HttpResponse<BankInformationBean>> getBank(@Body RequestBody Body);
+
+    @POST("bank")
+//  修改、保存银行信息
+    Flowable<HttpResponse<BankInformationBean>> getModifyBank(@Body RequestBody Body);
+
+    @POST("apply")
+//  申请提现
+    Flowable<HttpResponse<BeanBean>> getWithdrawal(@Body RequestBody Body);
+
+    @POST("tixian")
+//  提现记录
+    Flowable<HttpResponse<List<CashWithdrawalRecordBean>>> getTiXian(@Body RequestBody Body);
+
+    @POST("zhuanzhang")
+//  转账记录
+    Flowable<HttpResponse<List<TransferAccountsRecordBean>>> getZhuanZhang(@Body RequestBody Body);
+
+    @POST("hongbao")
+//  红包记录
+    Flowable<HttpResponse<List<RedEnvelopesRecordBean>>> getHongBao(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

@@ -48,6 +48,7 @@ public class SmallChangeActivity extends BaseActivity<SmallChangePerson>
     private String device_token = "";
 
     private Intent intent;
+    private SmallChangeBean smallCBean = new SmallChangeBean();
 
     @Override
     protected void initInject() {
@@ -135,6 +136,7 @@ public class SmallChangeActivity extends BaseActivity<SmallChangePerson>
             case R.id.cash_withdrawal://提现
                 intent = new Intent();
                 intent.setClass(mContext, CashWithdrawalActivity.class);
+                intent.putExtra("asset", smallCBean.getAsset());//余额
                 startActivity(intent);
                 break;
             case R.id.recharge_record_rl://充值记录
@@ -143,10 +145,19 @@ public class SmallChangeActivity extends BaseActivity<SmallChangePerson>
                 startActivity(intent);
                 break;
             case R.id.transfer_accounts_record_rl://转账记录
+                intent = new Intent();
+                intent.setClass(mContext, TransferAccountsRecordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.cash_withdrawal_record_rl://提现记录
+                intent = new Intent();
+                intent.setClass(mContext, CashWithdrawalRecordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.red_envelopes_record_rl://红包记录
+                intent = new Intent();
+                intent.setClass(mContext, RedEnvelopesRecordActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -168,6 +179,7 @@ public class SmallChangeActivity extends BaseActivity<SmallChangePerson>
 
     @Override
     public void getSmallChangeTos(SmallChangeBean smallChangeBean) {
-        smallChange.setText(smallChangeBean.getAsset());//零钱
+        smallCBean = smallChangeBean;
+        smallChange.setText(smallCBean.getAsset());//零钱
     }
 }

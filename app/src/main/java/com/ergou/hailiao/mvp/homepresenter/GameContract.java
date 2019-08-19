@@ -4,6 +4,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
 import com.ergou.hailiao.mvp.bean.GameBean;
+import com.ergou.hailiao.mvp.bean.GameMarqueelBean;
 import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
@@ -27,6 +28,8 @@ public interface GameContract {
 
         void getLunBoTos(List<LunBoBean> lunBoBeans);//轮播列表
 
+        void getGameMarqueelTos(List<GameMarqueelBean> gameMarqueelBeans);//消息轮播列表
+
     }
 
     interface Presenter extends BasePresenter<MainView> {
@@ -35,5 +38,7 @@ public interface GameContract {
         void getGameBean(RequestBody body);
 
         void getLunBoBean(RequestBody body);
+
+        void getGameMarqueelBean(RequestBody body);
     }
 }

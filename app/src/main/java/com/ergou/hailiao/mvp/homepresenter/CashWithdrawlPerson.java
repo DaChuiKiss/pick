@@ -4,6 +4,8 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
+import com.ergou.hailiao.mvp.bean.BankInformationBean;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
@@ -22,8 +24,8 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class CashWithdrawlPerson extends RxPresenter<MailListContract.MainView>
-        implements MailListContract.Presenter {
+public class CashWithdrawlPerson extends RxPresenter<CashWithdrawlContract.MainView>
+        implements CashWithdrawlContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
@@ -60,15 +62,15 @@ public class CashWithdrawlPerson extends RxPresenter<MailListContract.MainView>
     }
 
     @Override
-    public void getMailListBean(RequestBody body) {
+    public void getBankInformationBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getFriends(body),
-                new ResourceSubscriber<HttpResponse<List<MailListBean>>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getBank(body),
+                new ResourceSubscriber<HttpResponse<BankInformationBean>>() {
                     @Override
-                    public void onNext(HttpResponse<List<MailListBean>> response) {
-                        LogUtils.e("=========好友列表返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<BankInformationBean> response) {
+                        LogUtils.e("=========银行信息返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getMailListTos(response.getData());
+                            mView.get().getBankInformationTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -78,7 +80,71 @@ public class CashWithdrawlPerson extends RxPresenter<MailListContract.MainView>
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================好友列表异常：");
+                        LogUtils.w(t.toString() + "=================银行信息异常：");
+                        mView.get().onError(t);
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
+    @Override
+    public void getModifyBankInformationBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getModifyBank(body),
+                new ResourceSubscriber<HttpResponse<BankInformationBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<BankInformationBean> response) {
+                        LogUtils.e("=========保存、修改银行信息返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getModifyBankInformationTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================保存、修改银行信息异常：");
+                        mView.get().onError(t);
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
+    @Override
+    public void getWithdrawalBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getWithdrawal(body),
+                new ResourceSubscriber<HttpResponse<BeanBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<BeanBean> response) {
+                        LogUtils.e("=========申请提现：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getWithdrawalTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================申请提现：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");

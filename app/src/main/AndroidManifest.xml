@@ -166,9 +166,29 @@
         <activity
             android:name=".mvp.ui.activity.CashWithdrawalActivity"
             android:screenOrientation="portrait" />
+        <!-- 提现记录——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.CashWithdrawalRecordActivity"
+            android:screenOrientation="portrait" />
         <!-- 充值记录——Activity -->
         <activity
             android:name=".mvp.ui.activity.RechargeRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 充值记录详情——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.RechargeRecordDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 转账记录——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.TransferAccountsRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 转账记录详情——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.TransferAccountsRecordDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 红包记录——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.RedEnvelopesRecordActivity"
             android:screenOrientation="portrait" />
 
         <activity

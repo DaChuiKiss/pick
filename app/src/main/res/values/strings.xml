@@ -55,6 +55,31 @@
     <string name="voucher_center">充值中心</string>
     <string name="line_recharge">线下充值</string>
     <string name="recharge_money">充值金额：</string>
+    <string name="bank_card_number">银行卡号：</string>
+    <string name="real_name_s">真实姓名：</string>
+    <string name="opening_bank">开户银行：</string>
+    <string name="phone_number_ss">手机号码：</string>
+    <string name="save_information">保存信息</string>
+    <string name="modify_information">修改信息</string>
+    <string name="exchange_amount">兑换数额：</string>
+    <string name="confirmation_withdrawal">确认提现</string>
+    <string name="available_balance">可用余额</string>
+    <string name="bank_card_withdrawal">银行卡提现</string>
+    <string name="cash_withdrawal_money">提现金额：</string>
+    <string name="recharge_time">充值时间：</string>
+    <string name="recharge_mode">充值方式：</string>
+    <string name="recharge_type">充值状态：</string>
+    <string name="remarks">备\u3000\u3000注：</string>
+    <string name="recharge_record_details">充值记录详情</string>
+    <string name="transfer_accounts_record_details">转账记录详情</string>
+    <string name="transfer_accounts_number">转账金额：</string>
+    <string name="transfer_accounts_time">转账时间：</string>
+    <string name="transfer_accounts_id">转账账号：</string>
+    <string name="transfer_accounts_type">转账状态：</string>
+    <string name="red_envelopes_type">红包金额：</string>
+    <string name="number_money">金额：</string>
+    <string name="number_money_s">金\u3000\u3000额：</string>
+    <string name="number_money_id">账\u3000\u3000号：</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
@@ -80,6 +105,14 @@
     <string name="prompt21">暂无好友</string>
     <string name="prompt22">请输入手机号或用户ID</string>
     <string name="prompt23">充值到账会有延迟，请稍后查询。</string>
+    <string name="prompt24">请输入正确的卡号</string>
+    <string name="prompt25">请输入开户人姓名</string>
+    <string name="prompt26">请输入开户银行</string>
+    <string name="prompt27">请输入符合要求的数额</string>
+    <string name="prompt28">请先保存银行卡信息</string>
+    <string name="prompt29">，最低100起提且为100的倍数</string>
+    <string name="prompt30">提现时间每日：9:30-19:00</string>
+    <string name="prompt31">暂无记录</string>
 
 
 </resources>

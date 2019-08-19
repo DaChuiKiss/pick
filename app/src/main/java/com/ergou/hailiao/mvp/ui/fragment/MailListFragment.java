@@ -87,13 +87,17 @@ public class MailListFragment extends BaseFragment<MailListPerson>
 
     @Override
     protected void initEventAndData() {
-
+        init();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        init();
+    public void onHiddenChanged(boolean hidden) {//判断在不在此页面
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //结束
+        } else {
+            init();
+        }
     }
 
     private void init() {

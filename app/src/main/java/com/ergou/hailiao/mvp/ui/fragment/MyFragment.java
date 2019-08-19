@@ -52,16 +52,23 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initEventAndData() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         GlideManager.loadImageView(mContext, SPUtilsData.getUserHeaderImg(),
                 headImg, R.mipmap.ic_launcher);//头像
         nickname.setText(SPUtilsData.getNickName());
         haiLiaoNumber.setText(SPUtilsData.getUserId());
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {//判断在不在此页面
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //结束
+        } else {
+            GlideManager.loadImageView(mContext, SPUtilsData.getUserHeaderImg(),
+                    headImg, R.mipmap.ic_launcher);//头像
+            nickname.setText(SPUtilsData.getNickName());
+            haiLiaoNumber.setText(SPUtilsData.getUserId());
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.ergou.hailiao.mvp.ui.fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.BaseFragment;
 import com.ergou.hailiao.mvp.bean.GameBean;
+import com.ergou.hailiao.mvp.bean.GameMarqueelBean;
 import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.GameContract;
@@ -21,6 +23,8 @@ import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnRcvScrollListener;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.view.XMarqueeView;
+import com.ergou.hailiao.view.XMarqueeViewAdapter;
 import com.ergou.hailiao.widget.recyclerview.multitype.Items;
 import com.ergou.hailiao.widget.recyclerview.multitype.MultiTypeAdapter;
 import com.jude.rollviewpager.RollPagerView;
@@ -47,6 +51,8 @@ public class GameFragment extends BaseFragment<GamePerson>
     RecyclerView recyclerview;
     @BindView(R.id.refresh)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.marquee1)
+    XMarqueeView mMarquee1;
 
     private String sign;
     private String cmd;
@@ -62,6 +68,7 @@ public class GameFragment extends BaseFragment<GamePerson>
     private String[] imgs;
     private List<String> imgDate = new ArrayList<>();//广告
     private List<LunBoBean> lunBoBeanList = new ArrayList<>();
+    private List<GameMarqueelBean> gameMarqueelBeanList = new ArrayList<>();
 
     @Override
     protected void initInject() {
@@ -75,13 +82,17 @@ public class GameFragment extends BaseFragment<GamePerson>
 
     @Override
     protected void initEventAndData() {
-
+        init();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        init();
+    public void onHiddenChanged(boolean hidden) {//判断在不在此页面
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //结束
+        } else {
+            init();
+        }
     }
 
     private void init() {
@@ -119,6 +130,7 @@ public class GameFragment extends BaseFragment<GamePerson>
 //                refresh.setRefreshing(true);
                 getTimeStamp();
                 getLunBo();
+                getGameMarqueel();
             }
         });
     }
@@ -184,6 +196,34 @@ public class GameFragment extends BaseFragment<GamePerson>
         mPresenter.getLunBoBean(requestBody);
     }
 
+
+    public void getGameMarqueel() {//获取消息列表
+        device_token = ApiInterface.deviceToken(mContext);//设备号
+        version = AppUtils.getAppVersionName(mContext);//版本号
+        code = InterfaceInteraction.getUUID();//32位随机字符串
+        timestamp = timeStamp + "";//时间戳
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("client_type", "android");
+        map.put("client_version", version);
+        map.put("device_token", device_token);//
+        map.put("timestamp", timestamp);
+
+        cmd = InterfaceInteraction.getCmdValue(map);
+        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
+
+        LogUtils.e("code=" + code);
+        LogUtils.e("sign=" + sign);
+        LogUtils.e("cmd=" + cmd);
+
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("code", code)
+                .addFormDataPart("sign", sign)
+                .addFormDataPart("cmd", cmd);
+        RequestBody requestBody = build.build();
+        mPresenter.getGameMarqueelBean(requestBody);
+    }
+
     @Override
     protected void lazyLoadData() {
 
@@ -245,4 +285,41 @@ public class GameFragment extends BaseFragment<GamePerson>
             rollPagerView.setAdapter(new PictureCarouselLoopAdapter(rollPagerView, imgs, getActivity()));
         }
     }
+
+    @Override
+    public void getGameMarqueelTos(List<GameMarqueelBean> gameMarqueelBeans) {
+        gameMarqueelBeanList.clear();
+        if (gameMarqueelBeans.size() > 0) {//滚动广告条
+            gameMarqueelBeanList.addAll(gameMarqueelBeans);
+            XmarQueeAdapter xmarQueeAdapter = new XmarQueeAdapter(gameMarqueelBeanList);
+            mMarquee1.setAdapter(xmarQueeAdapter);
+            xmarQueeAdapter.notifyDataChanged();
+        }
+    }
+
+    /**
+     * 公告轮播Adapter
+     */
+    class XmarQueeAdapter extends XMarqueeViewAdapter<GameMarqueelBean> {
+        private List<GameMarqueelBean> gameMBeanList = new ArrayList<>();
+
+        public XmarQueeAdapter(List<GameMarqueelBean> listString) {
+            super(listString);
+            this.gameMBeanList = listString;
+        }
+
+
+        @Override
+        public View onCreateView(XMarqueeView parent) {
+            return LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game_marqueel, null);
+        }
+
+        @Override
+        public void onBindView(View parent, View view, int position) {
+            TextView notice = view.findViewById(R.id.tvNotice);
+            GameMarqueelBean gameMarqueelBean = gameMBeanList.get(position);
+            notice.setText(gameMarqueelBean.getMessage());
+        }
+    }
+
 }

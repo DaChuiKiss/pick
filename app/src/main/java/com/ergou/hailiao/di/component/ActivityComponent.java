@@ -5,6 +5,8 @@ import android.app.Activity;
 
 import com.ergou.hailiao.di.ActivityScope;
 import com.ergou.hailiao.di.module.ActivityMoudle;
+import com.ergou.hailiao.mvp.ui.activity.CashWithdrawalActivity;
+import com.ergou.hailiao.mvp.ui.activity.CashWithdrawalRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.activity.ForgetLoginPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.ForgetPaymenyPasswordActivity;
@@ -16,9 +18,11 @@ import com.ergou.hailiao.mvp.ui.activity.PaymenyPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.activity.RechargeActivity;
 import com.ergou.hailiao.mvp.ui.activity.RechargeRecordActivity;
+import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.SearchMailListActivity;
 import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 import com.ergou.hailiao.mvp.ui.activity.SmallChangeActivity;
+import com.ergou.hailiao.mvp.ui.activity.TransferAccountsRecordActivity;
 
 import dagger.Component;
 
@@ -55,6 +59,14 @@ public interface ActivityComponent {
     void inject(RechargeRecordActivity rechargeRecordActivity);//充值记录
 
     void inject(RechargeActivity rechargeActivity);//可充值列表
+
+    void inject(CashWithdrawalActivity cashWithdrawalActivity);//银行卡提现
+
+    void inject(CashWithdrawalRecordActivity cashWithdrawalRecordActivity);//提现记录
+
+    void inject(TransferAccountsRecordActivity transferAccountsRecordActivity);//转账记录
+
+    void inject(RedEnvelopesRecordActivity redEnvelopesRecordActivity);//红包记录
 
 
 }

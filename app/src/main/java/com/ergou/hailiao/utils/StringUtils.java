@@ -1,5 +1,7 @@
 package com.ergou.hailiao.utils;
 
+import android.content.Context;
+
 /**
  * <pre>
  *     author: Blankj
@@ -176,6 +178,12 @@ public class StringUtils {
             }
         }
         return new String(chars);
+    }
+
+    // 将px值转换为sp值
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 
 }

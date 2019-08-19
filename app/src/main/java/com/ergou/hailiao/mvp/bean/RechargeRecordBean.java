@@ -1,9 +1,11 @@
 package com.ergou.hailiao.mvp.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by LuoCY on 2019/8/16.
  */
-public class RechargeRecordBean {
+public class RechargeRecordBean implements Serializable {
 
     /**
      * top_up_amount : 1000.00
