@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initEventAndData() {
         manager = getSupportFragmentManager();
-        selectedtab(1);
+        selectedtab(3);
     }
 
 

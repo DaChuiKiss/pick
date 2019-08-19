@@ -158,6 +158,18 @@
         <activity
             android:name=".mvp.ui.activity.SearchMailListActivity"
             android:screenOrientation="portrait" />
+        <!-- 充值中心——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.RechargeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 提现——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.CashWithdrawalActivity"
+            android:screenOrientation="portrait" />
+        <!-- 充值记录——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.RechargeRecordActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.TestDuihuaList"

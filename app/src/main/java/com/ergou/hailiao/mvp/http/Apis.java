@@ -7,10 +7,13 @@ import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
+import com.ergou.hailiao.mvp.bean.RechargeBean;
+import com.ergou.hailiao.mvp.bean.RechargeRecordBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
+import com.ergou.hailiao.mvp.homepresenter.RechargeContract;
 
 import java.util.List;
 
@@ -77,6 +80,14 @@ public interface Apis {
     @POST("lunbo")
 //  获取轮播信息
     Flowable<HttpResponse<List<LunBoBean>>> getLunBo(@Body RequestBody Body);
+
+    @POST("chongzhi")
+//  获取充值列表
+    Flowable<HttpResponse<List<RechargeRecordBean>>> getChongzhi(@Body RequestBody Body);
+
+    @POST("jinerpeizhi")
+//  获取可充值列表
+    Flowable<HttpResponse<List<RechargeBean>>> getJinerpeizhi(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

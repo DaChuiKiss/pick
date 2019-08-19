@@ -36,6 +36,7 @@
     <string name="cancel">取消</string>
     <string name="my_small_change">我的零钱</string>
     <string name="cny">¥</string>
+    <string name="cny_ch">元</string>
     <string name="recharge">充值</string>
     <string name="cash_withdrawal">提现</string>
     <string name="recharge_record">充值记录</string>
@@ -50,6 +51,10 @@
     <string name="get_code">获取验证码</string>
     <string name="group_chat">群聊号：</string>
     <string name="search">搜索</string>
+    <string name="immediate_recharge">立即充值</string>
+    <string name="voucher_center">充值中心</string>
+    <string name="line_recharge">线下充值</string>
+    <string name="recharge_money">充值金额：</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
@@ -59,7 +64,7 @@
     <string name="prompt5">网络错误!</string>
     <string name="prompt6">手机号不能为空！</string>
     <string name="prompt7">密码不能为空！</string>
-    <string name="prompt8">成功！</string>
+    <string name="prompt8">操作成功</string>
     <string name="prompt9">请输入昵称！</string>
     <string name="prompt10">请输入原密码</string>
     <string name="prompt11">请输入新密码</string>
@@ -74,6 +79,7 @@
     <string name="prompt20">秒后重试</string>
     <string name="prompt21">暂无好友</string>
     <string name="prompt22">请输入手机号或用户ID</string>
+    <string name="prompt23">充值到账会有延迟，请稍后查询。</string>
 
 
 </resources>

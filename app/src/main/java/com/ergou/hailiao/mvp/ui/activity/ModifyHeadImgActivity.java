@@ -77,6 +77,7 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
     @Override
     protected void onResume() {
         super.onResume();
+        networkType = "1";
         getTimeStamp();
     }
 
@@ -89,7 +90,6 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
     }
 
     public void getHeadImg() {//获取头像列表
-        networkType = "1";
         ApiInterface.showPro(mContext);
         device_token = ApiInterface.deviceToken(mContext);//设备号
         version = AppUtils.getAppVersionName(mContext);//版本号
@@ -119,7 +119,6 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
 
     public void getModifyHeadImg() {//修改头像
         ApiInterface.showPro(mContext);
-        networkType = "1";
         device_token = ApiInterface.deviceToken(mContext);//设备号
         version = AppUtils.getAppVersionName(mContext);//版本号
         code = InterfaceInteraction.getUUID();//32位随机字符串
@@ -158,6 +157,8 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
     public void timeShowError() {
         if (networkType.equals("1")) {
             getHeadImg();
+        } else {
+            getModifyHeadImg();
         }
     }
 
@@ -169,6 +170,8 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
     public void timeOnError(Throwable throwable) {
         if (networkType.equals("1")) {
             getHeadImg();
+        } else {
+            getModifyHeadImg();
         }
     }
 
@@ -176,6 +179,8 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
     public void getTimeStampTos(TimeStampBean timeStampBean) {
         if (networkType.equals("1")) {
             getHeadImg();
+        } else {
+            getModifyHeadImg();
         }
     }
 
@@ -192,7 +197,8 @@ public class ModifyHeadImgActivity extends BaseActivity<ModifyHeadImPerson>
                 @Override
                 public void onItemClick(String url) {
                     portrait = url;
-                    getModifyHeadImg();
+                    networkType = "2";
+                    getTimeStamp();
                 }
             });
         }

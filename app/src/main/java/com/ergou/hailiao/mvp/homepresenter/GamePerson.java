@@ -88,7 +88,8 @@ public class GamePerson extends RxPresenter<GameContract.MainView>
 
                     @Override
                     public void onComplete() {
-
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
                     }
                 }));
     }

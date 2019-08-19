@@ -152,8 +152,7 @@ public class MailListFragment extends BaseFragment<MailListPerson>
         map.put("client_version", version);
         map.put("device_token", device_token);//
         map.put("timestamp", timestamp);
-//        map.put("mobile", SPUtilsData.getPhoneNumber());
-        map.put("mobile", "186");
+        map.put("mobile", SPUtilsData.getPhoneNumber());
 
         cmd = InterfaceInteraction.getCmdValue(map);
         sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));

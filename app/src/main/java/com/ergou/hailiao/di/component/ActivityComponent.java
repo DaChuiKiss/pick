@@ -14,6 +14,8 @@ import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.mvp.ui.activity.ModifyHeadImgActivity;
 import com.ergou.hailiao.mvp.ui.activity.PaymenyPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
+import com.ergou.hailiao.mvp.ui.activity.RechargeActivity;
+import com.ergou.hailiao.mvp.ui.activity.RechargeRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.SearchMailListActivity;
 import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 import com.ergou.hailiao.mvp.ui.activity.SmallChangeActivity;
@@ -49,6 +51,10 @@ public interface ActivityComponent {
     void inject(ForgetLoginPasswordActivity forgetLoginPasswordActivity);//忘记登录密码
 
     void inject(SearchMailListActivity searchMailListActivity);//搜索
+
+    void inject(RechargeRecordActivity rechargeRecordActivity);//充值记录
+
+    void inject(RechargeActivity rechargeActivity);//可充值列表
 
 
 }

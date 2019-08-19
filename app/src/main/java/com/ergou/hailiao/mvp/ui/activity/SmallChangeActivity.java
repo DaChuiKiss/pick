@@ -1,5 +1,6 @@
 package com.ergou.hailiao.mvp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class SmallChangeActivity extends BaseActivity<SmallChangePerson>
     private String version;
     private String timeStamp = "";
     private String device_token = "";
+
+    private Intent intent;
 
     @Override
     protected void initInject() {
@@ -125,10 +128,19 @@ public class SmallChangeActivity extends BaseActivity<SmallChangePerson>
                 finish();
                 break;
             case R.id.recharge://充值
+                intent = new Intent();
+                intent.setClass(mContext, RechargeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.cash_withdrawal://提现
+                intent = new Intent();
+                intent.setClass(mContext, CashWithdrawalActivity.class);
+                startActivity(intent);
                 break;
             case R.id.recharge_record_rl://充值记录
+                intent = new Intent();
+                intent.setClass(mContext, RechargeRecordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.transfer_accounts_record_rl://转账记录
                 break;

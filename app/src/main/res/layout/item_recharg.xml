@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginRight="@dimen/dp_5"
+    android:background="@drawable/corners5_lines_4295d5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_65"
+        android:gravity="center"
+        android:text="0元"
+        android:textColor="@color/colorText4295D5"
+        android:textSize="@dimen/sp_16" />
+</LinearLayout>
