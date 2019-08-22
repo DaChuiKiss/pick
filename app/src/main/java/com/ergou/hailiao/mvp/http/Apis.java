@@ -10,6 +10,7 @@ import com.ergou.hailiao.mvp.bean.HeadImgBean;
 import com.ergou.hailiao.mvp.bean.LoginBean;
 import com.ergou.hailiao.mvp.bean.LunBoBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
+import com.ergou.hailiao.mvp.bean.PromotionalPostersBean;
 import com.ergou.hailiao.mvp.bean.RechargeBean;
 import com.ergou.hailiao.mvp.bean.RechargeRecordBean;
 import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
@@ -121,6 +122,10 @@ public interface Apis {
     @POST("hongbao")
 //  红包记录
     Flowable<HttpResponse<List<RedEnvelopesRecordBean>>> getHongBao(@Body RequestBody Body);
+
+    @POST("haibao")
+//  推广地址
+    Flowable<HttpResponse<PromotionalPostersBean>> getHaiBao(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

@@ -2,6 +2,7 @@ package com.ergou.hailiao.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -21,11 +22,15 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.util.Log;
 import android.view.View;
 
 import java.io.BufferedInputStream;
@@ -1544,5 +1549,39 @@ public class ImageUtils {
         return bitmap;
     }
 
+    public static void saveImageToGallery(Context context, Bitmap bmp) {
+        // 首先保存图片 创建文件夹
+        File appDir = new File(Environment.getExternalStorageDirectory(), "hl");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        //图片文件名称
+        String fileName = "hl_"+System.currentTimeMillis() + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            Log.e("111",e.getMessage());
+            e.printStackTrace();
+        }
+
+        // 其次把文件插入到系统图库
+        String path = file.getAbsolutePath();
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(), path, fileName, null);
+        } catch (FileNotFoundException e) {
+            Log.e("333",e.getMessage());
+            e.printStackTrace();
+        }
+        // 最后通知图库更新
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(file);
+        intent.setData(uri);
+        context.sendBroadcast(intent);
+        ToastUtils.showLongToast(context,"保存成功");
+    }
 
 }
