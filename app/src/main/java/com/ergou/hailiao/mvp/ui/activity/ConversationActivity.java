@@ -15,6 +15,7 @@ import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.ConversationContract;
 import com.ergou.hailiao.mvp.homepresenter.ConversationPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.mvp.ui.adapter.HomeAdapter;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
@@ -97,6 +98,8 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         fragement.setUri(uri);
 
     }
+
+
 
 //    public void getfindUserById(){
 //        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {

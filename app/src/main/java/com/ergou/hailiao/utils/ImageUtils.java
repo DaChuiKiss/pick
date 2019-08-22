@@ -1488,26 +1488,21 @@ public class ImageUtils {
      * @param targetSize 目标大小
      * @return
      */
-    public static void compressBmpToFile(Bitmap bmp, File file, long targetSize)
-    {
+    public static void compressBmpToFile(Bitmap bmp, File file, long targetSize) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int options = 80;//个人喜欢从80开始,
         bmp.compress(CompressFormat.JPEG, options, baos);
-        while (baos.toByteArray().length / 1024 > targetSize)
-        {
+        while (baos.toByteArray().length / 1024 > targetSize) {
             baos.reset();
             options -= 10;
             bmp.compress(CompressFormat.JPEG, options, baos);
         }
-        try
-        {
+        try {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
             fos.flush();
             fos.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1518,8 +1513,7 @@ public class ImageUtils {
      * @param srcPath （根据路径获取图片并压缩）
      * @return
      */
-    public static Bitmap compressImage(String srcPath)
-    {
+    public static Bitmap compressImage(String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
@@ -1530,19 +1524,15 @@ public class ImageUtils {
         float ww = 1024f;//
         // 最长宽度或高度1024
         float be = 1.0f;
-        if (w > h && w > ww)
-        {
+        if (w > h && w > ww) {
             be = w / ww;
-        }
-        else if (w < h && h > hh)
-        {
+        } else if (w < h && h > hh) {
             be = h / hh;
         }
-        if (be <= 0)
-        {
+        if (be <= 0) {
             be = 1.0f;
         }
-        newOpts.inSampleSize = (int)be;//设置采样率
+        newOpts.inSampleSize = (int) be;//设置采样率
         newOpts.inPurgeable = true;// 同时设置才会有效
         newOpts.inInputShareable = true;//。当系统内存不够时候图片自动被回收
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
@@ -1551,37 +1541,50 @@ public class ImageUtils {
 
     public static void saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片 创建文件夹
-        File appDir = new File(Environment.getExternalStorageDirectory(), "hl");
+        File appDir = new File(Environment.getExternalStorageDirectory(), "hailiao");
         if (!appDir.exists()) {
             appDir.mkdir();
         }
         //图片文件名称
-        String fileName = "hl_"+System.currentTimeMillis() + ".jpg";
+        String fileName = "hl_" + System.currentTimeMillis() + ".jpg";
         File file = new File(appDir, fileName);
+
+        if (!file.exists()) {
+            //先得到文件的上级目录，并创建上级目录，在创建文件
+            file.getParentFile().mkdir();
+            try {
+                //创建文件
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             FileOutputStream fos = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
         } catch (Exception e) {
-            Log.e("111",e.getMessage());
+            Log.e("111", e.getMessage());
             e.printStackTrace();
         }
 
-        // 其次把文件插入到系统图库
-        String path = file.getAbsolutePath();
-        try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(), path, fileName, null);
-        } catch (FileNotFoundException e) {
-            Log.e("333",e.getMessage());
-            e.printStackTrace();
-        }
+//        // 其次把文件插入到系统图库
+//        String path = file.getAbsolutePath();
+//        try {
+////            MediaStore.Images.Media.insertImage(context.getContentResolver(), path, fileName, null);
+//            MediaStore.Images.Media.insertImage(context.getContentResolver(),"", fileName, null);
+//        } catch (FileNotFoundException e) {
+//            Log.e("333", e.getMessage());
+//            e.printStackTrace();
+//        }
         // 最后通知图库更新
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri uri = Uri.fromFile(file);
         intent.setData(uri);
         context.sendBroadcast(intent);
-        ToastUtils.showLongToast(context,"保存成功");
+        ToastUtils.showLongToast(context, "保存成功");
     }
 
 }

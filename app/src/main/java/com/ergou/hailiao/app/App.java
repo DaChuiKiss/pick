@@ -1,13 +1,11 @@
 package com.ergou.hailiao.app;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Process;
 import android.os.StrictMode;
 import android.support.annotation.RequiresApi;
 import android.view.View;
@@ -17,12 +15,18 @@ import com.ergou.hailiao.di.component.DaggerAppComponent;
 import com.ergou.hailiao.di.module.AppMoudle;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.rongyun.ContactNotificationMessageData;
+import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.rongyun.IntentExtra;
 import com.ergou.hailiao.utils.CrashUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.Utils;
 import com.google.gson.Gson;
 
+import java.util.List;
+
+import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.IExtensionModule;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.userInfoCache.RongUserInfoManager;
@@ -75,6 +79,7 @@ public class App extends Application {
         Utils.init(instance);
 
         RongIM.init(instance, "82hegw5u8x73x", true);
+        setMyExtensionModule();
 //        initConversation();
 //        initConversationList();
     }
@@ -239,6 +244,23 @@ public class App extends Application {
 //                        }
                     }
                     break;
+            }
+        }
+    }
+
+    public void setMyExtensionModule() {
+        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
+        IExtensionModule defaultModule = null;
+        if (moduleList != null) {
+            for (IExtensionModule module : moduleList) {
+                if (module instanceof DefaultExtensionModule) {
+                    defaultModule = module;
+                    break;
+                }
+            }
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+                RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(instance));
             }
         }
     }
