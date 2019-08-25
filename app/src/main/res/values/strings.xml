@@ -73,6 +73,7 @@
     <string name="recharge_record_details">充值记录详情</string>
     <string name="transfer_accounts_record_details">转账记录详情</string>
     <string name="transfer_accounts_number">转账金额：</string>
+    <string name="transfer_accounts_number_s">转账金额</string>
     <string name="transfer_accounts_time">转账时间：</string>
     <string name="transfer_accounts_id">转账账号：</string>
     <string name="transfer_accounts_type">转账状态：</string>
@@ -80,6 +81,27 @@
     <string name="number_money">金额：</string>
     <string name="number_money_s">金\u3000\u3000额：</string>
     <string name="number_money_id">账\u3000\u3000号：</string>
+    <string name="zhuanzhang">转账</string>
+    <string name="zhuanzhang_text">添加转账说明</string>
+    <string name="red_envelopes">红包</string>
+    <string name="current_balance">当前余额：</string>
+    <string name="view_rules">查看规则</string>
+    <string name="red_envelopes_number">红包个数</string>
+    <string name="seven_individual">7个</string>
+    <string name="nine_individual">9个</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="total_amount">总金额</string>
+    <string name="choose_ray_number">选择雷号</string>
+    <string name="stuffed_red_envelopes">塞入红包</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
@@ -113,6 +135,11 @@
     <string name="prompt29">，最低100起提且为100的倍数</string>
     <string name="prompt30">提现时间每日：9:30-19:00</string>
     <string name="prompt31">暂无记录</string>
+    <string name="prompt32">请输入转账金额</string>
+    <string name="prompt33">请输入转账说明</string>
+    <string name="prompt34">红包发布范围：30-800元</string>
+    <string name="prompt35">未领取的红包将于三分钟后退款</string>
+    <string name="prompt36">最多选择两个雷号</string>
 
 
 </resources>

@@ -127,6 +127,10 @@ public interface Apis {
 //  推广地址
     Flowable<HttpResponse<PromotionalPostersBean>> getHaiBao(@Body RequestBody Body);
 
+    @POST("transfer")
+//  转账
+    Flowable<HttpResponse<BeanBean>> getTransfer(@Body RequestBody Body);
+
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
     Flowable<HttpResponse<List<LoginBean>>> getCheckChangeDevice(@Body RequestBody Body);

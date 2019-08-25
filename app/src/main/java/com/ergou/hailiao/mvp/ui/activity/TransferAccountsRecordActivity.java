@@ -37,7 +37,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * 提现记录
+ * 转账记录
  */
 
 public class TransferAccountsRecordActivity extends BaseActivity<TransferAccountsRecordPerson>

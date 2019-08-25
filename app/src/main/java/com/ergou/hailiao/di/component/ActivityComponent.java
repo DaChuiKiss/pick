@@ -19,10 +19,12 @@ import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalPostersActivity;
 import com.ergou.hailiao.mvp.ui.activity.RechargeActivity;
 import com.ergou.hailiao.mvp.ui.activity.RechargeRecordActivity;
+import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.SearchMailListActivity;
 import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 import com.ergou.hailiao.mvp.ui.activity.SmallChangeActivity;
+import com.ergou.hailiao.mvp.ui.activity.TransferAccountsActivity;
 import com.ergou.hailiao.mvp.ui.activity.TransferAccountsRecordActivity;
 
 import dagger.Component;
@@ -70,6 +72,10 @@ public interface ActivityComponent {
     void inject(RedEnvelopesRecordActivity redEnvelopesRecordActivity);//红包记录
 
     void inject(PromotionalPostersActivity promotionalPostersActivity);//推广地址
+
+    void inject(TransferAccountsActivity transferAccountsActivity);//转账
+
+    void inject(RedEnvelopesActivity redEnvelopesActivity);//红包
 
 
 }
