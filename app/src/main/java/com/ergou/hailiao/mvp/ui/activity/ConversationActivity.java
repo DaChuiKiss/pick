@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,18 +17,23 @@ import com.ergou.hailiao.mvp.homepresenter.ConversationContract;
 import com.ergou.hailiao.mvp.homepresenter.ConversationPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.ui.adapter.HomeAdapter;
+import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.IExtensionModule;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.model.Conversation;
@@ -75,6 +81,7 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
 
     @Override
     protected void initEventAndData() {
+
         // 没有intent 的则直接返回
         Intent intent = getIntent();
         if (intent == null || intent.getData() == null) {
@@ -221,4 +228,5 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
                 break;
         }
     }
+
 }

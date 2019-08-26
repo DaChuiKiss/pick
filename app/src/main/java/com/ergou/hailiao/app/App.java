@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 
 import com.ergou.hailiao.di.component.AppComponent;
@@ -260,9 +261,10 @@ public class App extends Application {
             }
             if (defaultModule != null) {
                 RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
-                RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(instance));
+
             }
         }
+        RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(instance));
     }
 
 

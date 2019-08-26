@@ -2,6 +2,7 @@ package com.ergou.hailiao.mvp.ui.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,11 +17,17 @@ import com.ergou.hailiao.mvp.ui.fragment.DialogueFragment;
 import com.ergou.hailiao.mvp.ui.fragment.GameFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MyFragment;
+import com.ergou.hailiao.rongyun.SealExtensionModule;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imkit.DefaultExtensionModule;
+import io.rong.imkit.IExtensionModule;
+import io.rong.imkit.RongExtensionManager;
 
 
 public class MainActivity extends BaseActivity {
@@ -73,6 +80,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
+        setMyExtensionModule();
         manager = getSupportFragmentManager();
         selectedtab(3);
     }
@@ -238,6 +246,24 @@ public class MainActivity extends BaseActivity {
 //            singOut();
             AppManager.getAppManager().AppExit(mContext);
         }
+    }
+
+    public void setMyExtensionModule() {
+        List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
+        IExtensionModule defaultModule = null;
+        if (moduleList != null) {
+            for (IExtensionModule module : moduleList) {
+                if (module instanceof DefaultExtensionModule) {
+                    defaultModule = module;
+                    break;
+                }
+            }
+            if (defaultModule != null) {
+                RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
+
+            }
+        }
+        RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(mContext));
     }
 
 }
