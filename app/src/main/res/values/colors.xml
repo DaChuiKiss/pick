@@ -60,7 +60,7 @@
     <color name="colorText_1E90FF">#1E90FF</color>
     <color name="colorText_4284FE">#4284FE</color>
     <color name="colorText_055DFF">#055DFF</color>
-    <color name="colorText_347BFE">#347BFE</color>
+    <color name="colorText_347BFE">#EDA252</color>
     <color name="colorText_528BF7">#528BF7</color>
     <color name="colorText_0062FF">#0062FF</color>
     <color name="colorText_368FF4">#368FF4</color>
@@ -72,6 +72,7 @@
     <color name="colorText_333333">#333333</color>
     <color name="colorText_B7B7B7">#B7B7B7</color>
     <color name="colorText_D7D7D7">#D7D7D7</color>
+    <color name="colorText_EDA252">#EDA252</color>
     <color name="colorBlue_s">#006eff</color>
 
     <color name="colorBackground">#f5f5f9</color>

@@ -231,11 +231,39 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
                 individual = "7";//红包个数
                 sevenIndividual.setBackgroundResource(R.drawable.red_envelopes_y);
                 nineIndividual.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.clear();
+                for (int i = 0; i < 10; i++) {
+                    leiHaoBean = new LeiHaoBean();
+                    leiHaoBean.setBoolean(false);
+                    leiHaoBeans.add(leiHaoBean);
+                }
+                leiHaoBeans.get(0).setBoolean(true);
+                zero.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiInt = 1;
                 break;
             case R.id.nine_individual_ll://9个
                 individual = "9";//红包个数
                 sevenIndividual.setBackgroundResource(R.drawable.red_envelopes_n);
                 nineIndividual.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiInt = 1;
                 break;
             case R.id.one_ll://1
                 if (leiHaoBeans.get(1).isBoolean()) {
@@ -333,94 +361,309 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
     }
 
     public void LeiHao() {//雷号
-        if (leiInt > 2) {
-            leiInt = 2;
-            leiHaoBeans.get(leiHaoInt).setBoolean(false);
-            ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt36));
-            return;
-        } else {
-            if (leiHaoInt == 0) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    zero.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    zero.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 1) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    one.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    one.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 2) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    two.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    two.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 3) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    three.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    three.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 4) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    four.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    four.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 5) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    five.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    five.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 6) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    six.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    six.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 7) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    seven.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    seven.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 8) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    eight.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    eight.setBackgroundResource(R.drawable.red_envelopes_y);
-                }
-            } else if (leiHaoInt == 9) {
-                if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(false);
-                    nine.setBackgroundResource(R.drawable.red_envelopes_n);
-                } else {
-                    leiHaoBeans.get(leiHaoInt).setBoolean(true);
-                    nine.setBackgroundResource(R.drawable.red_envelopes_y);
+        if (individual.equals("9")) {
+            if (leiInt > 6) {
+                leiInt = 6;
+                leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt36));
+                return;
+            } else {
+                if (leiHaoInt == 0) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        zero.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 1) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        one.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        one.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 2) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        two.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        two.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 3) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        three.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        three.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 4) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        four.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        four.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 5) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        five.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        five.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 6) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        six.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        six.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 7) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        seven.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 8) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        eight.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
+                } else if (leiHaoInt == 9) {
+                    if (leiHaoBeans.get(leiHaoInt).isBoolean()) {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(false);
+                        nine.setBackgroundResource(R.drawable.red_envelopes_n);
+                    } else {
+                        leiHaoBeans.get(leiHaoInt).setBoolean(true);
+                        nine.setBackgroundResource(R.drawable.red_envelopes_y);
+                    }
                 }
             }
+        } else {
+            if (leiHaoInt == 0) {
+                leiHaoBeans.get(0).setBoolean(true);
+                zero.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 1) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(true);
+                one.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 2) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(true);
+                two.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 3) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(true);
+                three.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 4) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(true);
+                four.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 5) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(true);
+                five.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 6) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(true);
+                six.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 7) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(true);
+                seven.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 8) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(true);
+                eight.setBackgroundResource(R.drawable.red_envelopes_y);
+                leiHaoBeans.get(9).setBoolean(false);
+                nine.setBackgroundResource(R.drawable.red_envelopes_n);
+            } else if (leiHaoInt == 9) {
+                leiHaoBeans.get(0).setBoolean(false);
+                zero.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(1).setBoolean(false);
+                one.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(2).setBoolean(false);
+                two.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(3).setBoolean(false);
+                three.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(4).setBoolean(false);
+                four.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(5).setBoolean(false);
+                five.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(6).setBoolean(false);
+                six.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(7).setBoolean(false);
+                seven.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(8).setBoolean(false);
+                eight.setBackgroundResource(R.drawable.red_envelopes_n);
+                leiHaoBeans.get(9).setBoolean(true);
+                nine.setBackgroundResource(R.drawable.red_envelopes_y);
+            }
         }
+
     }
 
 }

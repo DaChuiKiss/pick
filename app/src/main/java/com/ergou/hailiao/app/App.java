@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
 
 import com.ergou.hailiao.di.component.AppComponent;
@@ -16,6 +15,9 @@ import com.ergou.hailiao.di.component.DaggerAppComponent;
 import com.ergou.hailiao.di.module.AppMoudle;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.rongyun.ContactNotificationMessageData;
+import com.ergou.hailiao.rongyun.RedPackageItemProvider;
+import com.ergou.hailiao.rongyun.RedPackageMessage;
+import com.ergou.hailiao.rongyun.CustomizeMessageItemProvider;
 import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.rongyun.IntentExtra;
 import com.ergou.hailiao.utils.CrashUtils;
@@ -81,6 +83,8 @@ public class App extends Application {
 
         RongIM.init(instance, "82hegw5u8x73x", true);
         setMyExtensionModule();
+        RongIM.registerMessageType(RedPackageMessage.class);
+        RongIM.registerMessageTemplate(new RedPackageItemProvider());
 //        initConversation();
 //        initConversationList();
     }

@@ -102,6 +102,7 @@
     <string name="total_amount">总金额</string>
     <string name="choose_ray_number">选择雷号</string>
     <string name="stuffed_red_envelopes">塞入红包</string>
+    <string name="receive_red_envelopes">领取红包</string>
 
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
@@ -139,7 +140,7 @@
     <string name="prompt33">请输入转账说明</string>
     <string name="prompt34">红包发布范围：30-800元</string>
     <string name="prompt35">未领取的红包将于三分钟后退款</string>
-    <string name="prompt36">最多选择两个雷号</string>
+    <string name="prompt36">最多选择六个雷号</string>
 
 
 </resources>
