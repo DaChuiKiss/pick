@@ -69,6 +69,7 @@ public class GameFragment extends BaseFragment<GamePerson>
     private List<String> imgDate = new ArrayList<>();//广告
     private List<LunBoBean> lunBoBeanList = new ArrayList<>();
     private List<GameMarqueelBean> gameMarqueelBeanList = new ArrayList<>();
+    private XmarQueeAdapter xmarQueeAdapter;
 
     @Override
     protected void initInject() {
@@ -291,8 +292,12 @@ public class GameFragment extends BaseFragment<GamePerson>
         gameMarqueelBeanList.clear();
         if (gameMarqueelBeans.size() > 0) {//滚动广告条
             gameMarqueelBeanList.addAll(gameMarqueelBeans);
-            XmarQueeAdapter xmarQueeAdapter = new XmarQueeAdapter(gameMarqueelBeanList);
-            mMarquee1.setAdapter(xmarQueeAdapter);
+            if (xmarQueeAdapter==null){
+                xmarQueeAdapter = new XmarQueeAdapter(gameMarqueelBeanList);
+                mMarquee1.setAdapter(xmarQueeAdapter);
+            }else {
+                xmarQueeAdapter = new XmarQueeAdapter(gameMarqueelBeanList);
+            }
             xmarQueeAdapter.notifyDataChanged();
         }
     }

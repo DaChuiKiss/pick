@@ -5,20 +5,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.base.BaseActivity;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.LeiHaoBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.RedEnvelopesContract;
 import com.ergou.hailiao.mvp.homepresenter.RedEnvelopesPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.rongyun.RedPackageMessage;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
@@ -29,6 +33,15 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imkit.RongContext;
+import io.rong.imkit.RongIM;
+import io.rong.imkit.userInfoCache.RongUserInfoManager;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
+import io.rong.message.TextMessage;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -86,6 +99,8 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
     private LeiHaoBean leiHaoBean;
     private int leiInt = 0;//是否选择两个雷号
     private int leiHaoInt = 0;//选择哪个雷号
+    private String amount = "";//金额
+    private String thunder_num = "";//雷号
 
     @Override
     protected void initInject() {
@@ -175,6 +190,38 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
         mPresenter.getSmallChangeBean(requestBody);
     }
 
+    public void getFaHongBao() {//发包
+        ApiInterface.showPro(mContext);
+        device_token = ApiInterface.deviceToken(mContext);//设备号
+        version = AppUtils.getAppVersionName(mContext);//版本号
+        code = InterfaceInteraction.getUUID();//32位随机字符串
+        timestamp = timeStamp + "";//时间戳
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("client_type", "android");
+        map.put("client_version", version);
+        map.put("device_token", device_token);//
+        map.put("timestamp", timestamp);
+        map.put("mobile", SPUtilsData.getPhoneNumber());
+        map.put("amount", amount);//金额
+        map.put("num", individual);//发包个数
+        map.put("thunder_num", thunder_num);//雷号（多雷号‘,’分割；例：‘5,8’）
+
+        cmd = InterfaceInteraction.getCmdValue(map);
+        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
+
+        LogUtils.e("code=" + code);
+        LogUtils.e("sign=" + sign);
+        LogUtils.e("cmd=" + cmd);
+
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("code", code)
+                .addFormDataPart("sign", sign)
+                .addFormDataPart("cmd", cmd);
+        RequestBody requestBody = build.build();
+        mPresenter.getFaHongBaoBean(requestBody);
+    }
+
     @Override
     public void showError() {
 
@@ -185,7 +232,7 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
         if (networkType.equals("1")) {
             getSmallChange();
         } else {
-//            getZhuanZhang();
+            getFaHongBao();
         }
     }
 
@@ -199,7 +246,7 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
         if (networkType.equals("1")) {
             getSmallChange();
         } else {
-//            getZhuanZhang();
+            getFaHongBao();
         }
     }
 
@@ -208,13 +255,20 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
         if (networkType.equals("1")) {
             getSmallChange();
         } else {
-//            getZhuanZhang();
+            getFaHongBao();
         }
     }
 
     @Override
     public void getSmallChangeTos(SmallChangeBean smallChangeBean) {
         currentBalance.setText(smallChangeBean.getAsset());
+    }
+
+    @Override
+    public void getFaHongBaoTos(BeanBean beanBean) {
+        ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt8));
+        finish();
+//        fasong();
     }
 
     @OnClick({R.id.fallback, R.id.view_rules, R.id.seven_individual_ll, R.id.nine_individual_ll,
@@ -356,6 +410,26 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
                 LeiHao();
                 break;
             case R.id.stuffed_red_envelopes://塞进红包
+                amount = redEnvelopesNumber.getText().toString();
+                thunder_num = "";
+                for (int i = 0; i < leiHaoBeans.size(); i++) {
+                    if (leiHaoBeans.get(i).isBoolean()) {
+                        if (StringUtils.isEmpty(thunder_num)) {
+                            thunder_num = i + "";
+                        } else {
+                            thunder_num = thunder_num + "," + i;
+                        }
+
+                    }
+                }
+                thunder_num.substring(0, thunder_num.length() - 1);
+                LogUtils.e("二狗：" + thunder_num);
+                if (StringUtils.isEmpty(amount)) {
+                    ToastUtils.showLongToast(mContext, getResources().getText(R.string.prompt37));
+                    return;
+                }
+                networkType = "2";
+                getTimeStamp();
                 break;
         }
     }
@@ -665,5 +739,62 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
         }
 
     }
+
+//    public void fasong() {
+//        Conversation.ConversationType mConversationType;
+//        mConversationType = (Conversation.ConversationType) getIntent().getSerializableExtra("hongbao");
+////        UserInfo sendUserInfo = RongUserInfoManager.getInstance().
+////                getUserInfo(RongIMClient.getInstance().getCurrentUserId());
+////        String sendUserName = sendUserInfo == null ? "" : sendUserInfo.getName();
+////        String friendPortrait = mContactFriend.getPortraitUri() == null ? "" : mContactFriend.getPortraitUri().toString();
+//        RedPackageMessage redPackageMessage = RedPackageMessage.obtain("hongbao", "", "", "", "");
+////        ContactMessage contactMessage = ContactMessage.obtain(mContactFriend.getUserId(),
+////                mContactFriend.getName(), friendPortrait, RongIMClient.getInstance().getCurrentUserId(), sendUserName, "");
+////        String pushContent = String.format(RongContext.getInstance().getResources().getString(R.string.rc_recommend_clause_to_me), sendUserName, contactMessage.getName());
+//        String pushContent = String.format("hongbao", "hongbao", "hongbao");
+//        RongIM.getInstance().sendMessage(Message.obtain("8888", mConversationType, redPackageMessage),
+//                pushContent, null, new IRongCallback.ISendMessageCallback() {
+//                    @Override
+//                    public void onAttached(Message message) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(Message message) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+//
+//                    }
+//                });
+//
+////        String message = mMessage.getText().toString().trim();
+//        String message = "hongbao";
+//        if (!("".equals(message))) {
+//            TextMessage mTextMessage = TextMessage.obtain(message);
+//            RongIM.getInstance().sendMessage(Message.obtain("hongbao", mConversationType, mTextMessage), null, null,
+//                    new IRongCallback.ISendMessageCallback() {
+//                        @Override
+//                        public void onAttached(Message message) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(Message message) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+//
+//                        }
+//                    });
+//        } else {
+////            hideInputKeyBoard();
+//        }
+//        finish();
+//    }
 
 }

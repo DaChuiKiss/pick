@@ -84,6 +84,7 @@ public class App extends Application {
         RongIM.init(instance, "82hegw5u8x73x", true);
         setMyExtensionModule();
         RongIM.registerMessageType(RedPackageMessage.class);
+//        RongIM.getInstance().registerConversationTemplate(new RedPackageItemProvider());
         RongIM.registerMessageTemplate(new RedPackageItemProvider());
 //        initConversation();
 //        initConversationList();

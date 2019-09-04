@@ -24,7 +24,11 @@ public class GameBean {
         private String group_id;
         private String group_name;
         private String group_img;
-        private String type;//1:群组；2:聊天室
+        private String type;//1:群组；2:聊天室\
+        private String mark;//
+        private String button;//是否有交互，0没有，1有
+        private String is_fuli;//isfuli是是否为福利房间
+
 
         public String getGroup_id() {
             return group_id;
@@ -56,6 +60,30 @@ public class GameBean {
 
         public void setType(String type) {
             this.type = type;
+        }
+
+        public String getMark() {
+            return mark;
+        }
+
+        public void setMark(String mark) {
+            this.mark = mark;
+        }
+
+        public String getButton() {
+            return button;
+        }
+
+        public void setButton(String button) {
+            this.button = button;
+        }
+
+        public String getIs_fuli() {
+            return is_fuli;
+        }
+
+        public void setIs_fuli(String is_fuli) {
+            this.is_fuli = is_fuli;
         }
     }
 }

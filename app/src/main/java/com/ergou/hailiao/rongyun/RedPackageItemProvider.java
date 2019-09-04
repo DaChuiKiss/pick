@@ -7,6 +7,7 @@ package com.ergou.hailiao.rongyun;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import io.rong.imlib.model.Message;
 public class RedPackageItemProvider extends IContainerItemProvider.MessageProvider<RedPackageMessage> {
 
     public RedPackageItemProvider() {
+
     }
 
     @Override
@@ -58,11 +60,11 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
         //根据需求，适配数据
         ViewHolder holder = (ViewHolder) view.getTag();
 
-        if (message.getMessageDirection() == Message.MessageDirection.SEND) {//消息方向，自己发送的
-            //holder.message.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_right);
-        } else {
-            //holder.message.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_left);
-        }
+//        if (message.getMessageDirection() == Message.MessageDirection.SEND) {//消息方向，自己发送的
+//            holder.message.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_right);
+//        } else {
+//            holder.message.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_left);
+//        }
         //AndroidEmoji.ensure((Spannable) holder.message.getText());//显示消息中的 Emoji 表情。
         //holder.tvTitle.setText(redPackageMessage.getTitle());
         holder.money.setText(redPackageMessage.getMoneye());
@@ -72,18 +74,37 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     }
 
     @Override
+    public Spannable getContentSummary(Context context, RedPackageMessage redPackageMessage) {
+//        if (redPackageMessage != null && !TextUtils.isEmpty(redPackageMessage.getHongbao())
+//                && !TextUtils.isEmpty(redPackageMessage.getHongbao())) {
+//            if (redPackageMessage.getOrderId().equals(RongIM.getInstance().getCurrentUserId())) {
+////                String str_RecommendClause = context.getResources().getString(R.string.rc_recommend_clause_to_others);
+//                String str_RecommendClause = "臭狗子";
+//                return new SpannableString(String.format(str_RecommendClause, redPackageMessage.getMoneye()));
+//            } else {
+////                String str_RecommendClause = context.getResources().getString(R.string.rc_recommend_clause_to_me);
+//                String str_RecommendClause = "狗大爷";
+//                return new SpannableString(String.format(str_RecommendClause, redPackageMessage.getMoneye(), redPackageMessage.getBoom()));
+//            }
+//        }
+//        return new SpannableString(redPackageMessage.getMoneye());
+
+        return null;
+    }
+
+    @Override
     public Spannable getContentSummary(RedPackageMessage redPackageMessage) {
-        return new SpannableString(redPackageMessage.getMoneye());
+        return null;
     }
 
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        ToastUtils.showLongToast(view.getContext(),"点击红包");
+        ToastUtils.showLongToast(view.getContext(), "点击红包");
     }
 
     @Override
     public void onItemLongClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        ToastUtils.showLongToast(view.getContext(),"长按红包");
+        ToastUtils.showLongToast(view.getContext(), "长按红包");
 //        //实现长按删除等功能，咱们直接复制融云其他provider的实现
 //        String[] items1;//复制，删除
 //        items1 = new String[]{view.getContext().getResources().getString(io.rong.imkit.R.string.rc_dialog_item_message_copy), view.getContext().getResources().getString(io.rong.imkit.R.string.rc_dialog_item_message_delete)};

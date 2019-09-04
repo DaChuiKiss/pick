@@ -131,6 +131,10 @@ public interface Apis {
 //  转账
     Flowable<HttpResponse<BeanBean>> getTransfer(@Body RequestBody Body);
 
+    @POST("fahongbao")
+//  发红包
+    Flowable<HttpResponse<BeanBean>> getFaHongBao(@Body RequestBody Body);
+
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
     Flowable<HttpResponse<List<LoginBean>>> getCheckChangeDevice(@Body RequestBody Body);

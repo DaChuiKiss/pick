@@ -3,6 +3,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -24,11 +25,15 @@ public interface RedEnvelopesContract {
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
 
         void getSmallChangeTos(SmallChangeBean smallChangeBean);//零钱
+
+        void getFaHongBaoTos(BeanBean beanBean);//发包
     }
 
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
 
         void getSmallChangeBean(RequestBody body);
+
+        void getFaHongBaoBean(RequestBody body);
     }
 }

@@ -16,6 +16,7 @@ import com.ergou.hailiao.mvp.bean.GameBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnItemClickListener;
+import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.glide.GlideManager;
 import com.ergou.hailiao.widget.recyclerview.multitype.ItemViewProvider;
 
@@ -48,7 +49,20 @@ public class GameAdapter extends ItemViewProvider<GameBean.GroupBean,
         GlideManager.loadImageView(holder.itemView.getContext(), gameBean.getGroup_img(),
                 holder.head_img, R.mipmap.ic_launcher);//头像
         holder.group_chat_name.setText(gameBean.getGroup_name());//群聊名
-        holder.group_chat_number.setText(gameBean.getGroup_id());//群聊号
+//        holder.group_chat_number.setText(gameBean.getGroup_id());//群聊号
+        holder.group_chat_number.setText(gameBean.getMark());//
+
+        holder.group_chat_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gameBean.getButton().equals("1")) {
+                    ToastUtils.showLongToast(holder.itemView.getContext(), gameBean.getGroup_id());
+                } else {
+
+                }
+
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
