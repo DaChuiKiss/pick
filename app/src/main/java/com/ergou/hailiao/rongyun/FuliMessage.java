@@ -11,13 +11,12 @@ import java.io.UnsupportedEncodingException;
 import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
-import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by LuoCY on 2019/8/28.
  */
-@MessageTag(value = "hongbao", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class RedPackageMessage extends MessageContent {
+@MessageTag(value = "fuli", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+public class FuliMessage extends MessageContent {
     //自定义的属性
     private String hongbao;//操作名
     private String content;
@@ -28,16 +27,16 @@ public class RedPackageMessage extends MessageContent {
     /**
      * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例处理。
      */
-    public static final Creator<RedPackageMessage> CREATOR = new Creator<RedPackageMessage>() {
+    public static final Creator<FuliMessage> CREATOR = new Creator<FuliMessage>() {
 
         @Override
-        public RedPackageMessage createFromParcel(Parcel source) {
-            return new RedPackageMessage(source);
+        public FuliMessage createFromParcel(Parcel source) {
+            return new FuliMessage(source);
         }
 
         @Override
-        public RedPackageMessage[] newArray(int size) {
-            return new RedPackageMessage[size];
+        public FuliMessage[] newArray(int size) {
+            return new FuliMessage[size];
         }
     };
 
@@ -63,7 +62,7 @@ public class RedPackageMessage extends MessageContent {
         return null;
     }
 
-    public RedPackageMessage(byte[] data) {
+    public FuliMessage(byte[] data) {
         String jsonStr = null;
 
         try {
@@ -92,7 +91,7 @@ public class RedPackageMessage extends MessageContent {
     }
 
     //给消息赋值。
-    public RedPackageMessage(Parcel in) {
+    public FuliMessage(Parcel in) {
 
         setHongbao(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性

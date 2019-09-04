@@ -14,10 +14,13 @@ import com.ergou.hailiao.di.component.AppComponent;
 import com.ergou.hailiao.di.component.DaggerAppComponent;
 import com.ergou.hailiao.di.module.AppMoudle;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
+import com.ergou.hailiao.rongyun.CaiLeiMessage;
+import com.ergou.hailiao.rongyun.CaiLeiMessageItemProvider;
 import com.ergou.hailiao.rongyun.ContactNotificationMessageData;
+import com.ergou.hailiao.rongyun.FuLiItemProvider;
+import com.ergou.hailiao.rongyun.FuliMessage;
 import com.ergou.hailiao.rongyun.RedPackageItemProvider;
 import com.ergou.hailiao.rongyun.RedPackageMessage;
-import com.ergou.hailiao.rongyun.CustomizeMessageItemProvider;
 import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.rongyun.IntentExtra;
 import com.ergou.hailiao.utils.CrashUtils;
@@ -83,9 +86,19 @@ public class App extends Application {
 
         RongIM.init(instance, "82hegw5u8x73x", true);
         setMyExtensionModule();
-        RongIM.registerMessageType(RedPackageMessage.class);
-//        RongIM.getInstance().registerConversationTemplate(new RedPackageItemProvider());
+//        try {
+            // 注册一个自定义消息类型。
+            RongIM.registerMessageType(RedPackageMessage.class);
+            RongIM.registerMessageType(CaiLeiMessage.class);
+            RongIM.registerMessageType(FuliMessage.class);
+//            RongIM.getInstance().registerMessageTemplate(new RedPackageItemProvider());
         RongIM.registerMessageTemplate(new RedPackageItemProvider());
+        RongIM.registerMessageTemplate(new CaiLeiMessageItemProvider());
+        RongIM.registerMessageTemplate(new FuLiItemProvider());
+//        } catch (AnnotationNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
 //        initConversation();
 //        initConversationList();
     }
