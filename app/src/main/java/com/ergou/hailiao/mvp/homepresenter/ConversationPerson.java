@@ -4,6 +4,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
+import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
@@ -75,7 +76,7 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                                 mView.get().showError();
                                 ApiInterface.getToastUtils(activity, response.getMsg());
                             }
-                        }catch(Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                             LogUtils.e("=========用户融云信息失败：" + response.getData().toString());
                             ApiInterface.getToastUtils(activity, "");
@@ -88,6 +89,45 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                         LogUtils.w(t.toString() + "=================用户融云信息异常：");
                         mView.get().onError(t);
                         ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
+    @Override
+    public void getRedPackagBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getRedstatus(body),
+                new ResourceSubscriber<HttpResponse<RedPackageBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<RedPackageBean> response) {
+                        LogUtils.e("=========红包信息返回：" + response.getData().toString());
+                        try {
+                            if (response.getCode() == 200) {
+                                mView.get().getRedPackageTos(response.getData());
+                            } else {
+                                mView.get().showError();
+                                ApiInterface.getToastUtils(activity, response.getMsg());
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            LogUtils.e("=========红包信息失败：" + response.getData().toString());
+                            ApiInterface.getToastUtils(activity, "");
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================红包信息异常：");
+                        mView.get().onError(t);
+                        ApiInterface.getToastUtils(activity, "");
+                        ApiInterface.disPro(activity);
                     }
 
                     @Override

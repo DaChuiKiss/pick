@@ -105,6 +105,7 @@
     <string name="receive_red_envelopes">领取红包</string>
     <string name="get_into_room">进入房间</string>
 
+
     <string name="prompt">提示：</string>
     <string name="prompt1">再按一次退出程序！</string>
     <string name="prompt2">加载中...</string>
@@ -143,6 +144,7 @@
     <string name="prompt35">未领取的红包将于三分钟后退款</string>
     <string name="prompt36">最多选择六个雷号</string>
     <string name="prompt37">请输入红包个数</string>
-
+    <string name="prompt38">手慢了，红包已抢完</string>
+    <string name="prompt39">查看大家手气</string>
 
 </resources>

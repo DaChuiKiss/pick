@@ -11,15 +11,14 @@ import java.io.UnsupportedEncodingException;
 import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
-import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by LuoCY on 2019/8/28.
  */
-@MessageTag(value = "hongbao", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class RedPackageMessage extends MessageContent {
+@MessageTag(value = "duolei", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+public class DuoLeiMessage extends MessageContent {
     //自定义的属性
-    private String name;//操作名
+    private String hongbao;//操作名
     private String content;
     private String money;//金额
     private String boom;//雷号
@@ -28,16 +27,16 @@ public class RedPackageMessage extends MessageContent {
     /**
      * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例处理。
      */
-    public static final Creator<RedPackageMessage> CREATOR = new Creator<RedPackageMessage>() {
+    public static final Creator<DuoLeiMessage> CREATOR = new Creator<DuoLeiMessage>() {
 
         @Override
-        public RedPackageMessage createFromParcel(Parcel source) {
-            return new RedPackageMessage(source);
+        public DuoLeiMessage createFromParcel(Parcel source) {
+            return new DuoLeiMessage(source);
         }
 
         @Override
-        public RedPackageMessage[] newArray(int size) {
-            return new RedPackageMessage[size];
+        public DuoLeiMessage[] newArray(int size) {
+            return new DuoLeiMessage[size];
         }
     };
 
@@ -45,7 +44,7 @@ public class RedPackageMessage extends MessageContent {
     public byte[] encode() {
         JSONObject jsonObj = new JSONObject();
         try {
-            jsonObj.put("name", this.getName());
+            jsonObj.put("hongbao", this.getHongbao());
             jsonObj.put("content", this.getContent());
             jsonObj.put("money", this.getMoneye());
             jsonObj.put("boom", this.getBoom());
@@ -63,7 +62,7 @@ public class RedPackageMessage extends MessageContent {
         return null;
     }
 
-    public RedPackageMessage(byte[] data) {
+    public DuoLeiMessage(byte[] data) {
         String jsonStr = null;
 
         try {
@@ -75,8 +74,8 @@ public class RedPackageMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
-            if (jsonObj.has("name"))
-                this.setName(jsonObj.optString("name"));
+            if (jsonObj.has("hongbao"))
+                this.setHongbao(jsonObj.optString("hongbao"));
             if (jsonObj.has("content"))
                 this.setContent(jsonObj.optString("content"));
             if (jsonObj.has("money"))
@@ -92,9 +91,9 @@ public class RedPackageMessage extends MessageContent {
     }
 
     //给消息赋值。
-    public RedPackageMessage(Parcel in) {
+    public DuoLeiMessage(Parcel in) {
 
-        setName(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setHongbao(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         //这里可继续增加你消息的属性
         setMoney(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
@@ -120,19 +119,19 @@ public class RedPackageMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, this.getName());
+        ParcelUtils.writeToParcel(dest, this.getHongbao());
         ParcelUtils.writeToParcel(dest, this.getContent());
         ParcelUtils.writeToParcel(dest, this.getMoneye());
         ParcelUtils.writeToParcel(dest, this.getBoom());
         ParcelUtils.writeToParcel(dest, this.getOrderId());
     }
 
-    public String getName() {
-        return name;
+    public String getHongbao() {
+        return hongbao;
     }
 
-    public void setName(String hongbao) {
-        this.name = name;
+    public void setHongbao(String hongbao) {
+        this.hongbao = hongbao;
     }
 
     public String getContent() {

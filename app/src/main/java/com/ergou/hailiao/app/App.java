@@ -1,5 +1,6 @@
 package com.ergou.hailiao.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -13,16 +14,21 @@ import android.view.View;
 import com.ergou.hailiao.di.component.AppComponent;
 import com.ergou.hailiao.di.component.DaggerAppComponent;
 import com.ergou.hailiao.di.module.AppMoudle;
+import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.rongyun.CaiLeiMessage;
 import com.ergou.hailiao.rongyun.CaiLeiMessageItemProvider;
 import com.ergou.hailiao.rongyun.ContactNotificationMessageData;
+import com.ergou.hailiao.rongyun.DuoLeiMessage;
+import com.ergou.hailiao.rongyun.DuoLeiMessageItemProvider;
 import com.ergou.hailiao.rongyun.FuLiItemProvider;
 import com.ergou.hailiao.rongyun.FuliMessage;
 import com.ergou.hailiao.rongyun.RedPackageItemProvider;
 import com.ergou.hailiao.rongyun.RedPackageMessage;
 import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.rongyun.IntentExtra;
+import com.ergou.hailiao.rongyun.TeShuMessage;
+import com.ergou.hailiao.rongyun.TeShuMessageItemProvider;
 import com.ergou.hailiao.utils.CrashUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.Utils;
@@ -51,7 +57,7 @@ import io.rong.message.ImageMessage;
 public class App extends Application {
     private static App instance;
     private static SLHandler handler;
-    public static MainActivity activity;
+    public static MainActivity mainActivity;
 
 
     public static StringBuilder payloadData = new StringBuilder();
@@ -86,18 +92,22 @@ public class App extends Application {
 
         RongIM.init(instance, "82hegw5u8x73x", true);
         setMyExtensionModule();
-//        try {
-            // 注册一个自定义消息类型。
-            RongIM.registerMessageType(RedPackageMessage.class);
-            RongIM.registerMessageType(CaiLeiMessage.class);
-            RongIM.registerMessageType(FuliMessage.class);
-//            RongIM.getInstance().registerMessageTemplate(new RedPackageItemProvider());
+
+
+        // 注册一个自定义消息类型。
+        /**
+         * hongbao(发红包消息)；cailei（红包中雷提示）；award（抢红包特殊号码奖励提示）；duolei（发红包多雷奖励提示）；fuli（发送福利红包消息）
+         * */
+        RongIM.registerMessageType(RedPackageMessage.class);//hongbao
+        RongIM.registerMessageType(CaiLeiMessage.class);//cailei
+        RongIM.registerMessageType(FuliMessage.class);//fuli
+        RongIM.registerMessageType(TeShuMessage.class);//award
+        RongIM.registerMessageType(DuoLeiMessage.class);//duolei
         RongIM.registerMessageTemplate(new RedPackageItemProvider());
         RongIM.registerMessageTemplate(new CaiLeiMessageItemProvider());
         RongIM.registerMessageTemplate(new FuLiItemProvider());
-//        } catch (AnnotationNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        RongIM.registerMessageTemplate(new TeShuMessageItemProvider());
+        RongIM.registerMessageTemplate(new DuoLeiMessageItemProvider());
 
 //        initConversation();
 //        initConversationList();
@@ -245,7 +255,7 @@ public class App extends Application {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    if (activity != null) {
+                    if (mainActivity != null) {
                         payloadData.append((String) msg.obj);
                         payloadData.append("\n");
 //                        if (MainActivity.tLogView != null) {
@@ -256,7 +266,7 @@ public class App extends Application {
                     break;
 
                 case 1:
-                    if (activity != null) {
+                    if (mainActivity != null) {
                         LogUtils.e("心好累AA");
 //                        if (MainActivity.tLogView != null) {
 //                            MainActivity.tView.setText((String) msg.obj);

@@ -3,6 +3,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
+import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 
@@ -21,11 +22,15 @@ public interface ConversationContract {
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
 
         void getInfoTos(RongYunInfoBean rongYunInfo);//用户融云信息
+
+        void getRedPackageTos(RedPackageBean redPackageBean);//红包信息
     }
 
     interface Presenter extends BasePresenter<MainView> {
         void getTimeStampBean(RequestBody body);
 
         void ggetInfoBean(RequestBody body);
+
+        void getRedPackagBean(RequestBody body);
     }
 }

@@ -6,24 +6,20 @@ package com.ergou.hailiao.rongyun;
 
 import android.content.Context;
 import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ergou.hailiao.R;
-import com.ergou.hailiao.mvp.bean.RedPackageBean;
+import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
+import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.ToastUtils;
+import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
-import io.rong.imkit.RongIM;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
-import io.rong.imkit.utilities.OptionsPopupDialog;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Message;
 
 /**
  * Created by longShun on 2017/2/24.
@@ -37,8 +33,9 @@ import io.rong.imlib.model.Message;
 )
 public class RedPackageItemProvider extends IContainerItemProvider.MessageProvider<RedPackageMessage> {
 
-    public RedPackageItemProvider() {
+    private ConversationActivity conversationActivity = new ConversationActivity();
 
+    public RedPackageItemProvider() {
     }
 
     @Override
@@ -71,6 +68,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
         return null;
     }
 
+
     @Override
     public Spannable getContentSummary(RedPackageMessage redPackageMessage) {
         return null;
@@ -78,7 +76,12 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
 
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        ToastUtils.showLongToast(view.getContext(), "点击红包");
+        LogUtils.e("卧槽："+uiMessage.getMessage().getSenderUserId()+"="+SPUtilsData.getUserId());
+        if (uiMessage.getMessage().getSenderUserId().equals(SPUtilsData.getUserId())) {
+            ToastUtils.showLongToast(view.getContext(), SPUtilsData.getNickName());
+        } else {
+            ToastUtils.showLongToast(view.getContext(), uiMessage.getUserInfo().getName());
+        }
     }
 
     @Override
@@ -89,4 +92,6 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     private static class ViewHolder {
         TextView money, lei_number, receive_type, remarks;
     }
+
+
 }
