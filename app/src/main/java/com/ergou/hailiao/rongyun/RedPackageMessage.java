@@ -19,7 +19,8 @@ import io.rong.imlib.model.UserInfo;
 @MessageTag(value = "hongbao", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class RedPackageMessage extends MessageContent {
     //自定义的属性
-    private String name;//操作名
+    private String nick_name;//昵称
+    private String header;//头像
     private String content;
     private String money;//金额
     private String boom;//雷号
@@ -45,7 +46,8 @@ public class RedPackageMessage extends MessageContent {
     public byte[] encode() {
         JSONObject jsonObj = new JSONObject();
         try {
-            jsonObj.put("name", this.getName());
+            jsonObj.put("nick_name", this.getNick_name());
+            jsonObj.put("header", this.getHeader());
             jsonObj.put("content", this.getContent());
             jsonObj.put("money", this.getMoneye());
             jsonObj.put("boom", this.getBoom());
@@ -75,8 +77,10 @@ public class RedPackageMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
-            if (jsonObj.has("name"))
-                this.setName(jsonObj.optString("name"));
+            if (jsonObj.has("nick_name"))
+                this.setNick_name(jsonObj.optString("nick_name"));
+            if (jsonObj.has("header"))
+                this.setHeader(jsonObj.optString("header"));
             if (jsonObj.has("content"))
                 this.setContent(jsonObj.optString("content"));
             if (jsonObj.has("money"))
@@ -94,7 +98,8 @@ public class RedPackageMessage extends MessageContent {
     //给消息赋值。
     public RedPackageMessage(Parcel in) {
 
-        setName(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setNick_name(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setHeader(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         //这里可继续增加你消息的属性
         setMoney(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
@@ -120,19 +125,28 @@ public class RedPackageMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, this.getName());
+        ParcelUtils.writeToParcel(dest, this.getNick_name());
+        ParcelUtils.writeToParcel(dest, this.getHeader());
         ParcelUtils.writeToParcel(dest, this.getContent());
         ParcelUtils.writeToParcel(dest, this.getMoneye());
         ParcelUtils.writeToParcel(dest, this.getBoom());
         ParcelUtils.writeToParcel(dest, this.getOrderId());
     }
 
-    public String getName() {
-        return name;
+    public String getNick_name() {
+        return nick_name;
     }
 
-    public void setName(String hongbao) {
-        this.name = name;
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public String getContent() {

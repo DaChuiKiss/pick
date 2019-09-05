@@ -76,12 +76,8 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
 
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        LogUtils.e("卧槽："+uiMessage.getMessage().getSenderUserId()+"="+SPUtilsData.getUserId());
-        if (uiMessage.getMessage().getSenderUserId().equals(SPUtilsData.getUserId())) {
-            ToastUtils.showLongToast(view.getContext(), SPUtilsData.getNickName());
-        } else {
-            ToastUtils.showLongToast(view.getContext(), uiMessage.getUserInfo().getName());
-        }
+        LogUtils.e("卧槽："+redPackageMessage.getNick_name()+"="+redPackageMessage.getHeader());
+        conversationActivity.getRedPackag(redPackageMessage.getNick_name(),redPackageMessage.getHeader(),redPackageMessage.getOrderId());
     }
 
     @Override

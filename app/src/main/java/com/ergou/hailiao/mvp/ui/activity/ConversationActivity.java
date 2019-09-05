@@ -32,6 +32,7 @@ import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
+import com.ergou.hailiao.utils.glide.GlideManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,6 +78,8 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
     private String version;
     private String timeStamp = "";
     private String device_token = "";
+    private String nickName = "";//
+    private String mHeader = "";//
 
     private PopupWindow popupWindow;
 
@@ -167,8 +170,10 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         mPresenter.ggetInfoBean(requestBody);
     }
 
-    public void getRedPackag() {//
-        ApiInterface.showPro(mContext);
+    public void getRedPackag(String nick_name, String header, String order_id) {//
+        nickName = nick_name;
+        mHeader = header;
+//        ApiInterface.showPro(mContext);
         device_token = ApiInterface.deviceToken(mContext);//设备号
         version = AppUtils.getAppVersionName(mContext);//版本号
         code = InterfaceInteraction.getUUID();//32位随机字符串
@@ -179,9 +184,9 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         map.put("client_version", version);
         map.put("device_token", device_token);//
         map.put("timestamp", timestamp);
-        map.put("order_id", SPUtilsData.getPhoneNumber());//红包唯一订单ID
+        map.put("order_id", order_id);//红包唯一订单ID
         map.put("mobile", SPUtilsData.getPhoneNumber());//手机号
-        map.put("type", SPUtilsData.getPhoneNumber());//类型（1:踩雷红包；2:福利红包）
+        map.put("type", "1");//类型（1:踩雷红包；2:福利红包）
 
 
         cmd = InterfaceInteraction.getCmdValue(map);
@@ -197,9 +202,6 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
                 .addFormDataPart("cmd", cmd);
         RequestBody requestBody = build.build();
         mPresenter.getRedPackagBean(requestBody);
-    }
-
-    public void wocadsa() {
     }
 
     @Override
@@ -307,7 +309,9 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         TextView name = (TextView) contentView.findViewById(R.id.name);//名字
         TextView chakan = (TextView) contentView.findViewById(R.id.chakan);//查看手气
         TextView red_delete = (TextView) contentView.findViewById(R.id.red_delete);//关闭
-
+        name.setText(nickName);
+        GlideManager.loadImageView(mContext, mHeader,
+                head_img, R.mipmap.ic_launcher);//头像
         chakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//查看手气
