@@ -202,6 +202,12 @@
             android:name=".mvp.ui.activity.RedEnvelopesActivity"
             android:screenOrientation="portrait" />
 
+        <!-- 抢
+        红包——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.RedEnvelopeGrabActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.ergou.hailiao.mvp.ui.activity.TestDuihuaList"
             android:launchMode="singleTop"

@@ -13,6 +13,7 @@ import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.PromotionalPostersBean;
 import com.ergou.hailiao.mvp.bean.RechargeBean;
 import com.ergou.hailiao.mvp.bean.RechargeRecordBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopeGrab;
 import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
 import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
@@ -139,6 +140,10 @@ public interface Apis {
     @POST("redstatus")
 //  红包信息
     Flowable<HttpResponse<RedPackageBean>> getRedstatus(@Body RequestBody Body);
+
+    @POST("redinfo")
+// 查看红包
+    Flowable<HttpResponse<RedEnvelopeGrab>> getRedinfo(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

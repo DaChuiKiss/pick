@@ -105,6 +105,9 @@
     <string name="receive_red_envelopes">领取红包</string>
     <string name="get_into_room">进入房间</string>
     <string name="open">開</string>
+    <string name="red_envelope_record">红包记录</string>
+    <string name="common">共</string>
+    <string name="leihao">雷号：</string>
 
 
     <string name="prompt">提示：</string>
@@ -152,5 +155,6 @@
     <string name="prompt42">红包已过期</string>
     <string name="prompt43">红包已抢完</string>
     <string name="prompt44">红包已抢过</string>
+    <string name="prompt45">个包</string>
 
 </resources>

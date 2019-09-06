@@ -6,6 +6,7 @@ package com.ergou.hailiao.rongyun;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.text.Spannable;
@@ -24,6 +25,8 @@ import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.mvp.bean.RedTypeBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.mvp.ui.activity.RedEnvelopeGrabActivity;
+import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
@@ -189,7 +192,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     }
 
 
-    public void redPackageWindow(String nickame, String header, String order_id, Context mContext, View view, String redType) {//红包状态
+    public void redPackageWindow(final String nickame, final String header, final String order_id, final Context mContext, View view, String redType) {//红包状态
         final Activity activity = (Activity) view.getContext();
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_red_package, null);
         popupWindow = new PopupWindow(contentView);
@@ -244,14 +247,18 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
             @Override
             public void onClick(View view) {//查看手气
                 popupWindow.dismiss();
+                Intent intent = new Intent();
+                intent.setClass(activity, RedEnvelopeGrabActivity.class);
+                intent.putExtra("nickame", nickame);//
+                intent.putExtra("header", header);//
+                intent.putExtra("order_id", order_id);//
+                activity.startActivity(intent);
             }
         });
         red_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//关闭
-
                 popupWindow.dismiss();
-
             }
         });
         //设置PopupWindow进入和退出动画

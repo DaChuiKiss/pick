@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
@@ -18,7 +17,6 @@ import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.RedEnvelopesContract;
 import com.ergou.hailiao.mvp.homepresenter.RedEnvelopesPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
-import com.ergou.hailiao.rongyun.RedPackageMessage;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;

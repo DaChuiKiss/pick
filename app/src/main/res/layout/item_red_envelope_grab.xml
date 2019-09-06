@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <!--   头像   -->
+        <ImageView
+            android:id="@+id/head_img"
+            android:layout_width="@dimen/dp_49"
+            android:layout_height="@dimen/dp_49"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_49"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:gravity="center|left"
+            android:orientation="vertical">
+
+            <!--   昵称   -->
+            <TextView
+                android:id="@+id/nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dasdsa"
+                android:textColor="@color/colorText_1A1A1A"
+                android:textSize="@dimen/sp_13" />
+
+            <!--   时间   -->
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nick_name"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="dadsa"
+                android:textColor="@color/colorText_1A1A1A"
+                android:textSize="@dimen/sp_13" />
+
+            <!--   金额   -->
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="dasdsa"
+                android:textColor="@color/colorText_1A1A1A"
+                android:textSize="@dimen/sp_13" />
+
+            <!--   说明   -->
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/money"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="dadsa"
+                android:textColor="@color/colorText_1A1A1A"
+                android:textSize="@dimen/sp_13" />
+
+            <!--      -->
+            <TextView
+                android:id="@+id/king_img"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_15"
+                android:layout_below="@+id/money"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/text"
+                android:text="0"
+                android:textColor="@color/colorText_1A1A1A"
+                android:textSize="@dimen/sp_13" /> <!--      -->
+
+            <TextView
+                android:id="@+id/lei_img"
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/text"
+                android:layout_marginRight="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/colorText_1A1A1A"
+                android:textSize="@dimen/sp_13" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/colorLine" />
+
+</LinearLayout>
