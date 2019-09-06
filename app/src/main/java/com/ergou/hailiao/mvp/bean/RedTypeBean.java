@@ -1,6 +1,5 @@
 package com.ergou.hailiao.mvp.bean;
 
-import com.google.gson.annotations.SerializedName;
 
 public class RedTypeBean {
     /**

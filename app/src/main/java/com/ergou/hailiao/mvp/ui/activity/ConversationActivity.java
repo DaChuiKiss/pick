@@ -1,17 +1,9 @@
 package com.ergou.hailiao.mvp.ui.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -24,27 +16,19 @@ import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.homepresenter.ConversationContract;
 import com.ergou.hailiao.mvp.homepresenter.ConversationPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
-import com.ergou.hailiao.mvp.ui.adapter.HomeAdapter;
-import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
-import com.ergou.hailiao.utils.StringUtils;
-import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
-import com.ergou.hailiao.utils.glide.GlideManager;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.rong.imkit.DefaultExtensionModule;
-import io.rong.imkit.IExtensionModule;
-import io.rong.imkit.RongExtensionManager;
+
+
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.model.Conversation;
@@ -96,7 +80,6 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
 
     @Override
     protected void initEventAndData() {
-
         // 没有intent 的则直接返回
         Intent intent = getIntent();
         if (intent == null || intent.getData() == null) {
@@ -122,7 +105,7 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
     }
 
 
-//    public void getfindUserById(){
+    //    public void getfindUserById(){
 //        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 //
 //            @Override
@@ -170,39 +153,39 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         mPresenter.ggetInfoBean(requestBody);
     }
 
-    public void getRedPackag(String nick_name, String header, String order_id) {//
-        nickName = nick_name;
-        mHeader = header;
-//        ApiInterface.showPro(mContext);
-        device_token = ApiInterface.deviceToken(mContext);//设备号
-        version = AppUtils.getAppVersionName(mContext);//版本号
-        code = InterfaceInteraction.getUUID();//32位随机字符串
-        timestamp = timeStamp + "";//时间戳
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("client_type", "android");
-        map.put("client_version", version);
-        map.put("device_token", device_token);//
-        map.put("timestamp", timestamp);
-        map.put("order_id", order_id);//红包唯一订单ID
-        map.put("mobile", SPUtilsData.getPhoneNumber());//手机号
-        map.put("type", "1");//类型（1:踩雷红包；2:福利红包）
-
-
-        cmd = InterfaceInteraction.getCmdValue(map);
-        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
-
-        LogUtils.e("code=" + code);
-        LogUtils.e("sign=" + sign);
-        LogUtils.e("cmd=" + cmd);
-
-        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("code", code)
-                .addFormDataPart("sign", sign)
-                .addFormDataPart("cmd", cmd);
-        RequestBody requestBody = build.build();
-        mPresenter.getRedPackagBean(requestBody);
-    }
+//    public void getRedPackag(String nick_name, String header, String order_id, Context context) {//
+//        nickName = nick_name;
+//        mHeader = header;
+//        ApiInterface.showPro(context);
+//        device_token = ApiInterface.deviceToken(context);//设备号
+//        version = AppUtils.getAppVersionName(context);//版本号
+//        code = InterfaceInteraction.getUUID();//32位随机字符串
+//        timestamp = timeStamp + "";//时间戳
+//
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("client_type", "android");
+//        map.put("client_version", version);
+//        map.put("device_token", device_token);//
+//        map.put("timestamp", timestamp);
+//        map.put("order_id", order_id);//红包唯一订单ID
+//        map.put("mobile", SPUtilsData.getPhoneNumber());//手机号
+//        map.put("type", "1");//类型（1:踩雷红包；2:福利红包）
+//
+//
+//        cmd = InterfaceInteraction.getCmdValue(map);
+//        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
+//
+//        LogUtils.e("code=" + code);
+//        LogUtils.e("sign=" + sign);
+//        LogUtils.e("cmd=" + cmd);
+//
+//        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+//                .addFormDataPart("code", code)
+//                .addFormDataPart("sign", sign)
+//                .addFormDataPart("cmd", cmd);
+//        RequestBody requestBody = build.build();
+//        mPresenter.getRedPackagBean(requestBody);
+//    }
 
     @Override
     public void onError(Throwable throwable) {
@@ -228,8 +211,8 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
 
     @Override
     public void getRedPackageTos(RedPackageBean redPackageBean) {
-        View view = new View(ConversationActivity.this);
-        redPackageWindow(view);
+//        View view = new View(ConversationActivity.this);
+//        redPackageWindow(view);
     }
 
     @Override
@@ -282,54 +265,73 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         }
     }
 
-    public void redPackageWindow(View view) {//红包状态
-        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_red_package, null);
-//        final PopupWindow popupWindow = new PopupWindow(contentView, 600, 400);
-        popupWindow = new PopupWindow(contentView);
-        popupWindow.setContentView(contentView);
-        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+//
+//    public void redPackageWindow(String nick_name, String header, String order_id, Context mContext, View view) {//红包状态
+//        msgMsg1 = new Message();
+//        msgMsg1.what = 0;
+//        mHandler1.sendMessage(msgMsg1);
+//    }
 
-        popupWindow.setFocusable(true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-// 设置PopupWindow以外部分的背景颜色  有一种变暗的效果
-        final WindowManager.LayoutParams wlBackground = getWindow().getAttributes();
-        wlBackground.alpha = 0.5f;      // 0.0 完全不透明,1.0完全透明
-        getWindow().setAttributes(wlBackground);
-        // 当PopupWindow消失时,恢复其为原来的颜色
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                wlBackground.alpha = 1.0f;
-                getWindow().setAttributes(wlBackground);
-            }
-        });
+//    public void adsdsa() {
+//        final Activity activity = (Activity) view.getContext();
+//        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_red_package, null);
+//        popupWindow = new PopupWindow(contentView);
+//        popupWindow.setContentView(contentView);
+//        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+//        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+//
+//        popupWindow.setFocusable(true);
+//        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+//// 设置PopupWindow以外部分的背景颜色  有一种变暗的效果
+//        final WindowManager.LayoutParams wlBackground = activity.getWindow().getAttributes();
+//        wlBackground.alpha = 0.5f;      // 0.0 完全不透明,1.0完全透明
+//        activity.getWindow().setAttributes(wlBackground);
+//        // 当PopupWindow消失时,恢复其为原来的颜色
+//        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//            @Override
+//            public void onDismiss() {
+//                wlBackground.alpha = 1.0f;
+//                activity.getWindow().setAttributes(wlBackground);
+//            }
+//        });
+//
+//        ImageView head_img = (ImageView) contentView.findViewById(R.id.head_img);//头像
+//        TextView name = (TextView) contentView.findViewById(R.id.name);//名字
+//        TextView chakan = (TextView) contentView.findViewById(R.id.chakan);//查看手气
+//        TextView red_delete = (TextView) contentView.findViewById(R.id.red_delete);//关闭
+////        name.setText(nickName);
+////        GlideManager.loadImageView(mContext, mHeader,
+////                head_img, R.mipmap.ic_launcher);//头像
+//        chakan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {//查看手气
+//                popupWindow.dismiss();
+//            }
+//        });
+//        red_delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {//关闭
+//
+//                popupWindow.dismiss();
+//
+//            }
+//        });
+//        //设置PopupWindow进入和退出动画
+//        popupWindow.setAnimationStyle(R.style.pop_window_anim);
+//        // 设置PopupWindow显示在中间
+//        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+//    }
 
-        ImageView head_img = (ImageView) contentView.findViewById(R.id.head_img);//头像
-        TextView name = (TextView) contentView.findViewById(R.id.name);//名字
-        TextView chakan = (TextView) contentView.findViewById(R.id.chakan);//查看手气
-        TextView red_delete = (TextView) contentView.findViewById(R.id.red_delete);//关闭
-        name.setText(nickName);
-        GlideManager.loadImageView(mContext, mHeader,
-                head_img, R.mipmap.ic_launcher);//头像
-        chakan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//查看手气
-                popupWindow.dismiss();
-            }
-        });
-        red_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//关闭
-
-                popupWindow.dismiss();
-
-            }
-        });
-        //设置PopupWindow进入和退出动画
-        popupWindow.setAnimationStyle(R.style.pop_window_anim);
-        // 设置PopupWindow显示在中间
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-    }
+//    private Message msgMsg1;
+//    private Handler mHandler1 = new Handler() {
+//        public void handleMessage(Message msg) {
+//            // 更新UI
+//            switch (msg.what) {
+//                case 0:
+//                    redPackageWindow(nick_name, header, order_id, mContext, mView);
+//                    break;
+//            }
+//        }
+//    };
 
 }

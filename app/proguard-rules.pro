@@ -262,3 +262,8 @@
 
 # Marshmallow removed Notification.setLatestEventInfo()
 -dontwarn android.app.Notification
+-keep classmembers class ** {
+
+public void onEvent*(**);
+
+}
