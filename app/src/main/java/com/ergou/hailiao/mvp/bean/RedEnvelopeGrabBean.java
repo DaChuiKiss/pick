@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by LuoCY on 2019/9/6.
  */
-public class RedEnvelopeGrab {
+public class RedEnvelopeGrabBean {
 
     /**
      * send : {"nick_name":"我去","user_header_img":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3146277763,293920617&fm=11&gp=0.jpg","money":"88.00","num":7,"thunder_num":"6","create_time":"2019-08-29 08:08:57"}

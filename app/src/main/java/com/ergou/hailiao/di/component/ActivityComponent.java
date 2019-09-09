@@ -19,6 +19,7 @@ import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.activity.PromotionalPostersActivity;
 import com.ergou.hailiao.mvp.ui.activity.RechargeActivity;
 import com.ergou.hailiao.mvp.ui.activity.RechargeRecordActivity;
+import com.ergou.hailiao.mvp.ui.activity.RedEnvelopeGrabActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.SearchMailListActivity;
@@ -76,6 +77,8 @@ public interface ActivityComponent {
     void inject(TransferAccountsActivity transferAccountsActivity);//转账
 
     void inject(RedEnvelopesActivity redEnvelopesActivity);//红包
+
+    void inject(RedEnvelopeGrabActivity redEnvelopeGrabActivity);//查看大家手气
 
 
 }

@@ -1,6 +1,5 @@
 package com.ergou.hailiao.mvp.http;
 
-import com.ergou.hailiao.mvp.bean.AppkeyBean;
 import com.ergou.hailiao.mvp.bean.BankInformationBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.CashWithdrawalRecordBean;
@@ -13,7 +12,7 @@ import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.bean.PromotionalPostersBean;
 import com.ergou.hailiao.mvp.bean.RechargeBean;
 import com.ergou.hailiao.mvp.bean.RechargeRecordBean;
-import com.ergou.hailiao.mvp.bean.RedEnvelopeGrab;
+import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
 import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
@@ -21,7 +20,6 @@ import com.ergou.hailiao.mvp.bean.SearchMailListBean;
 import com.ergou.hailiao.mvp.bean.SmallChangeBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.bean.TransferAccountsRecordBean;
-import com.ergou.hailiao.mvp.homepresenter.RechargeContract;
 
 import java.util.List;
 
@@ -142,8 +140,8 @@ public interface Apis {
     Flowable<HttpResponse<RedPackageBean>> getRedstatus(@Body RequestBody Body);
 
     @POST("redinfo")
-// 查看红包
-    Flowable<HttpResponse<RedEnvelopeGrab>> getRedinfo(@Body RequestBody Body);
+// 查看大家手气
+    Flowable<HttpResponse<RedEnvelopeGrabBean>> getRedinfo(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

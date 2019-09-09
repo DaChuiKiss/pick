@@ -202,8 +202,7 @@
             android:name=".mvp.ui.activity.RedEnvelopesActivity"
             android:screenOrientation="portrait" />
 
-        <!-- 抢
-        红包——Activity -->
+        <!-- 抢红包——Activity -->
         <activity
             android:name=".mvp.ui.activity.RedEnvelopeGrabActivity"
             android:screenOrientation="portrait" />

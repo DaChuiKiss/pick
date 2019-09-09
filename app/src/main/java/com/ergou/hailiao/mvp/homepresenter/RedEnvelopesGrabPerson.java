@@ -4,15 +4,12 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.RedEnvelopeGrab;
-import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
 import com.ergou.hailiao.mvp.http.RetrofitUtil;
 import com.ergou.hailiao.utils.LogUtils;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -66,9 +63,9 @@ public class RedEnvelopesGrabPerson extends RxPresenter<RedEnvelopeGrabContract.
     public void getRedEnvelopeGrabBean(RequestBody body) {
 
         addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getRedinfo(body),
-                new ResourceSubscriber<HttpResponse<RedEnvelopeGrab>>() {
+                new ResourceSubscriber<HttpResponse<RedEnvelopeGrabBean>>() {
                     @Override
-                    public void onNext(HttpResponse<RedEnvelopeGrab> response) {
+                    public void onNext(HttpResponse<RedEnvelopeGrabBean> response) {
                         LogUtils.e("=========查看手气返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
                             mView.get().getRedEnvelopeGrabTos(response.getData());

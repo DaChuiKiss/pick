@@ -3,11 +3,8 @@ package com.ergou.hailiao.mvp.homepresenter;
 
 import com.ergou.hailiao.base.BasePresenter;
 import com.ergou.hailiao.base.BaseView;
-import com.ergou.hailiao.mvp.bean.RedEnvelopeGrab;
-import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
-
-import java.util.List;
 
 import okhttp3.RequestBody;
 
@@ -23,7 +20,7 @@ public interface RedEnvelopeGrabContract {
 
         void getTimeStampTos(TimeStampBean timeStampBean);//服务器时间
 
-        void getRedEnvelopeGrabTos(RedEnvelopeGrab redEnvelopeGrab);//查看手气
+        void getRedEnvelopeGrabTos(RedEnvelopeGrabBean redEnvelopeGrab);//查看手气
 
 
     }
