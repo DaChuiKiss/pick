@@ -36,7 +36,7 @@
                 android:id="@+id/nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dasdsa"
+                android:text=""
                 android:textColor="@color/colorText_1A1A1A"
                 android:textSize="@dimen/sp_13" />
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nick_name"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="dadsa"
+                android:text=""
                 android:textColor="@color/colorText_1A1A1A"
                 android:textSize="@dimen/sp_13" />
 
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="dasdsa"
+                android:text=""
                 android:textColor="@color/colorText_1A1A1A"
                 android:textSize="@dimen/sp_13" />
 
@@ -69,9 +69,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/money"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="dadsa"
-                android:textColor="@color/colorText_1A1A1A"
-                android:textSize="@dimen/sp_13" />
+                android:text="@string/best_luck"
+                android:textColor="@color/colorText_DAA520"
+                android:textSize="@dimen/sp_12"
+                android:visibility="invisible"/>
 
             <!--      -->
             <TextView
@@ -82,21 +83,19 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="12dp"
                 android:layout_toLeftOf="@+id/text"
-                android:text="0"
-                android:textColor="@color/colorText_1A1A1A"
-                android:textSize="@dimen/sp_13" /> <!--      -->
+                android:background="@drawable/zuijia"
+                android:visibility="gone"/> <!--      -->
 
             <TextView
                 android:id="@+id/lei_img"
                 android:layout_width="@dimen/dp_15"
                 android:layout_height="@dimen/dp_15"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/text"
-                android:layout_marginRight="@dimen/dp_45"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="0"
-                android:textColor="@color/colorText_1A1A1A"
-                android:textSize="@dimen/sp_13" />
+                android:layout_marginRight="@dimen/dp_45"
+                android:layout_toLeftOf="@+id/text"
+                android:background="@drawable/boom"
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </LinearLayout>

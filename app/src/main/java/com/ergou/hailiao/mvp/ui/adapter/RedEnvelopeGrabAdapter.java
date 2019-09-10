@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.mvp.bean.MailListBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnItemClickListener;
+import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.glide.GlideManager;
 import com.ergou.hailiao.widget.recyclerview.multitype.ItemViewProvider;
 
@@ -24,7 +26,7 @@ import io.rong.imlib.model.Conversation;
 /**
  * Created by LuoCY on 2019/8/14.
  */
-public class RedEnvelopeGrabAdapter extends ItemViewProvider<MailListBean,
+public class RedEnvelopeGrabAdapter extends ItemViewProvider<RedEnvelopeGrabBean.AllRobBean,
         RedEnvelopeGrabAdapter.MyViewHolder> implements View.OnClickListener {
 
     private OnItemClickListener<Integer> mOnItemClickListener = null;
@@ -39,18 +41,35 @@ public class RedEnvelopeGrabAdapter extends ItemViewProvider<MailListBean,
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onBindViewHolder(@NonNull final MyViewHolder holder,
-                                    @NonNull final MailListBean mailListBean) {
+                                    @NonNull final RedEnvelopeGrabBean.AllRobBean allRobBean) {
 
-        GlideManager.loadCircleImageView(holder.itemView.getContext(), mailListBean.getUser_header_img(),
+        GlideManager.loadImageView(holder.itemView.getContext(), allRobBean.getUser_header_img(),
                 holder.head_img, R.mipmap.ic_launcher);//头像
-        holder.nick_name.setText(mailListBean.getNick_name());//昵称
-//        holder.hailiao_number.setText(mailListBean.getUser_id());//嗨聊号
+        holder.nick_name.setText(allRobBean.getNick_name());//昵称
+        holder.time.setText(allRobBean.getCreate_time());//时间
+        holder.money.setText(allRobBean.getMoney());//金额
+        if (allRobBean.getIs_bomb().equals("2")) {//	是否中雷(1:否;2:是)
+            holder.lei_img.setVisibility(View.VISIBLE);
+        } else {
+            holder.lei_img.setVisibility(View.GONE);
+        }
+        if (!StringUtils.isEmpty(allRobBean.getLuck())) {
+            if (allRobBean.getLuck().equals("1")) {//1为最佳
+                holder.king_img.setVisibility(View.VISIBLE);
+                holder.text.setVisibility(View.VISIBLE);
+            } else {
+                holder.king_img.setVisibility(View.GONE);
+                holder.text.setVisibility(View.INVISIBLE);
+            }
+        }
+//        holder.text.setText(allRobBean.get());//说明
+//        holder.king_img.setText(allRobBean.getCreate_time());//手气最好
+//        holder.lei_img.setText(allRobBean.getCreate_time());//雷
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RongIM.getInstance().startConversation(holder.itemView.getContext(), Conversation
-                        .ConversationType.PRIVATE , mailListBean.getUser_id(), mailListBean.getNick_name());
+
             }
         });
 

@@ -90,4 +90,36 @@ public class RedEnvelopesGrabPerson extends RxPresenter<RedEnvelopeGrabContract.
                     }
                 }));
     }
+
+    @Override
+    public void getOpenBean(RequestBody body) {
+
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getOpen(body),
+                new ResourceSubscriber<HttpResponse<RedEnvelopeGrabBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<RedEnvelopeGrabBean> response) {
+                        LogUtils.e("=========开返回：" + response.getData().toString());
+                        if (response.getCode() == 200) {
+                            mView.get().getOpenTos(response.getData());
+                        } else {
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, response.getMsg());
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================开异常：");
+                        mView.get().onError(t);
+                        ApiInterface.disPro(activity);
+                        ApiInterface.getToastUtils(activity, "");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
 }

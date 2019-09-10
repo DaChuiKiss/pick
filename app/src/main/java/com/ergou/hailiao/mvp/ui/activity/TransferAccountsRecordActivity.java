@@ -158,7 +158,8 @@ public class TransferAccountsRecordActivity extends BaseActivity<TransferAccount
 
     @Override
     public void showError() {
-
+        refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
+        whether.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -168,7 +169,8 @@ public class TransferAccountsRecordActivity extends BaseActivity<TransferAccount
 
     @Override
     public void onError(Throwable throwable) {
-
+        refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
+        whether.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -183,6 +185,7 @@ public class TransferAccountsRecordActivity extends BaseActivity<TransferAccount
 
     @Override
     public void getTransferAccountsRecordTos(List<TransferAccountsRecordBean> transferAccountsRecordBeans) {//转账记录
+        whether.setVisibility(View.GONE);
         refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
         items.clear();
         if (transferAccountsRecordBeans.size() != 0) {

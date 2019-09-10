@@ -7,10 +7,11 @@ import java.util.List;
  */
 public class RedEnvelopeGrabBean {
 
+
     /**
-     * send : {"nick_name":"我去","user_header_img":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3146277763,293920617&fm=11&gp=0.jpg","money":"88.00","num":7,"thunder_num":"6","create_time":"2019-08-29 08:08:57"}
-     * memberRob : {"money":"32.10","is_bomb":1}
-     * allRob : [{"nick_name":"come on","user_header_img":"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2542141335,292865164&fm=26&gp=0.jpg","money":"32.77","is_bomb":1,"create_time":"11:20:17"},{"nick_name":"我去","user_header_img":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3146277763,293920617&fm=11&gp=0.jpg","money":"32.10","is_bomb":1,"create_time":"08:09:00"},{"nick_name":"嗨聊","user_header_img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4080336380,3661090732&fm=26&gp=0.jpg","money":"2.07","is_bomb":1,"create_time":"08:08:57"}]
+     * send : {"nick_name":"狗大爷只嘛","user_header_img":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=311097710,965735535&fm=26&gp=0.jpg","money":"200.00","num":7,"thunder_num":"1","create_time":"2019-09-10 22:37:25","done_rob":"00分22秒"}
+     * memberRob : []
+     * allRob : [{"nick_name":"来啊,踩雷啊","user_header_img":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1801471742,960458455&fm=26&gp=0.jpg","money":"17.71","is_bomb":2,"create_time":"22:37:47","luck":0},{"nick_name":"我是谁我在哪","user_header_img":"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=285838770,346577304&fm=11&gp=0.jpg","money":"12.01","is_bomb":2,"create_time":"22:37:45","luck":0},{"nick_name":"运气帮帮de","user_header_img":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4208386305,57701306&fm=26&gp=0.jpg","money":"8.93","is_bomb":1,"create_time":"22:37:44","luck":0},{"nick_name":"狗闪闪","user_header_img":"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2542141335,292865164&fm=26&gp=0.jpg","money":"6.02","is_bomb":1,"create_time":"22:37:43","luck":0},{"nick_name":"爱老虎油","user_header_img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2534898382,1324912624&fm=26&gp=0.jpg","money":"52.33","is_bomb":1,"create_time":"22:37:42","luck":0},{"nick_name":"楼房无心","user_header_img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4080336380,3661090732&fm=26&gp=0.jpg","money":"19.89","is_bomb":1,"create_time":"22:37:41","luck":0},{"nick_name":"免死","user_header_img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2735637762,1977390426&fm=26&gp=0.jpg","money":"83.11","is_bomb":2,"create_time":"22:37:25","luck":1}]
      */
 
     private SendBean send;
@@ -43,12 +44,13 @@ public class RedEnvelopeGrabBean {
 
     public static class SendBean {
         /**
-         * nick_name : 我去
-         * user_header_img : https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3146277763,293920617&fm=11&gp=0.jpg
-         * money : 88.00
+         * nick_name : 狗大爷只嘛
+         * user_header_img : https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=311097710,965735535&fm=26&gp=0.jpg
+         * money : 200.00
          * num : 7
-         * thunder_num : 6
-         * create_time : 2019-08-29 08:08:57
+         * thunder_num : 1
+         * create_time : 2019-09-10 22:37:25
+         * done_rob : 00分22秒
          */
 
         private String nick_name;
@@ -57,6 +59,7 @@ public class RedEnvelopeGrabBean {
         private String num;
         private String thunder_num;
         private String create_time;
+        private String done_rob;
 
         public String getNick_name() {
             return nick_name;
@@ -105,41 +108,24 @@ public class RedEnvelopeGrabBean {
         public void setCreate_time(String create_time) {
             this.create_time = create_time;
         }
-    }
 
-    public static class MemberRobBean {
-        /**
-         * money : 32.10
-         * is_bomb : 1
-         */
-
-        private String money;
-        private String is_bomb;
-
-        public String getMoney() {
-            return money;
+        public String getDone_rob() {
+            return done_rob;
         }
 
-        public void setMoney(String money) {
-            this.money = money;
-        }
-
-        public String getIs_bomb() {
-            return is_bomb;
-        }
-
-        public void setIs_bomb(String is_bomb) {
-            this.is_bomb = is_bomb;
+        public void setDone_rob(String done_rob) {
+            this.done_rob = done_rob;
         }
     }
 
     public static class AllRobBean {
         /**
-         * nick_name : come on
-         * user_header_img : https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2542141335,292865164&fm=26&gp=0.jpg
-         * money : 32.77
-         * is_bomb : 1
-         * create_time : 11:20:17
+         * nick_name : 来啊,踩雷啊
+         * user_header_img : https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1801471742,960458455&fm=26&gp=0.jpg
+         * money : 17.71
+         * is_bomb : 2
+         * create_time : 22:37:47
+         * luck : 0
          */
 
         private String nick_name;
@@ -147,6 +133,7 @@ public class RedEnvelopeGrabBean {
         private String money;
         private String is_bomb;
         private String create_time;
+        private String luck;
 
         public String getNick_name() {
             return nick_name;
@@ -186,6 +173,14 @@ public class RedEnvelopeGrabBean {
 
         public void setCreate_time(String create_time) {
             this.create_time = create_time;
+        }
+
+        public String getLuck() {
+            return luck;
+        }
+
+        public void setLuck(String luck) {
+            this.luck = luck;
         }
     }
 }

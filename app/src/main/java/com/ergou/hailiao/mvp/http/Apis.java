@@ -143,6 +143,10 @@ public interface Apis {
 // 查看大家手气
     Flowable<HttpResponse<RedEnvelopeGrabBean>> getRedinfo(@Body RequestBody Body);
 
+    @POST("qianghongbao")
+// 开
+    Flowable<HttpResponse<RedEnvelopeGrabBean>> getOpen(@Body RequestBody Body);
+
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
     Flowable<HttpResponse<List<LoginBean>>> getCheckChangeDevice(@Body RequestBody Body);

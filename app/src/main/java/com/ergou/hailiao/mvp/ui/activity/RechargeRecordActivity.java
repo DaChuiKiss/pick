@@ -157,7 +157,8 @@ public class RechargeRecordActivity extends BaseActivity<RechargeRecordPerson>
 
     @Override
     public void showError() {
-
+        refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
+        whether.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -167,7 +168,8 @@ public class RechargeRecordActivity extends BaseActivity<RechargeRecordPerson>
 
     @Override
     public void onError(Throwable throwable) {
-
+        refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
+        whether.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -182,6 +184,7 @@ public class RechargeRecordActivity extends BaseActivity<RechargeRecordPerson>
 
     @Override
     public void getRechargeRecordTos(List<RechargeRecordBean> rechargeRecordBeans) {
+        whether.setVisibility(View.GONE);
         refresh.setRefreshing(false); // 关闭动画也就是圈圈消失
         items.clear();
         if (rechargeRecordBeans.size() != 0) {

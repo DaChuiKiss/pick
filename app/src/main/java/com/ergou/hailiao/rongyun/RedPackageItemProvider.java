@@ -243,6 +243,19 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
         name.setText(nickame + activity.getResources().getText(R.string.prompt40));
         GlideManager.loadRoundImageView(mContext, header,
                 head_img, R.mipmap.ic_launcher);//头像
+        open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {//开红包
+                popupWindow.dismiss();
+                Intent intent = new Intent();
+                intent.setClass(activity, RedEnvelopeGrabActivity.class);
+                intent.putExtra("nickame", nickame);//
+                intent.putExtra("header", header);//
+                intent.putExtra("order_id", order_id);//
+                intent.putExtra("dataType", "kai");//
+                activity.startActivity(intent);
+            }
+        });
         chakan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//查看手气
@@ -252,6 +265,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
                 intent.putExtra("nickame", nickame);//
                 intent.putExtra("header", header);//
                 intent.putExtra("order_id", order_id);//
+                intent.putExtra("dataType", "chakan");//
                 activity.startActivity(intent);
             }
         });
@@ -262,7 +276,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
             }
         });
         //设置PopupWindow进入和退出动画
-        popupWindow.setAnimationStyle(R.style.pop_window_anim);
+//        popupWindow.setAnimationStyle(R.style.pop_window_anim);
         // 设置PopupWindow显示在中间
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 20);
     }

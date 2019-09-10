@@ -22,6 +22,8 @@ public interface RedEnvelopeGrabContract {
 
         void getRedEnvelopeGrabTos(RedEnvelopeGrabBean redEnvelopeGrab);//查看手气
 
+        void getOpenTos(RedEnvelopeGrabBean redEnvelopeGrab);//开
+
 
     }
 
@@ -29,6 +31,8 @@ public interface RedEnvelopeGrabContract {
         void getTimeStampBean(RequestBody body);
 
         void getRedEnvelopeGrabBean(RequestBody body);
+
+        void getOpenBean(RequestBody body);
 
     }
 }

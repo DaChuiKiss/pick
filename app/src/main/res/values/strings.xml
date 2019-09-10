@@ -108,6 +108,7 @@
     <string name="red_envelope_record">红包记录</string>
     <string name="common">共</string>
     <string name="leihao">雷号：</string>
+    <string name="best_luck">手气最佳</string>
 
 
     <string name="prompt">提示：</string>
@@ -156,5 +157,6 @@
     <string name="prompt43">红包已抢完</string>
     <string name="prompt44">红包已抢过</string>
     <string name="prompt45">个包</string>
+    <string name="prompt46">暂无记录</string>
 
 </resources>
