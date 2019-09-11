@@ -14,11 +14,16 @@ import io.rong.imlib.model.MessageContent;
 
 /**
  * Created by LuoCY on 2019/8/28.
+ *
+ * 踩雷
+ *
  */
 @MessageTag(value = "cailei", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class CaiLeiMessage extends MessageContent {
     //自定义的属性
-    private String hongbao;//操作名
+    private String nick_name;//昵称
+    private String header;//头像
+    private String hongbao;//
     private String content;
     private String money;//金额
     private String boom;//雷号
@@ -44,6 +49,8 @@ public class CaiLeiMessage extends MessageContent {
     public byte[] encode() {
         JSONObject jsonObj = new JSONObject();
         try {
+            jsonObj.put("nick_name", this.getNick_name());
+            jsonObj.put("header", this.getHeader());
             jsonObj.put("hongbao", this.getHongbao());
             jsonObj.put("content", this.getContent());
             jsonObj.put("money", this.getMoneye());
@@ -74,6 +81,10 @@ public class CaiLeiMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
+            if (jsonObj.has("nick_name"))
+                this.setNick_name(jsonObj.optString("nick_name"));
+            if (jsonObj.has("header"))
+                this.setHeader(jsonObj.optString("header"));
             if (jsonObj.has("hongbao"))
                 this.setHongbao(jsonObj.optString("hongbao"));
             if (jsonObj.has("content"))
@@ -93,6 +104,8 @@ public class CaiLeiMessage extends MessageContent {
     //给消息赋值。
     public CaiLeiMessage(Parcel in) {
 
+        setNick_name(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setHeader(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setHongbao(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         //这里可继续增加你消息的属性
@@ -119,6 +132,8 @@ public class CaiLeiMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        ParcelUtils.writeToParcel(dest, this.getNick_name());
+        ParcelUtils.writeToParcel(dest, this.getHeader());
         ParcelUtils.writeToParcel(dest, this.getHongbao());
         ParcelUtils.writeToParcel(dest, this.getContent());
         ParcelUtils.writeToParcel(dest, this.getMoneye());
@@ -126,6 +141,20 @@ public class CaiLeiMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, this.getOrderId());
     }
 
+    public String getNick_name() {
+        return nick_name;
+    }
+
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
     public String getHongbao() {
         return hongbao;
     }

@@ -17,18 +17,18 @@ import io.rong.imkit.widget.provider.IContainerItemProvider;
 /**
  * Created by LuoCY on 2019/8/28.
  */
-@ProviderTag(messageContent = DuoLeiMessage.class)
+@ProviderTag(messageContent = DuoLeiMessage.class,showPortrait = false ,showSummaryWithName = false , centerInHorizontal = true)
 public class DuoLeiMessageItemProvider extends IContainerItemProvider.MessageProvider<DuoLeiMessage> {
 
     class ViewHolder {
-        TextView money;
+        TextView text;
     }
 
     @Override
     public View newView(Context context, ViewGroup group) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_duolei, null);
         ViewHolder holder = new ViewHolder();
-        holder.money = (TextView) view.findViewById(R.id.money);//金额
+        holder.text = (TextView) view.findViewById(R.id.text);//内容
         view.setTag(holder);
         return view;
     }
@@ -36,7 +36,7 @@ public class DuoLeiMessageItemProvider extends IContainerItemProvider.MessagePro
     @Override
     public void bindView(View view, int i, DuoLeiMessage customizeMessage, UIMessage uiMessage) {
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.money.setText("四狗子");
+        holder.text.setText(customizeMessage.getContent());
 
     }
 

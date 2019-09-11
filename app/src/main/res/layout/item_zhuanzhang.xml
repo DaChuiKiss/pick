@@ -18,10 +18,6 @@
             android:orientation="horizontal"
             android:padding="@dimen/dp_10">
 
-            <TextView
-                android:layout_width="@dimen/dp_45"
-                android:layout_height="@dimen/dp_45"
-                android:background="@drawable/item_hongbao" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -34,65 +30,51 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!--   金额  -->
+                    <!--   转账成功  -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/successful_transfer"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_14" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_3">
+
+                    <!--  金额  -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cny"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_16" />
+
+                    <!--  金额  -->
                     <TextView
                         android:id="@+id/money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="0"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/sp_16" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
-                        android:layout_marginRight="@dimen/dp_6"
-                        android:text="-"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/sp_16" />
-
-                    <!--  雷号  -->
-                    <TextView
-                        android:id="@+id/lei_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/sp_16" />
-
-                    <!--  个  -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/individual"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/sp_16" />
-
                 </LinearLayout>
-
-                <!--  是否领取  -->
-                <TextView
-                    android:id="@+id/receive_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_3"
-                    android:text="@string/receive_red_envelopes"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_14" />
-
             </LinearLayout>
         </LinearLayout>
 
         <!--   备注  -->
         <TextView
-            android:id="@+id/remarks"
             android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
-            android:text=""
+            android:text="@string/prompt49"
             android:textColor="@color/colorText_1A1A1A"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>

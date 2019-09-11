@@ -19,18 +19,18 @@ import io.rong.message.TextMessage;
 /**
  * Created by LuoCY on 2019/8/28.
  */
-@ProviderTag(messageContent = TextMessage.class , showPortrait = false , centerInHorizontal = true)
+@ProviderTag(messageContent = CaiLeiMessage.class , showPortrait = false ,showSummaryWithName = false , centerInHorizontal = true)
 public class CaiLeiMessageItemProvider extends TextMessageItemProvider.MessageProvider<CaiLeiMessage> {
 
     class ViewHolder {
-        TextView money;
+        TextView text;
     }
 
     @Override
     public View newView(Context context, ViewGroup group) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_cailei, null);
         ViewHolder holder = new ViewHolder();
-        holder.money = (TextView) view.findViewById(R.id.money);//金额
+        holder.text = (TextView) view.findViewById(R.id.text);//内容
         view.setTag(holder);
         return view;
     }
@@ -38,8 +38,7 @@ public class CaiLeiMessageItemProvider extends TextMessageItemProvider.MessagePr
     @Override
     public void bindView(View view, int i, CaiLeiMessage customizeMessage, UIMessage uiMessage) {
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.money.setText("臭狗子");
-
+        holder.text.setText(customizeMessage.getContent());
     }
 
     @Override

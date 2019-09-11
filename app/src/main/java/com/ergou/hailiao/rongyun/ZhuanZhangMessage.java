@@ -14,30 +14,34 @@ import io.rong.imlib.model.MessageContent;
 
 /**
  * Created by LuoCY on 2019/8/28.
+ *
+ * 踩雷
+ *
  */
-@MessageTag(value = "fuli", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class FuliMessage extends MessageContent {
+@MessageTag(value = "zhuanzhang", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+public class ZhuanZhangMessage extends MessageContent {
     //自定义的属性
     private String nick_name;//昵称
     private String header;//头像
+    private String hongbao;//
     private String content;
     private String money;//金额
-    private String num;//个数
+    private String boom;//雷号
     private String order_id;//ID
 
     /**
      * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例处理。
      */
-    public static final Creator<FuliMessage> CREATOR = new Creator<FuliMessage>() {
+    public static final Creator<ZhuanZhangMessage> CREATOR = new Creator<ZhuanZhangMessage>() {
 
         @Override
-        public FuliMessage createFromParcel(Parcel source) {
-            return new FuliMessage(source);
+        public ZhuanZhangMessage createFromParcel(Parcel source) {
+            return new ZhuanZhangMessage(source);
         }
 
         @Override
-        public FuliMessage[] newArray(int size) {
-            return new FuliMessage[size];
+        public ZhuanZhangMessage[] newArray(int size) {
+            return new ZhuanZhangMessage[size];
         }
     };
 
@@ -47,9 +51,10 @@ public class FuliMessage extends MessageContent {
         try {
             jsonObj.put("nick_name", this.getNick_name());
             jsonObj.put("header", this.getHeader());
+            jsonObj.put("hongbao", this.getHongbao());
             jsonObj.put("content", this.getContent());
-            jsonObj.put("money", this.getMoney());
-            jsonObj.put("num", this.getNum());
+            jsonObj.put("money", this.getMoneye());
+            jsonObj.put("boom", this.getBoom());
             jsonObj.put("order_id", this.getOrderId());
 
         } catch (JSONException e) {
@@ -64,7 +69,7 @@ public class FuliMessage extends MessageContent {
         return null;
     }
 
-    public FuliMessage(byte[] data) {
+    public ZhuanZhangMessage(byte[] data) {
         String jsonStr = null;
 
         try {
@@ -80,12 +85,14 @@ public class FuliMessage extends MessageContent {
                 this.setNick_name(jsonObj.optString("nick_name"));
             if (jsonObj.has("header"))
                 this.setHeader(jsonObj.optString("header"));
+            if (jsonObj.has("hongbao"))
+                this.setHongbao(jsonObj.optString("hongbao"));
             if (jsonObj.has("content"))
                 this.setContent(jsonObj.optString("content"));
             if (jsonObj.has("money"))
                 this.setMoney(jsonObj.optString("money"));
-            if (jsonObj.has("num"))
-                this.setNum(jsonObj.optString("num"));
+            if (jsonObj.has("boom"))
+                this.setBoom(jsonObj.optString("boom"));
             if (jsonObj.has("order_id"))
                 this.setOrderId(jsonObj.optString("order_id"));
         } catch (JSONException e) {
@@ -95,14 +102,15 @@ public class FuliMessage extends MessageContent {
     }
 
     //给消息赋值。
-    public FuliMessage(Parcel in) {
+    public ZhuanZhangMessage(Parcel in) {
 
         setNick_name(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setHeader(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setHongbao(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         //这里可继续增加你消息的属性
         setMoney(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
-        setNum(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setBoom(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setOrderId(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
     }
 
@@ -126,9 +134,10 @@ public class FuliMessage extends MessageContent {
     public void writeToParcel(Parcel dest, int flags) {
         ParcelUtils.writeToParcel(dest, this.getNick_name());
         ParcelUtils.writeToParcel(dest, this.getHeader());
+        ParcelUtils.writeToParcel(dest, this.getHongbao());
         ParcelUtils.writeToParcel(dest, this.getContent());
-        ParcelUtils.writeToParcel(dest, this.getMoney());
-        ParcelUtils.writeToParcel(dest, this.getNum());
+        ParcelUtils.writeToParcel(dest, this.getMoneye());
+        ParcelUtils.writeToParcel(dest, this.getBoom());
         ParcelUtils.writeToParcel(dest, this.getOrderId());
     }
 
@@ -139,13 +148,19 @@ public class FuliMessage extends MessageContent {
     public void setNick_name(String nick_name) {
         this.nick_name = nick_name;
     }
-
     public String getHeader() {
         return header;
     }
 
     public void setHeader(String header) {
         this.header = header;
+    }
+    public String getHongbao() {
+        return hongbao;
+    }
+
+    public void setHongbao(String hongbao) {
+        this.hongbao = hongbao;
     }
 
     public String getContent() {
@@ -156,7 +171,7 @@ public class FuliMessage extends MessageContent {
         this.content = content;
     }
 
-    public String getMoney() {
+    public String getMoneye() {
         return money;
     }
 
@@ -164,12 +179,12 @@ public class FuliMessage extends MessageContent {
         this.money = money;
     }
 
-    public String getNum() {
-        return num;
+    public String getBoom() {
+        return boom;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setBoom(String boom) {
+        this.boom = boom;
     }
 
     public String getOrderId() {
@@ -179,5 +194,6 @@ public class FuliMessage extends MessageContent {
     public void setOrderId(String order_id) {
         this.order_id = order_id;
     }
+
 
 }

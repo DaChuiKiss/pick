@@ -17,18 +17,18 @@ import io.rong.imkit.widget.provider.IContainerItemProvider;
 /**
  * Created by LuoCY on 2019/8/28.
  */
-@ProviderTag(messageContent = TeShuMessage.class)
+@ProviderTag(messageContent = TeShuMessage.class,showPortrait = false ,showSummaryWithName = false , centerInHorizontal = true)
 public class TeShuMessageItemProvider extends IContainerItemProvider.MessageProvider<TeShuMessage> {
 
     class ViewHolder {
-        TextView money;
+        TextView text;
     }
 
     @Override
     public View newView(Context context, ViewGroup group) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_teshu, null);
         ViewHolder holder = new ViewHolder();
-        holder.money = (TextView) view.findViewById(R.id.money);//金额
+        holder.text = (TextView) view.findViewById(R.id.text);//内容
         view.setTag(holder);
         return view;
     }
@@ -36,7 +36,7 @@ public class TeShuMessageItemProvider extends IContainerItemProvider.MessageProv
     @Override
     public void bindView(View view, int i, TeShuMessage customizeMessage, UIMessage uiMessage) {
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.money.setText("三狗子");
+        holder.text.setText(customizeMessage.getContent());
 
     }
 

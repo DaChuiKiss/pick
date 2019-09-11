@@ -109,6 +109,8 @@
     <string name="common">共</string>
     <string name="leihao">雷号：</string>
     <string name="best_luck">手气最佳</string>
+    <string name="successful_transfer">转账成功</string>
+    <string name="individual">个</string>
 
 
     <string name="prompt">提示：</string>
@@ -158,5 +160,8 @@
     <string name="prompt44">红包已抢过</string>
     <string name="prompt45">个包</string>
     <string name="prompt46">暂无记录</string>
+    <string name="prompt47">抢了</string>
+    <string name="prompt48">元，中雷赔付：</string>
+    <string name="prompt49">嗨聊转账</string>
 
 </resources>

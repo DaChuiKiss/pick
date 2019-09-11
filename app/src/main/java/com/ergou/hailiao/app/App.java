@@ -1,6 +1,5 @@
 package com.ergou.hailiao.app;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.view.View;
 import com.ergou.hailiao.di.component.AppComponent;
 import com.ergou.hailiao.di.component.DaggerAppComponent;
 import com.ergou.hailiao.di.module.AppMoudle;
-import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
 import com.ergou.hailiao.rongyun.CaiLeiMessage;
 import com.ergou.hailiao.rongyun.CaiLeiMessageItemProvider;
@@ -29,6 +27,8 @@ import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.rongyun.IntentExtra;
 import com.ergou.hailiao.rongyun.TeShuMessage;
 import com.ergou.hailiao.rongyun.TeShuMessageItemProvider;
+import com.ergou.hailiao.rongyun.ZhuanZhangItemProvider;
+import com.ergou.hailiao.rongyun.ZhuanZhangMessage;
 import com.ergou.hailiao.utils.CrashUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.Utils;
@@ -103,11 +103,13 @@ public class App extends Application {
         RongIM.registerMessageType(FuliMessage.class);//fuli
         RongIM.registerMessageType(TeShuMessage.class);//award
         RongIM.registerMessageType(DuoLeiMessage.class);//duolei
+        RongIM.registerMessageType(ZhuanZhangMessage.class);//zhuangzhang
         RongIM.registerMessageTemplate(new RedPackageItemProvider());
         RongIM.registerMessageTemplate(new CaiLeiMessageItemProvider());
         RongIM.registerMessageTemplate(new FuLiItemProvider());
         RongIM.registerMessageTemplate(new TeShuMessageItemProvider());
         RongIM.registerMessageTemplate(new DuoLeiMessageItemProvider());
+        RongIM.registerMessageTemplate(new ZhuanZhangItemProvider());
 
 //        initConversation();
 //        initConversationList();

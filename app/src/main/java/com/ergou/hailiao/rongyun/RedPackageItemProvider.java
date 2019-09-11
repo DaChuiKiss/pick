@@ -2,6 +2,9 @@ package com.ergou.hailiao.rongyun;
 
 /**
  * Created by LuoCY on 2019/8/28.
+ *
+ * 红包
+ *
  */
 
 import android.app.Activity;
@@ -119,7 +122,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
 
     @Override
     public void onItemLongClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        ToastUtils.showLongToast(view.getContext(), "长按红包");
+//        ToastUtils.showLongToast(view.getContext(), "长按红包");
     }
 
     private static class ViewHolder {
