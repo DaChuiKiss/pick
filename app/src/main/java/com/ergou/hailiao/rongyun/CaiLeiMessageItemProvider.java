@@ -13,12 +13,14 @@ import com.ergou.hailiao.R;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
+import io.rong.imkit.widget.provider.TextMessageItemProvider;
+import io.rong.message.TextMessage;
 
 /**
  * Created by LuoCY on 2019/8/28.
  */
-@ProviderTag(messageContent = CaiLeiMessage.class)
-public class CaiLeiMessageItemProvider extends IContainerItemProvider.MessageProvider<CaiLeiMessage> {
+@ProviderTag(messageContent = TextMessage.class , showPortrait = false , centerInHorizontal = true)
+public class CaiLeiMessageItemProvider extends TextMessageItemProvider.MessageProvider<CaiLeiMessage> {
 
     class ViewHolder {
         TextView money;
