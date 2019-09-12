@@ -10,6 +10,7 @@ import com.ergou.hailiao.mvp.ui.activity.CashWithdrawalRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
 import com.ergou.hailiao.mvp.ui.activity.ForgetLoginPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.ForgetPaymenyPasswordActivity;
+import com.ergou.hailiao.mvp.ui.activity.FuLiGrabActivity;
 import com.ergou.hailiao.mvp.ui.activity.LaunchActivity;
 import com.ergou.hailiao.mvp.ui.activity.LoginPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
@@ -22,6 +23,7 @@ import com.ergou.hailiao.mvp.ui.activity.RechargeRecordActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopeGrabActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesRecordActivity;
+import com.ergou.hailiao.mvp.ui.activity.RedEnvelopesStatisticsActivity;
 import com.ergou.hailiao.mvp.ui.activity.SearchMailListActivity;
 import com.ergou.hailiao.mvp.ui.activity.SignInActivity;
 import com.ergou.hailiao.mvp.ui.activity.SmallChangeActivity;
@@ -79,6 +81,10 @@ public interface ActivityComponent {
     void inject(RedEnvelopesActivity redEnvelopesActivity);//红包
 
     void inject(RedEnvelopeGrabActivity redEnvelopeGrabActivity);//查看大家手气
+
+    void inject(FuLiGrabActivity fuLiGrabActivity);//福利红包
+
+    void inject(RedEnvelopesStatisticsActivity redEnvelopesStatisticsActivity);//红包统计
 
 
 }

@@ -207,6 +207,16 @@
             android:name=".mvp.ui.activity.RedEnvelopeGrabActivity"
             android:screenOrientation="portrait" />
 
+        <!-- 福利红包——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.FuLiGrabActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 红包统计——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.RedEnvelopesStatisticsActivity"
+            android:screenOrientation="portrait" />
+
         <!-- 红包记录——Activity -->
 
         <activity

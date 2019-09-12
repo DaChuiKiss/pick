@@ -4,16 +4,12 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.GameBean;
-import com.ergou.hailiao.mvp.bean.GameMarqueelBean;
-import com.ergou.hailiao.mvp.bean.LunBoBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
 import com.ergou.hailiao.mvp.http.RetrofitUtil;
 import com.ergou.hailiao.utils.LogUtils;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,13 +20,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class GamePerson extends RxPresenter<GameContract.MainView>
-        implements GameContract.Presenter {
+public class FuLiGrabPerson extends RxPresenter<FuLiGrabContract.MainView>
+        implements FuLiGrabContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public GamePerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public FuLiGrabPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -57,54 +53,22 @@ public class GamePerson extends RxPresenter<GameContract.MainView>
 
                     @Override
                     public void onComplete() {
+                        LogUtils.e("main" + "=================获取系统时间失败：");
 
                     }
                 }));
     }
 
     @Override
-    public void getGameBean(RequestBody body) {
+    public void getRedEnvelopeGrabBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getGroup(body),
-                new ResourceSubscriber<HttpResponse<GameBean>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getRedinfo(body),
+                new ResourceSubscriber<HttpResponse<RedEnvelopeGrabBean>>() {
                     @Override
-                    public void onNext(HttpResponse<GameBean> response) {
-                        LogUtils.e("=========群列表返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<RedEnvelopeGrabBean> response) {
+                        LogUtils.e("=========查看手气返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getGameTos(response.getData());
-                        } else {
-                            mView.get().showError();
-//                            ApiInterface.getToastUtils(activity, response.getMsg());
-                        }
-                        ApiInterface.disPro(activity);
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================群列表异常：");
-                        mView.get().onError(t);
-                        ApiInterface.disPro(activity);
-//                        ApiInterface.getToastUtils(activity, "");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        ApiInterface.disPro(activity);
-//                        ApiInterface.getToastUtils(activity, "");
-                    }
-                }));
-    }
-
-    @Override
-    public void getLunBoBean(RequestBody body) {
-
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getLunBo(body),
-                new ResourceSubscriber<HttpResponse<List<LunBoBean>>>() {
-                    @Override
-                    public void onNext(HttpResponse<List<LunBoBean>> response) {
-                        LogUtils.e("=========轮播列表返回：" + response.getData().toString());
-                        if (response.getCode() == 200) {
-                            mView.get().getLunBoTos(response.getData());
+                            mView.get().getRedEnvelopeGrabTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -114,7 +78,7 @@ public class GamePerson extends RxPresenter<GameContract.MainView>
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================轮播列表异常：");
+                        LogUtils.w(t.toString() + "=================查看手气异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");
@@ -128,15 +92,15 @@ public class GamePerson extends RxPresenter<GameContract.MainView>
     }
 
     @Override
-    public void getGameMarqueelBean(RequestBody body) {
+    public void getOpenBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getGuangBo(body),
-                new ResourceSubscriber<HttpResponse<List<GameMarqueelBean>>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getRobfuli(body),
+                new ResourceSubscriber<HttpResponse<RedEnvelopeGrabBean>>() {
                     @Override
-                    public void onNext(HttpResponse<List<GameMarqueelBean>> response) {
-                        LogUtils.e("=========消息轮播列表返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<RedEnvelopeGrabBean> response) {
+                        LogUtils.e("=========抢福利红包返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getGameMarqueelTos(response.getData());
+                            mView.get().getOpenTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -146,7 +110,7 @@ public class GamePerson extends RxPresenter<GameContract.MainView>
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================消息轮播列表异常：");
+                        LogUtils.w(t.toString() + "=================抢福利红包异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");

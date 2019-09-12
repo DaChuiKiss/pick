@@ -60,6 +60,7 @@ public class RedEnvelopeGrabBean {
         private String thunder_num;
         private String create_time;
         private String done_rob;
+        private String send_time;
 
         public String getNick_name() {
             return nick_name;
@@ -115,6 +116,14 @@ public class RedEnvelopeGrabBean {
 
         public void setDone_rob(String done_rob) {
             this.done_rob = done_rob;
+        }
+
+        public String getSend_time() {
+            return send_time;
+        }
+
+        public void setSend_time(String send_time) {
+            this.send_time = send_time;
         }
     }
 

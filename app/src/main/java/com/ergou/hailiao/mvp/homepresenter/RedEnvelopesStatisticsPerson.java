@@ -4,7 +4,9 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
-import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
+import com.ergou.hailiao.mvp.bean.BankInformationBean;
+import com.ergou.hailiao.mvp.bean.BeanBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopesStatisticsBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.mvp.http.HttpResponse;
@@ -20,13 +22,13 @@ import okhttp3.RequestBody;
  * Created by KissDa on 2018/7/30.
  */
 
-public class RedEnvelopesGrabPerson extends RxPresenter<RedEnvelopeGrabContract.MainView>
-        implements RedEnvelopeGrabContract.Presenter {
+public class RedEnvelopesStatisticsPerson extends RxPresenter<RedEnvelopesStatisticsContract.MainView>
+        implements RedEnvelopesStatisticsContract.Presenter {
     private RetrofitUtil mRetrofitHelper;
     private Activity activity;
 
     @Inject
-    public RedEnvelopesGrabPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
+    public RedEnvelopesStatisticsPerson(RetrofitUtil mRetrofitHelper, Activity activity) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.activity = activity;
     }
@@ -53,22 +55,20 @@ public class RedEnvelopesGrabPerson extends RxPresenter<RedEnvelopeGrabContract.
 
                     @Override
                     public void onComplete() {
-                        LogUtils.e("main" + "=================获取系统时间失败：");
-
                     }
                 }));
     }
 
     @Override
-    public void getRedEnvelopeGrabBean(RequestBody body) {
+    public void getRedEnvelopesStatisticsBean(RequestBody body) {
 
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getRedinfo(body),
-                new ResourceSubscriber<HttpResponse<RedEnvelopeGrabBean>>() {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getCountsend(body),
+                new ResourceSubscriber<HttpResponse<RedEnvelopesStatisticsBean>>() {
                     @Override
-                    public void onNext(HttpResponse<RedEnvelopeGrabBean> response) {
-                        LogUtils.e("=========查看手气返回：" + response.getData().toString());
+                    public void onNext(HttpResponse<RedEnvelopesStatisticsBean> response) {
+                        LogUtils.e("=========银行信息返回：" + response.getData().toString());
                         if (response.getCode() == 200) {
-                            mView.get().getRedEnvelopeGrabTos(response.getData());
+                            mView.get().getRedEnvelopesStatisticsTos(response.getData());
                         } else {
                             mView.get().showError();
                             ApiInterface.getToastUtils(activity, response.getMsg());
@@ -78,7 +78,7 @@ public class RedEnvelopesGrabPerson extends RxPresenter<RedEnvelopeGrabContract.
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================查看手气异常：");
+                        LogUtils.w(t.toString() + "=================银行信息异常：");
                         mView.get().onError(t);
                         ApiInterface.disPro(activity);
                         ApiInterface.getToastUtils(activity, "");
@@ -91,35 +91,4 @@ public class RedEnvelopesGrabPerson extends RxPresenter<RedEnvelopeGrabContract.
                 }));
     }
 
-    @Override
-    public void getOpenBean(RequestBody body) {
-
-        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getOpen(body),
-                new ResourceSubscriber<HttpResponse<RedEnvelopeGrabBean>>() {
-                    @Override
-                    public void onNext(HttpResponse<RedEnvelopeGrabBean> response) {
-                        LogUtils.e("=========开返回：" + response.getData().toString());
-                        if (response.getCode() == 200) {
-                            mView.get().getOpenTos(response.getData());
-                        } else {
-                            mView.get().showError();
-                            ApiInterface.getToastUtils(activity, response.getMsg());
-                        }
-                        ApiInterface.disPro(activity);
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        LogUtils.w(t.toString() + "=================开异常：");
-                        mView.get().onError(t);
-                        ApiInterface.disPro(activity);
-                        ApiInterface.getToastUtils(activity, "");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                }));
-    }
 }

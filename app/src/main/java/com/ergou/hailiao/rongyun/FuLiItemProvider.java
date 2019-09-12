@@ -25,6 +25,7 @@ import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
 import com.ergou.hailiao.mvp.bean.RedTypeBean;
 import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.mvp.ui.activity.FuLiGrabActivity;
 import com.ergou.hailiao.mvp.ui.activity.RedEnvelopeGrabActivity;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
@@ -112,7 +113,7 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
     public void onItemClick(View view, int i, FuliMessage fuliMessage, UIMessage uiMessage) {
 
         Context context = view.getContext();
-        getRedPackag(fuliMessage.getNick_name(), fuliMessage.getHeader(), fuliMessage.getOrderId(), context, view);
+        getRedPackag( fuliMessage.getOrderId(), context, view);
     }
 
     @Override
@@ -124,8 +125,7 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
         TextView money, lei_number, receive_type, remarks;
     }
 
-    public void getRedPackag(final String nickname, final String mheader,
-                             final String orderid, final Context context, final View view) {//
+    public void getRedPackag(final String orderid, final Context context, final View view) {//
         device_token = ApiInterface.deviceToken(context);//设备号
         version = AppUtils.getAppVersionName(context);//版本号
         code = InterfaceInteraction.getUUID();//32位随机字符串
@@ -138,7 +138,7 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
         map.put("timestamp", timestamp);
         map.put("order_id", orderid);//红包唯一订单ID
         map.put("mobile", SPUtilsData.getPhoneNumber());//手机号
-        map.put("type", "1");//类型（1:踩雷红包；2:福利红包）
+        map.put("type", "2");//类型（1:踩雷红包；2:福利红包）
 
 
         cmd = InterfaceInteraction.getCmdValue(map);
@@ -175,7 +175,7 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
                             final RedTypeBean typeBean = gson.fromJson(bodyString, RedTypeBean.class);
                             handler.post(new Runnable() {
                                 public void run() {
-                                    redPackageWindow(nickname, mheader, orderid, context, view, typeBean.getData().getStatus());
+                                    redPackageWindow( orderid, context, view, typeBean.getData().getStatus());
                                 }
                             });
                         }
@@ -190,15 +190,15 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
     }
 
 
-    public void redPackageWindow(final String nickame, final String header, final String order_id, final Context mContext, View view, String redType) {//红包状态
+    public void redPackageWindow( final String order_id, final Context mContext, View view, String redType) {//红包状态
         final Activity activity = (Activity) view.getContext();
-        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_red_package, null);
+        View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop_fuli, null);
         popupWindow = new PopupWindow(contentView);
         popupWindow.setContentView(contentView);
         //3、获取屏幕的默认分辨率
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
-        popupWindow.setWidth(width - 260);
+        popupWindow.setWidth(width - 280);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
@@ -238,17 +238,13 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
             chakan.setVisibility(View.VISIBLE);
             text.setText(activity.getResources().getText(R.string.prompt44));
         }
-        name.setText(nickame + activity.getResources().getText(R.string.prompt40));
-        GlideManager.loadRoundImageView(mContext, header,
-                head_img, R.mipmap.ic_launcher);//头像
+        name.setText( activity.getResources().getText(R.string.prompt50));
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//开红包
                 popupWindow.dismiss();
                 Intent intent = new Intent();
-                intent.setClass(activity, RedEnvelopeGrabActivity.class);
-                intent.putExtra("nickame", nickame);//
-                intent.putExtra("header", header);//
+                intent.setClass(activity, FuLiGrabActivity.class);
                 intent.putExtra("order_id", order_id);//
                 intent.putExtra("dataType", "kai");//
                 activity.startActivity(intent);
@@ -259,9 +255,7 @@ public class FuLiItemProvider extends IContainerItemProvider.MessageProvider<Ful
             public void onClick(View view) {//查看手气
                 popupWindow.dismiss();
                 Intent intent = new Intent();
-                intent.setClass(activity, RedEnvelopeGrabActivity.class);
-                intent.putExtra("nickame", nickame);//
-                intent.putExtra("header", header);//
+                intent.setClass(activity, FuLiGrabActivity.class);
                 intent.putExtra("order_id", order_id);//
                 intent.putExtra("dataType", "chakan");//
                 activity.startActivity(intent);

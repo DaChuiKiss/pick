@@ -18,16 +18,19 @@ import com.ergou.hailiao.base.BaseActivity;
 import com.ergou.hailiao.mvp.bean.MemberRobBean;
 import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
+import com.ergou.hailiao.mvp.homepresenter.FuLiGrabContract;
+import com.ergou.hailiao.mvp.homepresenter.FuLiGrabPerson;
 import com.ergou.hailiao.mvp.homepresenter.RedEnvelopeGrabContract;
 import com.ergou.hailiao.mvp.homepresenter.RedEnvelopeGrabPerson;
 import com.ergou.hailiao.mvp.http.ApiInterface;
+import com.ergou.hailiao.mvp.ui.adapter.FuLiGrabAdapter;
 import com.ergou.hailiao.mvp.ui.adapter.RedEnvelopeGrabAdapter;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnRcvScrollListener;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.utils.StringUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
-import com.ergou.hailiao.utils.glide.GlideManager;
 import com.ergou.hailiao.widget.recyclerview.multitype.Items;
 import com.ergou.hailiao.widget.recyclerview.multitype.MultiTypeAdapter;
 
@@ -40,23 +43,19 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Created by LuoCY on 2019/9/6.
- * <p>
- * <p>
- * 抢红包
- */
-public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
-        implements RedEnvelopeGrabContract.MainView {
-    @BindView(R.id.head_img)
-    ImageView headImg;//头像
+ * 福利红包
+ *
+ * */
+
+public class FuLiGrabActivity extends BaseActivity<FuLiGrabPerson>
+        implements FuLiGrabContract.MainView {
+
     @BindView(R.id.name)
     TextView name;//你猜
     @BindView(R.id.money)
     TextView money;//红包
     @BindView(R.id.money_number)
     TextView moneyNumber;//红包个数
-    @BindView(R.id.leihao)
-    TextView leihao;//雷号
     @BindView(R.id.time)
     TextView time;//时间
     @BindView(R.id.recyclerview)
@@ -64,8 +63,6 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
     @BindView(R.id.refresh)
     SwipeRefreshLayout refresh;
 
-    private String nickame = "";
-    private String header = "";
     private String order_id = "";
     private String dataType = "";//进入状态
 
@@ -84,12 +81,12 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(RedEnvelopeGrabActivity.this);
+        getActivityComponent().inject(FuLiGrabActivity.this);
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_red_envelope_grab;
+        return R.layout.activity_fuli_grab;
     }
 
     @Override
@@ -103,13 +100,8 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
             window.setStatusBarColor(Color.TRANSPARENT);
         }
         Intent intent = getIntent();
-        nickame = intent.getStringExtra("nickame");//
-        header = intent.getStringExtra("header");//
         order_id = intent.getStringExtra("order_id");//
         dataType = intent.getStringExtra("dataType");//
-        name.setText(nickame + getResources().getText(R.string.prompt40));
-        GlideManager.loadRoundImageView(mContext, header,
-                headImg, R.mipmap.ic_launcher);//头像
         init();
     }
 
@@ -118,8 +110,8 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
         items.clear();
         recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
         multiTypeAdapter = new MultiTypeAdapter(items);
-        RedEnvelopeGrabAdapter redEnvelopeGrabAdapter = new RedEnvelopeGrabAdapter();
-        multiTypeAdapter.register(RedEnvelopeGrabBean.AllRobBean.class, redEnvelopeGrabAdapter);
+        FuLiGrabAdapter fuLiGrabAdapter = new FuLiGrabAdapter();
+        multiTypeAdapter.register(RedEnvelopeGrabBean.AllRobBean.class, fuLiGrabAdapter);
         recyclerview.setAdapter(multiTypeAdapter);
         refresh.setColorSchemeResources(R.color.colorBlue, R.color.colorBlue, R.color.colorBlue); // 设置圈圈转的颜色
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -170,7 +162,7 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
         map.put("timestamp", timestamp);
         map.put("order_id", order_id);//唯一订单号
         map.put("mobile", SPUtilsData.getPhoneNumber());
-        map.put("type", "1");//（1:踩雷红包；2:福利红包）
+        map.put("type", "2");//（1:踩雷红包；2:福利红包）
 
         cmd = InterfaceInteraction.getCmdValue(map);
         sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
@@ -230,16 +222,11 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
         }
     }
 
-    @OnClick({R.id.fallback, R.id.red_envelope_record})
+    @OnClick({R.id.fallback})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fallback:
                 finish();
-                break;
-            case R.id.red_envelope_record://红包记录
-                Intent intent = new Intent();
-                intent.setClass(mContext, RedEnvelopesStatisticsActivity.class);
-                startActivity(intent);
                 break;
         }
     }
@@ -296,8 +283,12 @@ public class RedEnvelopeGrabActivity extends BaseActivity<RedEnvelopeGrabPerson>
     public void dataOK() {
         money.setText(sendBean.getMoney());//总金额
         moneyNumber.setText(sendBean.getNum());//总包数
-        leihao.setText(sendBean.getThunder_num());//雷号
-        time.setText(sendBean.getCreate_time());//发包时间
-    }
+        if (StringUtils.isEmpty(sendBean.getDone_rob())){
+            time.setVisibility(View.GONE);
+        }else {
+            time.setText(sendBean.getDone_rob());//发包时间
+            time.setVisibility(View.VISIBLE);
+        }
 
+    }
 }

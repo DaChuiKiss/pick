@@ -203,7 +203,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
         //3、获取屏幕的默认分辨率
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
-        popupWindow.setWidth(width - 260);
+        popupWindow.setWidth(width - 280);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));

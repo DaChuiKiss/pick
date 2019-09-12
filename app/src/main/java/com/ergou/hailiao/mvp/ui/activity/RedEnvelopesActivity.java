@@ -315,7 +315,7 @@ public class RedEnvelopesActivity extends BaseActivity<RedEnvelopesPerson>
                 individual = "9";//红包个数
                 sevenIndividual.setBackgroundResource(R.drawable.red_envelopes_n);
                 nineIndividual.setBackgroundResource(R.drawable.red_envelopes_y);
-                leiInt = 1;
+//                leiInt = 1;
                 break;
             case R.id.one_ll://1
                 if (leiHaoBeans.get(1).isBoolean()) {

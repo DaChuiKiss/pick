@@ -74,12 +74,12 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                                 mView.get().getInfoTos(response.getData());
                             } else {
                                 mView.get().showError();
-                                ApiInterface.getToastUtils(activity, response.getMsg());
+//                                ApiInterface.getToastUtils(activity, response.getMsg());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                             LogUtils.e("=========用户融云信息失败：" + response.getData().toString());
-                            ApiInterface.getToastUtils(activity, "");
+//                            ApiInterface.getToastUtils(activity, "");
                         }
 
                     }
@@ -88,7 +88,7 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                     public void onError(Throwable t) {
                         LogUtils.w(t.toString() + "=================用户融云信息异常：");
                         mView.get().onError(t);
-                        ApiInterface.getToastUtils(activity, "");
+//                        ApiInterface.getToastUtils(activity, "");
                     }
 
                     @Override

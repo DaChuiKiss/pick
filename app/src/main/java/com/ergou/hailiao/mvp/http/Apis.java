@@ -14,6 +14,7 @@ import com.ergou.hailiao.mvp.bean.RechargeBean;
 import com.ergou.hailiao.mvp.bean.RechargeRecordBean;
 import com.ergou.hailiao.mvp.bean.RedEnvelopeGrabBean;
 import com.ergou.hailiao.mvp.bean.RedEnvelopesRecordBean;
+import com.ergou.hailiao.mvp.bean.RedEnvelopesStatisticsBean;
 import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.SearchMailListBean;
@@ -146,6 +147,14 @@ public interface Apis {
     @POST("qianghongbao")
 // 开
     Flowable<HttpResponse<RedEnvelopeGrabBean>> getOpen(@Body RequestBody Body);
+
+    @POST("robfuli")
+// 抢福利红包
+    Flowable<HttpResponse<RedEnvelopeGrabBean>> getRobfuli(@Body RequestBody Body);
+
+    @POST("countsend")
+// 抢福利红包
+    Flowable<HttpResponse<RedEnvelopesStatisticsBean>> getCountsend(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

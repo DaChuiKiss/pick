@@ -15,6 +15,7 @@
         <item name="android:windowExitAnimation">@anim/pop_out</item>
     </style>
 
+    <!-- popwindow的弹出和消失动画 下-->
     <style name="popupwindow_anim">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>

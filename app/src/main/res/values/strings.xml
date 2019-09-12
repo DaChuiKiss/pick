@@ -111,6 +111,7 @@
     <string name="best_luck">手气最佳</string>
     <string name="successful_transfer">转账成功</string>
     <string name="individual">个</string>
+    <string name="spell">拼</string>
 
 
     <string name="prompt">提示：</string>
@@ -163,5 +164,9 @@
     <string name="prompt47">抢了</string>
     <string name="prompt48">元，中雷赔付：</string>
     <string name="prompt49">嗨聊转账</string>
+    <string name="prompt50">福利红包</string>
+    <string name="prompt51">只显示最近24小时的记录</string>
+    <string name="prompt52">抢到的红包</string>
+    <string name="prompt53">发出的红包</string>
 
 </resources>
