@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginRight="@dimen/dp_5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <!--   头像   -->
+    <ImageView
+        android:id="@+id/head_img"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_60"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/colorText_666666"
+        android:text=""
+        />
+
+</LinearLayout>

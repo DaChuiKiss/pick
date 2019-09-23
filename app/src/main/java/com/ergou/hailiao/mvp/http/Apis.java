@@ -1,5 +1,6 @@
 package com.ergou.hailiao.mvp.http;
 
+import com.ergou.hailiao.mvp.bean.MemberListBean;
 import com.ergou.hailiao.mvp.bean.BankInformationBean;
 import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.CashWithdrawalRecordBean;
@@ -155,6 +156,10 @@ public interface Apis {
     @POST("countsend")
 // 抢福利红包
     Flowable<HttpResponse<RedEnvelopesStatisticsBean>> getCountsend(@Body RequestBody Body);
+
+    @POST("getlists")
+// 抢福利红包
+    Flowable<HttpResponse<MemberListBean>> getlists(@Body RequestBody Body);
 
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证

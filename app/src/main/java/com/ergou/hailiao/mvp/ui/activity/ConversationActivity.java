@@ -2,9 +2,12 @@ package com.ergou.hailiao.mvp.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
@@ -19,16 +22,18 @@ import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-
+import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.model.Conversation;
@@ -43,11 +48,17 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
         implements ConversationContract.MainView, RongIM.UserInfoProvider {
     @BindView(R.id.title_share)
     TextView titleShare;
+    @BindView(R.id.title_right_img)
+    ImageView titleRightImg;
+    @BindView(R.id.title_right_rl)
+    RelativeLayout titleRightRl;
+
     private String title;
     /**
      * 对方id
      */
     private String targetId;
+    private String targetIdType;
     /**
      * 会话类型
      */
@@ -87,21 +98,32 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
             return;
         }
         targetId = intent.getData().getQueryParameter("targetId");
+        targetIdType = intent.getData().getLastPathSegment().toUpperCase(Locale.US);
+        if (targetIdType.equals("GROUP")||targetIdType.equals("CHATROOM")){
+            titleRightImg.setImageResource(R.drawable.geng_duo);
+            titleRightImg.setVisibility(View.VISIBLE);
+            titleRightRl.setVisibility(View.VISIBLE);
+        }else {
+            titleRightImg.setVisibility(View.GONE);
+            titleRightRl.setVisibility(View.GONE);
+        }
         conversationType = Conversation.ConversationType.valueOf(intent.getData()
                 .getLastPathSegment().toUpperCase(Locale.US));
         title = intent.getData().getQueryParameter("title");
         titleShare.setText(title);
         mUserId = targetId;
         getSignIn();
+        RongExtension rongExtension = new RongExtension(mContext);
+        rongExtension.getInputEditText().setText("禁止发言");
         RongIM.setUserInfoProvider(this, true);
         FragmentManager fragmentManage = getSupportFragmentManager();
         ConversationFragment fragement = (ConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation").appendPath(conversationType.getName().toLowerCase())
                 .appendQueryParameter("targetId", targetId).build();
-
         fragement.setUri(uri);
 
+//        TextView rc_ext_input_edit_text = (TextView) findViewById(R.id.rc_ext_input_edit_text);
     }
 
 
@@ -256,11 +278,19 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
     }
 
 
-    @OnClick({R.id.fallback})
+    @OnClick({R.id.fallback,R.id.title_right_rl})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fallback:
                 finish();
+                break;
+            case R.id.title_right_rl:
+                Intent intent = new Intent();
+                intent.setClass(mContext, MemberListActivity.class);
+                intent.putExtra("targetId", targetId);//
+                intent.putExtra("title", title);//
+                intent.putExtra("targetIdType", targetIdType);//
+                startActivity(intent);
                 break;
         }
     }

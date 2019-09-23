@@ -112,6 +112,9 @@
     <string name="successful_transfer">转账成功</string>
     <string name="individual">个</string>
     <string name="spell">拼</string>
+    <string name="member_list">成员列表</string>
+    <string name="group_chat_name">群聊名称</string>
+    <string name="group_chat_number">群聊号码</string>
 
 
     <string name="prompt">提示：</string>
@@ -168,5 +171,7 @@
     <string name="prompt51">只显示最近24小时的记录</string>
     <string name="prompt52">抢到的红包</string>
     <string name="prompt53">发出的红包</string>
+    <string name="prompt54">最多显示50个在线用户</string>
+    <string name="prompt55">自动清除一小时以前的记录</string>
 
 </resources>

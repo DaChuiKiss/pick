@@ -14,6 +14,7 @@ import com.ergou.hailiao.mvp.ui.activity.FuLiGrabActivity;
 import com.ergou.hailiao.mvp.ui.activity.LaunchActivity;
 import com.ergou.hailiao.mvp.ui.activity.LoginPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.MainActivity;
+import com.ergou.hailiao.mvp.ui.activity.MemberListActivity;
 import com.ergou.hailiao.mvp.ui.activity.ModifyHeadImgActivity;
 import com.ergou.hailiao.mvp.ui.activity.PaymenyPasswordActivity;
 import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
@@ -85,6 +86,8 @@ public interface ActivityComponent {
     void inject(FuLiGrabActivity fuLiGrabActivity);//福利红包
 
     void inject(RedEnvelopesStatisticsActivity redEnvelopesStatisticsActivity);//红包统计
+
+    void inject(MemberListActivity memberListActivity);//成员列表
 
 
 }

@@ -217,6 +217,11 @@
             android:name=".mvp.ui.activity.RedEnvelopesStatisticsActivity"
             android:screenOrientation="portrait" />
 
+        <!-- 红包统计——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.MemberListActivity"
+            android:screenOrientation="portrait" />
+
         <!-- 红包记录——Activity -->
 
         <activity
