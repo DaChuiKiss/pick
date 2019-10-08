@@ -28,7 +28,15 @@ public class GameBean {
         private String mark;//
         private String button;//是否有交互，0没有，1有
         private String is_fuli;//isfuli是是否为福利房间
+        private String game_rule;//
 
+        public String getGame_rule() {
+            return game_rule;
+        }
+
+        public void setGame_rule(String game_rule) {
+            this.game_rule = game_rule;
+        }
 
         public String getGroup_id() {
             return group_id;

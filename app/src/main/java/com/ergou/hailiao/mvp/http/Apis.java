@@ -161,6 +161,10 @@ public interface Apis {
 // 抢福利红包
     Flowable<HttpResponse<MemberListBean>> getlists(@Body RequestBody Body);
 
+    @POST("joinorquit")
+// 加入、退出群聊
+    Flowable<HttpResponse<BeanBean>> getJoinorquit(@Body RequestBody Body);
+
     @POST("login/checkChangeDevice/")
 // 更换手机设备号验证
     Flowable<HttpResponse<List<LoginBean>>> getCheckChangeDevice(@Body RequestBody Body);

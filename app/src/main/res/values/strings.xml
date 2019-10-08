@@ -115,6 +115,7 @@
     <string name="member_list">成员列表</string>
     <string name="group_chat_name">群聊名称</string>
     <string name="group_chat_number">群聊号码</string>
+    <string name="customer_service">客服</string>
 
 
     <string name="prompt">提示：</string>

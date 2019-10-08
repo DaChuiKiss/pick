@@ -124,4 +124,12 @@ dependencies {
     //图片轮播
     implementation 'com.jude:rollviewpager:1.4.6'
 
+    //以下三项必填
+    implementation project(':sobotsdk')
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    //目前支持常见的3种图片加载库，必须在下面的图片加载库中选择一个添加依赖
+    //implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //implementation 'com.github.bumptech.glide:glide:3.7.0'
+//    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }

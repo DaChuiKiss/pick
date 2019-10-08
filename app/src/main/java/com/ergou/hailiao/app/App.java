@@ -25,6 +25,7 @@ import com.ergou.hailiao.rongyun.RedPackageItemProvider;
 import com.ergou.hailiao.rongyun.RedPackageMessage;
 import com.ergou.hailiao.rongyun.SealExtensionModule;
 import com.ergou.hailiao.rongyun.IntentExtra;
+import com.ergou.hailiao.rongyun.SealExtensionOneModule;
 import com.ergou.hailiao.rongyun.TeShuMessage;
 import com.ergou.hailiao.rongyun.TeShuMessageItemProvider;
 import com.ergou.hailiao.rongyun.ZhuanZhangItemProvider;
@@ -33,6 +34,7 @@ import com.ergou.hailiao.utils.CrashUtils;
 import com.ergou.hailiao.utils.LogUtils;
 import com.ergou.hailiao.utils.Utils;
 import com.google.gson.Gson;
+import com.sobot.chat.SobotApi;
 
 import java.util.List;
 
@@ -91,9 +93,9 @@ public class App extends Application {
         Utils.init(instance);
 
         RongIM.init(instance, "82hegw5u8x73x", true);
-        setMyExtensionModule();
+        setMyExtensionModule("1");
 
-
+        SobotApi.initSobotSDK(instance, "bb85ba9496ad4e5a9e9e848a5288dd77", "");
         // 注册一个自定义消息类型。
         /**
          * hongbao(发红包消息)；cailei（红包中雷提示）；award（抢红包特殊号码奖励提示）；duolei（发红包多雷奖励提示）；fuli（发送福利红包消息）
@@ -279,7 +281,7 @@ public class App extends Application {
         }
     }
 
-    public void setMyExtensionModule() {
+    public static  void setMyExtensionModule(String type) {
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
         IExtensionModule defaultModule = null;
         if (moduleList != null) {
@@ -294,7 +296,12 @@ public class App extends Application {
 
             }
         }
-        RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(instance));
+        if (type.equals("1")){
+            RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionModule(instance));
+        }else {
+            RongExtensionManager.getInstance().registerExtensionModule(new SealExtensionOneModule(instance));
+        }
+
     }
 
 

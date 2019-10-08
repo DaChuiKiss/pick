@@ -54,10 +54,12 @@ public class SealExtensionModule extends DefaultExtensionModule {
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         List<IPluginModule> pluginModuleList = new ArrayList<>();
-        IPluginModule transferAccounts = new TransferAccounts();
-        IPluginModule redEnvelopes = new RedEnvelopes();
-        pluginModuleList.add(transferAccounts);
+//        IPluginModule transferAccounts = new TransferAccounts();
+        IPluginModule redEnvelopes = new RedEnvelopes();//红包
+        KeFu keFu = new KeFu();//客服
+//        pluginModuleList.add(transferAccounts);
         pluginModuleList.add(redEnvelopes);
+        pluginModuleList.add(keFu);
 
         return pluginModuleList;
     }

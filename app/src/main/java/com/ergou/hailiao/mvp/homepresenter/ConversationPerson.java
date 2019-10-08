@@ -4,6 +4,7 @@ package com.ergou.hailiao.mvp.homepresenter;
 import android.app.Activity;
 
 import com.ergou.hailiao.base.RxPresenter;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -62,7 +63,7 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
     }
 
     @Override
-    public void ggetInfoBean(RequestBody body) {
+    public void getInfoBean(RequestBody body) {
 
         addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getInfo(body),
                 new ResourceSubscriber<HttpResponse<RongYunInfoBean>>() {
@@ -73,7 +74,7 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                             if (response.getCode() == 200) {
                                 mView.get().getInfoTos(response.getData());
                             } else {
-                                mView.get().showError();
+//                                mView.get().showError();
 //                                ApiInterface.getToastUtils(activity, response.getMsg());
                             }
                         } catch (Exception e) {
@@ -126,6 +127,45 @@ public class ConversationPerson extends RxPresenter<ConversationContract.MainVie
                     public void onError(Throwable t) {
                         LogUtils.w(t.toString() + "=================红包信息异常：");
                         mView.get().onError(t);
+                        ApiInterface.getToastUtils(activity, "");
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+    }
+
+    @Override
+    public void getJoinorquitBean(RequestBody body) {
+        addSubscrebe(mRetrofitHelper.startObservable(mRetrofitHelper.getApiService().getJoinorquit(body),
+                new ResourceSubscriber<HttpResponse<BeanBean>>() {
+                    @Override
+                    public void onNext(HttpResponse<BeanBean> response) {
+                        LogUtils.e("=========群聊返回：" + response.getData().toString());
+                        try {
+                            if (response.getCode() == 200) {
+                                mView.get().getJoinorquitTos(response.getData());
+                            } else {
+                                mView.get().showError();
+                                ApiInterface.getToastUtils(activity, response.getMsg());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            LogUtils.e("=========群聊失败：" + response.getData().toString());
+                            mView.get().showError();
+                            ApiInterface.getToastUtils(activity, "");
+                        }
+                        ApiInterface.disPro(activity);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(t.toString() + "=================群聊异常：");
+//                        mView.get().onError(t);
+                        mView.get().showError();
                         ApiInterface.getToastUtils(activity, "");
                         ApiInterface.disPro(activity);
                     }

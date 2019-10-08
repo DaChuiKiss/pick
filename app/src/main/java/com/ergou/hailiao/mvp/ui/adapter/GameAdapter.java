@@ -12,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ergou.hailiao.R;
+import com.ergou.hailiao.app.App;
 import com.ergou.hailiao.mvp.bean.GameBean;
 import com.ergou.hailiao.mvp.bean.MailListBean;
 import com.ergou.hailiao.mvp.ui.activity.ConversationActivity;
+import com.ergou.hailiao.mvp.ui.activity.H5Activity;
+import com.ergou.hailiao.mvp.ui.activity.PersonalCenterActivity;
 import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnItemClickListener;
 import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.glide.GlideManager;
@@ -56,9 +59,14 @@ public class GameAdapter extends ItemViewProvider<GameBean.GroupBean,
             @Override
             public void onClick(View v) {
                 if (gameBean.getButton().equals("1")) {
-                    ToastUtils.showLongToast(holder.itemView.getContext(), gameBean.getGroup_id());
+                    Intent intent = new Intent();
+                    intent.setClass(holder.itemView.getContext(), H5Activity.class);
+                    intent.putExtra("mark", gameBean.getMark());//标题
+                    intent.putExtra("game_rule", gameBean.getGame_rule());//
+                    holder.itemView.getContext().startActivity(intent);
                 } else {
-
+                    RongIM.getInstance().startConversation(holder.itemView.getContext(), Conversation
+                            .ConversationType.CHATROOM, gameBean.getGroup_id(), gameBean.getGroup_name());
                 }
 
             }

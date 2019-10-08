@@ -5,14 +5,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
 import com.ergou.hailiao.R;
+import com.ergou.hailiao.app.App;
+import com.ergou.hailiao.app.AppManager;
 import com.ergou.hailiao.base.BaseActivity;
+import com.ergou.hailiao.mvp.bean.BeanBean;
 import com.ergou.hailiao.mvp.bean.RedPackageBean;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
 import com.ergou.hailiao.mvp.bean.TimeStampBean;
@@ -22,6 +27,7 @@ import com.ergou.hailiao.mvp.http.ApiInterface;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.utils.SPUtils;
 import com.ergou.hailiao.utils.ToastUtils;
 import com.ergou.hailiao.utils.dataUtils.SPUtilsData;
 
@@ -29,6 +35,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,13 +60,22 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
     ImageView titleRightImg;
     @BindView(R.id.title_right_rl)
     RelativeLayout titleRightRl;
-
+    @BindView(R.id.rc_voice_toggle)
+    ImageView rc_voice_toggle;//语音
+    @BindView(R.id.rc_edit_text)
+    EditText rc_edit_text;//文字输入
+    @BindView(R.id.rc_emoticon_toggle)
+    ImageView rc_emoticon_toggle;//表情
+    @BindView(R.id.rc_plugin_toggle)
+    ImageView rc_plugin_toggle;//拓展
     private String title;
     /**
      * 对方id
      */
     private String targetId;
     private String targetIdType;
+    private String signal = "1";//标识（1：加入；2：退出）
+    private String signalText = "2";//标识（1：群聊；）
     /**
      * 会话类型
      */
@@ -98,23 +115,54 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
             return;
         }
         targetId = intent.getData().getQueryParameter("targetId");
-        targetIdType = intent.getData().getLastPathSegment().toUpperCase(Locale.US);
-        if (targetIdType.equals("GROUP")||targetIdType.equals("CHATROOM")){
-            titleRightImg.setImageResource(R.drawable.geng_duo);
-            titleRightImg.setVisibility(View.VISIBLE);
-            titleRightRl.setVisibility(View.VISIBLE);
-        }else {
-            titleRightImg.setVisibility(View.GONE);
-            titleRightRl.setVisibility(View.GONE);
-        }
-        conversationType = Conversation.ConversationType.valueOf(intent.getData()
-                .getLastPathSegment().toUpperCase(Locale.US));
         title = intent.getData().getQueryParameter("title");
         titleShare.setText(title);
         mUserId = targetId;
+        targetIdType = intent.getData().getLastPathSegment().toUpperCase(Locale.US);
+        if (targetIdType.equals("GROUP") || targetIdType.equals("CHATROOM")) {
+            titleRightImg.setImageResource(R.drawable.geng_duo);
+            titleRightImg.setVisibility(View.VISIBLE);
+            titleRightRl.setVisibility(View.VISIBLE);
+            if (targetIdType.equals("CHATROOM")) {//福利
+                rc_plugin_toggle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {//拓展功能
+                        ToastUtils.showLongToast(mContext, "禁用此功能");
+                    }
+                });
+            } else {//群聊
+                signalText = "1";
+                signal = "1";
+//                getTimeStamp();
+                getJoinorquit();
+
+            }
+        } else {
+            titleRightImg.setVisibility(View.GONE);
+            titleRightRl.setVisibility(View.GONE);
+
+        }
+
+        rc_edit_text.setEnabled(false);
+        rc_edit_text.setHint("禁止发言");//文字输入
+        rc_voice_toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//语音
+                ToastUtils.showLongToast(mContext, "禁止语音");
+            }
+        });
+        rc_emoticon_toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//表情
+                ToastUtils.showLongToast(mContext, "禁止表情");
+            }
+        });
+
+        conversationType = Conversation.ConversationType.valueOf(intent.getData()
+                .getLastPathSegment().toUpperCase(Locale.US));
+
         getSignIn();
-        RongExtension rongExtension = new RongExtension(mContext);
-        rongExtension.getInputEditText().setText("禁止发言");
+
         RongIM.setUserInfoProvider(this, true);
         FragmentManager fragmentManage = getSupportFragmentManager();
         ConversationFragment fragement = (ConversationFragment) fragmentManage.findFragmentById(R.id.conversation);
@@ -172,7 +220,39 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
                 .addFormDataPart("sign", sign)
                 .addFormDataPart("cmd", cmd);
         RequestBody requestBody = build.build();
-        mPresenter.ggetInfoBean(requestBody);
+        mPresenter.getInfoBean(requestBody);
+    }
+
+    public void getJoinorquit() {//
+        device_token = ApiInterface.deviceToken(mContext);//设备号
+        version = AppUtils.getAppVersionName(mContext);//版本号
+        code = InterfaceInteraction.getUUID();//32位随机字符串
+        timestamp = timeStamp + "";//时间戳
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("client_type", "android");
+        map.put("client_version", version);
+        map.put("device_token", device_token);//
+        map.put("timestamp", timestamp);
+        map.put("signal", signal);//	标识（1：加入；2：退出）
+        map.put("group_id", mUserId);//群组ID
+        map.put("group_name", title);//群组名称
+        map.put("user_id", SPUtilsData.getUserId());//
+
+
+        cmd = InterfaceInteraction.getCmdValue(map);
+        sign = EncryptUtils.encryptMD5ToString(InterfaceInteraction.getSign(code, cmd));
+
+        LogUtils.e("code=" + code);
+        LogUtils.e("sign=" + sign);
+        LogUtils.e("cmd=" + cmd);
+
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("code", code)
+                .addFormDataPart("sign", sign)
+                .addFormDataPart("cmd", cmd);
+        RequestBody requestBody = build.build();
+        mPresenter.getJoinorquitBean(requestBody);
     }
 
 //    public void getRedPackag(String nick_name, String header, String order_id, Context context) {//
@@ -215,12 +295,12 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
 
     @Override
     public void timeOnError(Throwable throwable) {
-        getSignIn();
+        getJoinorquit();
     }
 
     @Override
     public void getTimeStampTos(TimeStampBean timeStampBean) {
-        getSignIn();
+        getJoinorquit();
     }
 
     @Override
@@ -238,7 +318,29 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
     }
 
     @Override
+    public void getJoinorquitTos(BeanBean beanBean) {//加入成功
+        if (signal.equals("1")) {
+            LogUtils.e("加入成功");
+        } else {
+            LogUtils.e("退出成功");
+        }
+        if (signalText.equals("1")) {
+            if (signal.equals("2")){
+                finish();
+            }
+        }
+    }
+
+    @Override
     public void showError() {
+        if (signalText.equals("1")) {
+            if (signal.equals("1")) {
+                ToastUtils.showLongToast(mContext, "获取群聊信息失败");
+                finish();
+            } else {
+                finish();
+            }
+        }
 
     }
 
@@ -278,11 +380,16 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
     }
 
 
-    @OnClick({R.id.fallback,R.id.title_right_rl})
+    @OnClick({R.id.fallback, R.id.title_right_rl})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fallback:
-                finish();
+                if (signalText.equals("1")) {
+                    signal = "2";
+                    getJoinorquit();
+                }else {
+                    finish();
+                }
                 break;
             case R.id.title_right_rl:
                 Intent intent = new Intent();
@@ -292,6 +399,17 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
                 intent.putExtra("targetIdType", targetIdType);//
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (signalText.equals("1")) {
+            signal = "2";
+//            getTimeStamp();
+            getJoinorquit();
+        }else {
+            finish();
         }
     }
 

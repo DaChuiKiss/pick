@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ergou.hailiao.NetworkRequest.InterfaceInteraction;
@@ -23,6 +24,7 @@ import com.ergou.hailiao.mvp.ui.adapter.recycleradapter.OnRcvScrollListener;
 import com.ergou.hailiao.utils.AppUtils;
 import com.ergou.hailiao.utils.EncryptUtils;
 import com.ergou.hailiao.utils.LogUtils;
+import com.ergou.hailiao.utils.SobotUtils;
 import com.ergou.hailiao.view.XMarqueeView;
 import com.ergou.hailiao.view.XMarqueeViewAdapter;
 import com.ergou.hailiao.widget.recyclerview.multitype.Items;
@@ -53,6 +55,8 @@ public class GameFragment extends BaseFragment<GamePerson>
     SwipeRefreshLayout refresh;
     @BindView(R.id.marquee1)
     XMarqueeView mMarquee1;
+    @BindView(R.id.immediate_recharge_rl)
+    RelativeLayout immediate_recharge_rl;
 
     private String sign;
     private String cmd;
@@ -84,6 +88,12 @@ public class GameFragment extends BaseFragment<GamePerson>
     @Override
     protected void initEventAndData() {
         init();
+        immediate_recharge_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SobotUtils.startSobot(getActivity());
+            }
+        });
     }
 
     @Override

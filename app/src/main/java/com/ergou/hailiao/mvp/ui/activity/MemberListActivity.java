@@ -88,9 +88,9 @@ public class MemberListActivity extends BaseActivity<MemberListPerson>
         title = intent.getStringExtra("title");//
         targetIdType = intent.getStringExtra("targetIdType");//
         if (targetIdType.equals("GROUP")) {//1：群组；2：聊天室
-            typeXML.equals("1");
+            typeXML = "1";
         } else {
-            typeXML.equals("2");
+            typeXML = "2";
         }
         groupChatName.setText(title);
         groupChatNumber.setText(targetId);

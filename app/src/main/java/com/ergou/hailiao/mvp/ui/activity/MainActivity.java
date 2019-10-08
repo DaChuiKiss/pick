@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ergou.hailiao.R;
+import com.ergou.hailiao.app.App;
 import com.ergou.hailiao.app.AppManager;
 import com.ergou.hailiao.base.BaseActivity;
 import com.ergou.hailiao.mvp.bean.RongYunInfoBean;
@@ -203,12 +204,15 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.dialogue_ll://对话
+                App.setMyExtensionModule("2");
                 selectedtab(1);
                 break;
             case R.id.mail_list_ll://通讯录
+                App.setMyExtensionModule("2");
                 selectedtab(2);
                 break;
             case R.id.game_ll://游戏
+                App.setMyExtensionModule("1");
                 selectedtab(3);
                 break;
             case R.id.my_ll://我的

@@ -222,6 +222,11 @@
             android:name=".mvp.ui.activity.MemberListActivity"
             android:screenOrientation="portrait" />
 
+        <!-- H5——Activity -->
+        <activity
+            android:name=".mvp.ui.activity.H5Activity"
+            android:screenOrientation="portrait" />
+
         <!-- 红包记录——Activity -->
 
         <activity
