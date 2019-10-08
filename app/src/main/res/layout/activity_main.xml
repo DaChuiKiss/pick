@@ -137,5 +137,15 @@
         android:background="@color/colorWhite"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/kefu"
+        android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginRight="@dimen/dp_25"
+        android:layout_marginBottom="@dimen/dp_35"
+        android:background="@drawable/kefu"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/bootombar"/>
+
 </RelativeLayout>
 

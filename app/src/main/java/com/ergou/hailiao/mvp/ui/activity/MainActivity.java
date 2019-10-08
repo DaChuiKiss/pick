@@ -19,6 +19,7 @@ import com.ergou.hailiao.mvp.ui.fragment.GameFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MailListFragment;
 import com.ergou.hailiao.mvp.ui.fragment.MyFragment;
 import com.ergou.hailiao.rongyun.SealExtensionModule;
+import com.ergou.hailiao.utils.SobotUtils;
 
 import java.util.List;
 import java.util.Timer;
@@ -200,7 +201,7 @@ public class MainActivity extends BaseActivity {
         myImg.setImageResource(R.drawable.my_y);
     }
 
-    @OnClick({R.id.dialogue_ll, R.id.mail_list_ll, R.id.game_ll, R.id.my_ll})
+    @OnClick({R.id.dialogue_ll, R.id.mail_list_ll, R.id.game_ll, R.id.my_ll, R.id.kefu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.dialogue_ll://对话
@@ -217,6 +218,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.my_ll://我的
                 selectedtab(4);
+                break;
+            case R.id.kefu://客服
+                SobotUtils.startSobot(mContext);
                 break;
         }
     }

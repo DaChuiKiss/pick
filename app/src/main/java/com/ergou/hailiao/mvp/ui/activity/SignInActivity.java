@@ -240,9 +240,9 @@ public class SignInActivity extends BaseActivity<SignInPerson>
             case R.id.sign_in://登录
                 mobile = phone.getText().toString().replace(" ", "");
                 passwordString = password.getText().toString();
-                mobile = "18670316044";
+//                mobile = "18670316044";
 //                mobile = "13818472232";
-                passwordString = "123456";
+//                passwordString = "123456";
                 if (StringUtils.isEmpty(mobile)) {
                     ToastUtils.showLongToast(SignInActivity.this, getResources().getText(R.string.prompt6));
                     return;

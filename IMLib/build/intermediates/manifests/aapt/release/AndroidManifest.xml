@@ -5,7 +5,7 @@
     android:versionName="2.9.21 Dev" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="19"
         android:targetSdkVersion="28" />
 
     <!-- 保存图片，拍照等 -->
