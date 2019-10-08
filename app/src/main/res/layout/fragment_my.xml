@@ -27,8 +27,7 @@
             android:id="@+id/head_img"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_65"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher_background" />
+            android:scaleType="fitXY"/>
 
         <!--   hai_liao 号  -->
         <LinearLayout
