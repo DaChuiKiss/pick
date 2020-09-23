@@ -393,6 +393,7 @@ public class ConversationActivity extends BaseActivity<ConversationPerson>
                 break;
             case R.id.title_right_rl:
                 Intent intent = new Intent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setClass(mContext, MemberListActivity.class);
                 intent.putExtra("targetId", targetId);//
                 intent.putExtra("title", title);//

@@ -36,6 +36,7 @@ public class TransferAccounts implements IPluginModule, IPluginRequestPermission
         context = currentFragment.getActivity().getApplicationContext();
         targetId = extension.getTargetId();
         Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setClass(context, TransferAccountsActivity.class);
         intent.putExtra("targetId", targetId);//
         context.startActivity(intent);
